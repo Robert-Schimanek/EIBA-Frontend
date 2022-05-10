@@ -1,4 +1,4 @@
-# client
+# EIBA Frontend
 
 ## Project setup
 ```
