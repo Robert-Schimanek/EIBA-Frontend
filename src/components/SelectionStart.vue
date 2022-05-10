@@ -61,8 +61,8 @@
   </template>
 
 <script>
-import boxLinks from '../assets/box_code.json';
-import boxInfos from '../assets/box_code_list.json';
+import boxLinks from '../assets/bar_code.json';
+import boxInfos from '../assets/bar_code_list.json';
 
 export default {
   name: 'SelectionStart',
