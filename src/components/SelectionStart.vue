@@ -31,6 +31,8 @@
           placeholder="Enter insepection ID">
       </div>
       <button @click="form_data.bar_code = box.bar_code">Check prediction models</button>
+      <button>No Box</button>
+      <button>No Barcode</button>
     </form>
   </div>
   <div>
