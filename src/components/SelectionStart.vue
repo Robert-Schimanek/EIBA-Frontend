@@ -31,6 +31,8 @@
           placeholder="Enter insepection ID">
       </div>
       <button @click="form_data.bar_code = box.bar_code">Check prediction models</button>
+      <button>No Box</button>
+      <button>No Barcode</button>
     </form>
   </div>
   <div>
@@ -72,6 +74,9 @@ export default {
       form_data: {
         customer_number: '',
         bar_code: '',
+        bar_code_scanable: 'Y',
+        box_exists: 'Y',
+        program: 'IAM gesamt',
         temp_selection_id: '',
       },
       bde_server_start_response: '',
