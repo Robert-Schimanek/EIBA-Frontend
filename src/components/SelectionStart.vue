@@ -11,7 +11,7 @@
       </div>
       <div>
         <label for="box">Usually a barcode is printed on the package.
-        This barcode stands for a 13 digit european aritcle number (EAN).
+        This barcode stands for a 13 digit european article number (EAN).
         Retrieve the EAN and enter it. </label>
         <v-select
         v-model='box'
@@ -34,10 +34,12 @@
         <p>Each inspection is a unique process.
         Generate a unique identifier (Selection ID) to this operation to initialize
         the operation in the system.</p>
-        <button @click="generateID()">Generate ID</button>
-        <p>Selection ID: {{temp_selection_id}}</p>
+        <button @click="form_data.temp_selection_id=generateID()">Generate ID</button>
+        <p>Selection ID: {{random_ID}}</p>
       </div>
       <button @click="form_data.bar_code = box.bar_code">Check prediction models</button>
+      <button>No Box</button>
+      <button>No Barcode</button>
     </form>
   </div>
   <div>
@@ -79,6 +81,9 @@ export default {
       form_data: {
         customer_number: '',
         bar_code: '',
+        bar_code_scanable: 'Y',
+        box_exists: 'Y',
+        program: 'IAM gesamt',
         temp_selection_id: '',
       },
       bde_server_start_response: '',
@@ -107,7 +112,7 @@ export default {
       this.$emit('selection-id', selectionID);
     },
     generateID() {
-      this.temp_selection_id = Math.floor(Math.random() * 1000000000000);
+      this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
     },
   },
 };
