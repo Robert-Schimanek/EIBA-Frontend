@@ -20,7 +20,7 @@
         placeholder="Enter EAN box code" />
         <input type="hidden" id="box" v-model="box">
       </div>
-      <div>
+      <!-- <div>
         <label for="temp_selection_id">Each inspection is a unique process.
         Assign a unique identifier (Selection ID) to this operation to initialize
         the operation in the system.</label>
@@ -29,6 +29,13 @@
           id="temp_selection_id"
           v-model="form_data.temp_selection_id"
           placeholder="Enter insepection ID">
+      </div> -->
+      <div>
+        <p>Each inspection is a unique process.
+        Generate a unique identifier (Selection ID) to this operation to initialize
+        the operation in the system.</p>
+        <button @click="generateID()">Generate ID</button>
+        <p>Selection ID: {{temp_selection_id}}</p>
       </div>
       <button @click="form_data.bar_code = box.bar_code">Check prediction models</button>
     </form>
@@ -98,6 +105,9 @@ export default {
     },
     emitSelectionid(selectionID) {
       this.$emit('selection-id', selectionID);
+    },
+    generateID() {
+      this.temp_selection_id = Math.floor(Math.random() * 1000000000000);
     },
   },
 };
