@@ -12,25 +12,24 @@
     @change-evaluation="change($event)"
     @selection-id="sendselectionidtochild($event)"/>
   </keep-alive>
-  <keep-alive>
+  <!-- <keep-alive>
     <selection-start
     v-if="aSelTab === 'SelectionSensorInput'"
     :selection_id_main="selection_id_main"/>
-  </keep-alive>
+  </keep-alive> -->
   </div>
 </template>
 
 <script>
 import SelectionStart from '../components/SelectionStart.vue';
 import SelectionEvaluation from '../components/SelectionEvaluation.vue';
-import SelectionEvaluation from '../components/SelectionSensorInput.vue';
 
 export default {
   name: 'Selection',
   components: {
     SelectionStart,
     SelectionEvaluation,
-    SelectionSensorInput
+    // SelectionSensorInput
   },
   data() {
     return {
