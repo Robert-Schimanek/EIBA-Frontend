@@ -39,15 +39,17 @@
       </div>
       <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = box.bar_code">
       Check prediction models</button>
-      <button>No Box</button>
-      <button>No Barcode</button>
+      <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'">
+      No Box</button>
+      <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'">
+      No Barcode</button>
     </form>
   </div>
   <div>
     <div v-if="form_data.temp_selection_id==bde_server_start_response.temp_selection_id">
       <p>Customer is known to the prediction model:</p>
       <p>{{ bde_server_start_response.customer_known }}</p>
-      <p>Box Code is known to the prediction model:</p>
+      <p>Bar code on package box ({{ form_data.bar_code }}) is known to the prediction model:</p>
       <p>{{ bde_server_start_response.bar_code_known }}</p>
       <p>Temporary selection ID: {{ bde_server_start_response.temp_selection_id }}</p>
     </div>

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <p>Selection ID: {{ form_data.temp_selection_id }}</p>
+    <p>Core Mass: {{ form_data.core_mass }}</p>
+    <p>Method: {{ method }}</p>
     <form @submit.prevent='SelectionEvaluation(method)'>
       <div>
         <label for="core_mass">Post mass</label>
@@ -17,9 +20,10 @@
     </form>
   </div>
   <div>
-    <p>Evaluation has started: {{ bde_server_start_response.evaluation_started }}</p>
+    <p>Evaluation has started: {{ bde_server_start_response.prediction_commissioned }}</p>
+    <p>ProductGroup prediction has started:
+    {{ bde_server_start_response.prediction_product_group_commissioned }}</p>
     <p>Temporary selection id: {{ bde_server_start_response.temp_selection_id }}</p>
-    <p>Task ID: {{ bde_server_start_response.task_id }}</p>
   </div>
   <ul id="array-rendering">
     <li v-for="item in boxlinks" :key="item">{{ item.box_code }}</li>
@@ -33,16 +37,16 @@ export default {
   data() {
     return {
       form_data: {
-        core_mass: '4213',
+        core_mass: 4213,
         temp_selection_id: this.selection_id_main,
       },
-      method: 'best',
+      method: 'SSE',
       bde_server_start_response: '',
     };
   },
   methods: {
     SelectionEvaluation(method) {
-      this.$axios.post(`http://localhost:5100/selection/evaluation/${encodeURIComponent(method)}`, this.form_data)
+      this.$axios.post(`http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(method)}`, this.form_data)
         .then((response) => { this.bde_server_start_response = response.data; });
     },
   },
