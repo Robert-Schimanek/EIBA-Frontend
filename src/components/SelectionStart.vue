@@ -7,7 +7,7 @@
           type="text"
           id="customer_number"
           v-model="form_data.customer_number"
-          placeholder="WIN44">
+          placeholder="43016357">
       </div>
       <div>
         <label for="box">Usually a barcode is printed on the package.
@@ -82,7 +82,7 @@ export default {
     return {
       box: '',
       form_data: {
-        customer_number: '',
+        customer_number: '43016357',
         bar_code: '',
         bar_code_scanable: 'Y',
         box_exists: 'Y',
