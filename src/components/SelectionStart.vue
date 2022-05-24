@@ -11,7 +11,7 @@
       </div>
       <div>
         <label for="box">Usually a barcode is printed on the package.
-        This barcode stands for a 13 digit european aritcle number (EAN).
+        This barcode stands for a 13 digit european article number (EAN).
         Retrieve the EAN and enter it. </label>
         <v-select
         v-model='box'
@@ -20,7 +20,7 @@
         placeholder="Enter EAN box code" />
         <input type="hidden" id="box" v-model="box">
       </div>
-      <div>
+      <!-- <div>
         <label for="temp_selection_id">Each inspection is a unique process.
         Assign a unique identifier (Selection ID) to this operation to initialize
         the operation in the system.</label>
@@ -29,8 +29,16 @@
           id="temp_selection_id"
           v-model="form_data.temp_selection_id"
           placeholder="Enter insepection ID">
+      </div> -->
+      <div>
+        <p>Each inspection is a unique process.
+        Generate a unique identifier (Selection ID) to this operation to initialize
+        the operation in the system.</p>
+        <!-- <button @click="form_data.temp_selection_id=generateID()">Generate ID</button>-->
+        <p>Selection ID: {{random_ID}}</p>
       </div>
-      <button @click="form_data.bar_code = box.bar_code">Check prediction models</button>
+      <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = box.bar_code">
+      Check prediction models</button>
       <button>No Box</button>
       <button>No Barcode</button>
     </form>
@@ -103,6 +111,10 @@ export default {
     },
     emitSelectionid(selectionID) {
       this.$emit('selection-id', selectionID);
+    },
+    generateID() {
+      this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
+      return this.random_ID;
     },
   },
 };

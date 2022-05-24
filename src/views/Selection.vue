@@ -12,6 +12,11 @@
     @change-evaluation="change($event)"
     @selection-id="sendselectionidtochild($event)"/>
   </keep-alive>
+  <!-- <keep-alive>
+    <selection-start
+    v-if="aSelTab === 'SelectionSensorInput'"
+    :selection_id_main="selection_id_main"/>
+  </keep-alive> -->
   </div>
 </template>
 
@@ -24,6 +29,7 @@ export default {
   components: {
     SelectionStart,
     SelectionEvaluation,
+    // SelectionSensorInput
   },
   data() {
     return {
