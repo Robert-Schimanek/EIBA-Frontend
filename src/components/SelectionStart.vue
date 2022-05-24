@@ -113,6 +113,7 @@ export default {
     },
     generateID() {
       this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
+      return this.random_ID;
     },
   },
 };
