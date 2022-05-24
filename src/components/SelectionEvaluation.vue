@@ -20,10 +20,16 @@
     </form>
   </div>
   <div>
-    <p>Evaluation has started: {{ bde_server_start_response.prediction_commissioned }}</p>
+    <p>Evaluation has started: {{ bde_server_evaluation_response.prediction_commissioned }}</p>
     <p>ProductGroup prediction has started:
-    {{ bde_server_start_response.prediction_product_group_commissioned }}</p>
-    <p>Temporary selection id: {{ bde_server_start_response.temp_selection_id }}</p>
+    {{ bde_server_evaluation_response.prediction_product_group_commissioned }}</p>
+    <p>Temporary selection id: {{ bde_server_evaluation_response.temp_selection_id }}</p>
+  </div>
+  <div v-if="form_data.temp_selection_id==bde_server_evaluation_response.temp_selection_id">
+    <button
+      @click="changeEvaluation(bde_server_evaluation_response.temp_selection_id)">
+        Put core on scale
+    </button>
   </div>
   <ul id="array-rendering">
     <li v-for="item in boxlinks" :key="item">{{ item.box_code }}</li>
@@ -41,13 +47,13 @@ export default {
         temp_selection_id: this.selection_id_main,
       },
       method: 'SSE',
-      bde_server_start_response: '',
+      bde_server_evaluation_response: '',
     };
   },
   methods: {
     SelectionEvaluation(method) {
       this.$axios.post(`http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(method)}`, this.form_data)
-        .then((response) => { this.bde_server_start_response = response.data; });
+        .then((response) => { this.bde_server_evaluation_response = response.data; });
     },
   },
 };
