@@ -3,6 +3,8 @@
     <p>Selection ID: {{ form_data.temp_selection_id }}</p>
     <p>Core Mass: {{ form_data.core_mass }}</p>
     <p>Method: {{ method }}</p>
+    <p>bde_server_evaluation_response: {{ bde_server_evaluation_response.temp_selection_id }}</p>
+
     <form @submit.prevent='SelectionEvaluation(method)'>
       <div>
         <label for="core_mass">Post mass</label>
@@ -27,8 +29,9 @@
   </div>
   <div v-if="form_data.temp_selection_id==bde_server_evaluation_response.temp_selection_id">
     <button
-      @click="changeEvaluation(bde_server_evaluation_response.temp_selection_id)">
-        Put core on scale
+      @click="emitCoreMass(form_data.core_mass);
+      changeToResults(bde_server_evaluation_response.temp_selection_id)">
+        Change to result screen
     </button>
   </div>
   <ul id="array-rendering">
@@ -50,10 +53,21 @@ export default {
       bde_server_evaluation_response: '',
     };
   },
+  emits: ['change-to-results-OEN'],
   methods: {
     SelectionEvaluation(method) {
       this.$axios.post(`http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(method)}`, this.form_data)
         .then((response) => { this.bde_server_evaluation_response = response.data; });
+    },
+    goToHome() {
+      this.$router.push('/');
+    },
+    changeToResults(selectionID) {
+      this.$emit('change-to-results-OEN', 'SelectionResultOEN');
+      this.$emit('selection-id', selectionID);
+    },
+    emitCoreMass(coreMass) {
+      this.$emit('core-mass', coreMass);
     },
   },
 };
