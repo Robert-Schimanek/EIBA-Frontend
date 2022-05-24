@@ -104,9 +104,6 @@ export default {
     goToHome() {
       this.$router.push('/');
     },
-    changeEvaluation1() {
-      this.$emit('change-evaluation', 'SelectionEvaluation');
-    },
     changeEvaluation(selectionID) {
       this.$emit('change-evaluation', 'SelectionEvaluation');
       this.$emit('selection-id', selectionID);
