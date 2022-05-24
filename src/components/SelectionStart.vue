@@ -34,8 +34,8 @@
         <p>Each inspection is a unique process.
         Generate a unique identifier (Selection ID) to this operation to initialize
         the operation in the system.</p>
-        <button @click="form_data.temp_selection_id=generateID()">Generate ID</button>
-        <p>Selection ID: {{random_ID}}</p>
+        <!-- <button @click="form_data.temp_selection_id=generateID()">Generate ID</button> -->
+        <p>Selection ID: {{form_data.temp_selection_id=generateID()}}</p>
       </div>
       <button @click="form_data.bar_code = box.bar_code">Check prediction models</button>
       <button>No Box</button>
