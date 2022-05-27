@@ -1,4 +1,3 @@
-
 <script>
 
 // @ is an alias to /src
@@ -27,4 +26,3 @@ export default {
   </div>
 
 </template>
-

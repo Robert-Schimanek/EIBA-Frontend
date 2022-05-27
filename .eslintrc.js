@@ -13,6 +13,8 @@ module.exports = exports = {
         "parser": "babel-eslint"
     },
     "rules": {
-        "linebreak-style": ["error", (process.platform === "win32" ? "windows" : "unix")]
+        "linebreak-style": ["error", (process.platform === "win32" ? "windows" : "unix")],
+        "eol-last": 0,
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
     }
 };
