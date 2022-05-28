@@ -1,15 +1,15 @@
 <template>
     <p>Avise</p>
     <h1>Order Data ist hier nur testweise drinnen!</h1>
-    <OrderData></OrderData>
+    <PageSelectionStart></PageSelectionStart>
 </template>
 
 <script>
-import OrderData from '../components/Selection/OrderData.vue';
+import PageSelectionStart from '../components/Selection/PageSelectionStart.vue';
 
 export default {
   components: {
-    OrderData,
+    PageSelectionStart,
   },
 };
 

@@ -20,20 +20,20 @@
           </tr>
       </table>
       <p style="margin: 30px;"></p>
-      <OrderDataButton funcDesc="Shelf" :functionToExecute="putOnShelf" />
+      <SelectionOrderDataButton funcDesc="Shelf" :functionToExecute="putOnShelf" />
       <p style="margin: 30px;"></p>
-      <OrderDataButton funcDesc="Close" :functionToExecute="closeOrder"/>
+      <SelectionOrderDataButton funcDesc="Close" :functionToExecute="closeOrder"/>
 
   </div>
 
 </template>
 
 <script>
-import OrderDataButton from './OrderDataButton.vue';
+import SelectionOrderDataButton from './SelectionOrderDataButton.vue';
 
 export default {
   components: {
-    OrderDataButton,
+    SelectionOrderDataButton,
   },
   props: {
     customer_i: { default: 'Customer Unknown' },
