@@ -1,0 +1,9 @@
+.roundedContainer {
+    border: 1px solid black;
+    width: 400px;
+    border-radius: 5px;
+}
+
+.bigButtonText {
+    font-size: 30px;
+}
