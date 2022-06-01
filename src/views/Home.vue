@@ -1,11 +1,18 @@
+<template>
+  <div class="home">
+    <p>{{ bde_server_greeting.api_title }} </p>
+    <p>Version {{ bde_server_greeting.api_version }}</p>
+    <p>Commit ID {{ bde_server_greeting.commit_id }}</p>
+    <p>BDE running for {{ bde_server_greeting.uptime }} seconds</p>
+  </div>
+</template>
 
 <script>
-
 // @ is an alias to /src
-
 export default {
   name: 'Home',
-
+  components: {
+  },
   data() {
     return {
       bde_server_greeting: '',
@@ -17,14 +24,3 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div class="home">
-    <p>{{ bde_server_greeting.api_title }} </p>
-    <p>Version {{ bde_server_greeting.api_version }}</p>
-    <p>Commit ID {{ bde_server_greeting.commit_id }}</p>
-    <p>BDE running for {{ bde_server_greeting.uptime }} seconds</p>
-  </div>
-
-</template>
-
