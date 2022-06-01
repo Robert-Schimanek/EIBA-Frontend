@@ -1,5 +1,10 @@
 <template>
   <div>
+    <p>Selection ID: {{ form_data.temp_selection_id }}</p>
+    <p>Core Mass: {{ form_data.core_mass }}</p>
+    <p>Method: {{ method }}</p>
+    <p>bde_server_evaluation_response: {{ bde_server_evaluation_response.temp_selection_id }}</p>
+
     <form @submit.prevent='SelectionEvaluation(method)'>
       <div>
         <label for="core_mass">Post mass</label>
@@ -17,9 +22,17 @@
     </form>
   </div>
   <div>
-    <p>Evaluation has started: {{ bde_server_start_response.evaluation_started }}</p>
-    <p>Temporary selection id: {{ bde_server_start_response.temp_selection_id }}</p>
-    <p>Task ID: {{ bde_server_start_response.task_id }}</p>
+    <p>Evaluation has started: {{ bde_server_evaluation_response.prediction_commissioned }}</p>
+    <p>ProductGroup prediction has started:
+    {{ bde_server_evaluation_response.prediction_product_group_commissioned }}</p>
+    <p>Temporary selection id: {{ bde_server_evaluation_response.temp_selection_id }}</p>
+  </div>
+  <div v-if="form_data.temp_selection_id==bde_server_evaluation_response.temp_selection_id">
+    <button
+      @click="emitCoreMass(form_data.core_mass);
+      changeToResults(bde_server_evaluation_response.temp_selection_id)">
+        Change to result screen
+    </button>
   </div>
   <ul id="array-rendering">
     <li v-for="item in boxlinks" :key="item">{{ item.box_code }}</li>
@@ -33,17 +46,28 @@ export default {
   data() {
     return {
       form_data: {
-        core_mass: '4213',
+        core_mass: 4213,
         temp_selection_id: this.selection_id_main,
       },
-      method: 'best',
-      bde_server_start_response: '',
+      method: 'SSE',
+      bde_server_evaluation_response: '',
     };
   },
+  emits: ['change-to-results-OEN'],
   methods: {
     SelectionEvaluation(method) {
-      this.$axios.post(`http://localhost:5100/selection/evaluation/${encodeURIComponent(method)}`, this.form_data)
-        .then((response) => { this.bde_server_start_response = response.data; });
+      this.$axios.post(`http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(method)}`, this.form_data)
+        .then((response) => { this.bde_server_evaluation_response = response.data; });
+    },
+    goToHome() {
+      this.$router.push('/');
+    },
+    changeToResults(selectionID) {
+      this.$emit('change-to-results-OEN', 'SelectionResultOEN');
+      this.$emit('selection-id', selectionID);
+    },
+    emitCoreMass(coreMass) {
+      this.$emit('core-mass', coreMass);
     },
   },
 };

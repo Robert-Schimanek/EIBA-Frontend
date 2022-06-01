@@ -7,11 +7,11 @@
           type="text"
           id="customer_number"
           v-model="form_data.customer_number"
-          placeholder="WIN44">
+          placeholder="43016357">
       </div>
       <div>
         <label for="box">Usually a barcode is printed on the package.
-        This barcode stands for a 13 digit european aritcle number (EAN).
+        This barcode stands for a 13 digit european article number (EAN).
         Retrieve the EAN and enter it. </label>
         <v-select
         v-model='box'
@@ -20,7 +20,7 @@
         placeholder="Enter EAN box code" />
         <input type="hidden" id="box" v-model="box">
       </div>
-      <div>
+      <!-- <div>
         <label for="temp_selection_id">Each inspection is a unique process.
         Assign a unique identifier (Selection ID) to this operation to initialize
         the operation in the system.</label>
@@ -29,15 +29,27 @@
           id="temp_selection_id"
           v-model="form_data.temp_selection_id"
           placeholder="Enter insepection ID">
+      </div> -->
+      <div>
+        <p>Each inspection is a unique process.
+        Generate a unique identifier (Selection ID) to this operation to initialize
+        the operation in the system.</p>
+        <!-- <button @click="form_data.temp_selection_id=generateID()">Generate ID</button>-->
+        <p>Selection ID: {{random_ID}}</p>
       </div>
-      <button @click="form_data.bar_code = box.bar_code">Check prediction models</button>
+      <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = box.bar_code">
+      Check prediction models</button>
+      <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'">
+      No Box</button>
+      <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'">
+      No Barcode</button>
     </form>
   </div>
   <div>
     <div v-if="form_data.temp_selection_id==bde_server_start_response.temp_selection_id">
       <p>Customer is known to the prediction model:</p>
       <p>{{ bde_server_start_response.customer_known }}</p>
-      <p>Box Code is known to the prediction model:</p>
+      <p>Bar code on package box ({{ form_data.bar_code }}) is known to the prediction model:</p>
       <p>{{ bde_server_start_response.bar_code_known }}</p>
       <p>Temporary selection ID: {{ bde_server_start_response.temp_selection_id }}</p>
     </div>
@@ -70,8 +82,11 @@ export default {
     return {
       box: '',
       form_data: {
-        customer_number: '',
+        customer_number: '43016357',
         bar_code: '',
+        bar_code_scanable: 'Y',
+        box_exists: 'Y',
+        program: 'IAM gesamt',
         temp_selection_id: '',
       },
       bde_server_start_response: '',
@@ -89,15 +104,16 @@ export default {
     goToHome() {
       this.$router.push('/');
     },
-    changeEvaluation1() {
-      this.$emit('change-evaluation', 'SelectionEvaluation');
-    },
     changeEvaluation(selectionID) {
       this.$emit('change-evaluation', 'SelectionEvaluation');
       this.$emit('selection-id', selectionID);
     },
     emitSelectionid(selectionID) {
       this.$emit('selection-id', selectionID);
+    },
+    generateID() {
+      this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
+      return this.random_ID;
     },
   },
 };
