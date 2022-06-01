@@ -37,12 +37,33 @@
         <!-- <button @click="form_data.temp_selection_id=generateID()">Generate ID</button>-->
         <p>Selection ID: {{random_ID}}</p>
       </div>
-      <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = box.bar_code">
-      Check prediction models</button>
-      <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'">
-      No Box</button>
-      <button @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'">
-      No Barcode</button>
+
+      <div style="display: flex;">
+        <SelectionOrderData></SelectionOrderData>
+        <div style="position: absolute; top: 50%;"></div>
+        <div style="display: flex; align-items: center; padding-left: 20px;">
+            <button style="border-radius:10px;"
+            @click="form_data.temp_selection_id=generateID();form_data.bar_code = box.bar_code">
+            <img src="../assets/pictures/BarcodeScanner.png" alt="BARCODE BUTTON"
+            style="width:200px">
+            </button>
+        </div>
+
+        <div style="display: flex; padding-left: 20px; align-items: flex-end;">
+          <div>
+            <button class="bigButtonText" style="width: 170px; "
+            @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'"
+            >NO BOX</button>
+            <p style="font-size:40px"></p>
+            <button class="bigButtonText" style="width: 170px;
+            vertical-align: baseline;"
+            @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'" >
+            NO BARCODE</button>
+          </div>
+        </div>
+
+      </div>
+
     </form>
   </div>
   <div>
@@ -75,6 +96,7 @@
 <script>
 import boxLinks from '../assets/bar_code.json';
 import boxInfos from '../assets/bar_code_list.json';
+import SelectionOrderData from './SelectionOrderData.vue';
 
 export default {
   name: 'SelectionStart',
@@ -115,6 +137,9 @@ export default {
       this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
       return this.random_ID;
     },
+  },
+  components: {
+    SelectionOrderData,
   },
 };
 
