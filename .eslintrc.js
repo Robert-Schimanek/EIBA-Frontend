@@ -16,5 +16,10 @@ module.exports = exports = {
         "linebreak-style": ["error", (process.platform === "win32" ? "windows" : "unix")],
         "eol-last": 0,
         "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+        "no-unused-vars": "off",
+        "quotes": "off",
+        "no-undef": "off",
+        "prefer-const": "off",
+
     }
 };
