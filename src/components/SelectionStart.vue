@@ -48,14 +48,13 @@
             style="width:200px">
             </button>
         </div>
-        <div v-if="form_data.bar_code==box.bar_code">
-          <div style="display: flex; align-items: center;">
-            <vue-barcode  v-bind:value="form_data.bar_code" :options="{ displayValue: true }">
-            </vue-barcode>
-          </div>
-        </div>
         <div style="display: flex; padding-left: 20px; align-items: flex-end;">
           <div>
+            <div v-if="form_data.bar_code==box.bar_code">
+              <vue-barcode  v-bind:value="form_data.bar_code" :options="{ displayValue: true }"
+              style="width: 170px">
+              </vue-barcode>
+            </div>
             <button class="bigButtonText" style="width: 170px; "
             @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'"
             >NO BOX</button>
