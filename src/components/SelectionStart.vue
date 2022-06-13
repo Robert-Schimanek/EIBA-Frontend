@@ -9,7 +9,7 @@
           v-model="form_data.customer_number"
           placeholder="43016357">
       </div>
-      <div>
+      <!-- <div>
         <label for="box">Usually a barcode is printed on the package.
         This barcode stands for a 13 digit european article number (EAN).
         Retrieve the EAN and enter it. </label>
@@ -19,22 +19,29 @@
         label='bar_code'
         placeholder="Enter EAN box code" />
         <input type="hidden" id="box" v-model="box">
+      </div> -->
+      <div>
+        <!-- Shows all barcodes
+          <p v-for="boxinfo in boxinfos" v-bind:key="boxinfo.bar_code">
+          EAN: {{boxinfo.bar_code}}
+        </p> -->
+        <p>EAN: {{selected_EAN}}</p>
       </div>
       <!-- <div>
-        <label for="temp_selection_id">Each inspection is a unique process.
+        <label for="session_key">Each inspection is a unique process.
         Assign a unique identifier (Selection ID) to this operation to initialize
         the operation in the system.</label>
         <input
           type="text"
-          id="temp_selection_id"
-          v-model="form_data.temp_selection_id"
+          id="session_key"
+          v-model="form_data.session_key"
           placeholder="Enter insepection ID">
       </div> -->
       <div>
         <p>Each inspection is a unique process.
         Generate a unique identifier (Selection ID) to this operation to initialize
         the operation in the system.</p>
-        <!-- <button @click="form_data.temp_selection_id=generateID()">Generate ID</button>-->
+        <!-- <button @click="form_data.session_key=generateID()">Generate ID</button>-->
         <p>Selection ID: {{random_ID}}</p>
       </div>
 
@@ -43,7 +50,8 @@
         <div style="position: absolute; top: 50%;"></div>
         <div style="display: flex; align-items: center; padding-left: 20px;">
             <button style="border-radius:10px;"
-            @click="form_data.temp_selection_id=generateID();form_data.bar_code = box.bar_code">
+            @click="form_data.session_key=generateID();
+            form_data.bar_code=randomEAN(boxinfos)">
             <img src="../assets/pictures/BarcodeScanner.png" alt="BARCODE BUTTON"
             style="width:200px">
             </button>
@@ -52,12 +60,12 @@
         <div style="display: flex; padding-left: 20px; align-items: flex-end;">
           <div>
             <button class="bigButtonText" style="width: 170px; "
-            @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'"
+            @click="form_data.session_key=generateID();form_data.bar_code = 'empty'"
             >NO BOX</button>
             <p style="font-size:40px"></p>
             <button class="bigButtonText" style="width: 170px;
             vertical-align: baseline;"
-            @click="form_data.temp_selection_id=generateID();form_data.bar_code = 'empty'" >
+            @click="form_data.session_key=generateID();form_data.bar_code = 'empty'" >
             NO BARCODE</button>
           </div>
         </div>
@@ -67,12 +75,12 @@
     </form>
   </div>
   <div>
-    <div v-if="form_data.temp_selection_id==bde_server_start_response.temp_selection_id">
+    <div v-if="form_data.session_key==bde_server_start_response.session_key">
       <p>Customer is known to the prediction model:</p>
       <p>{{ bde_server_start_response.customer_known }}</p>
       <p>Bar code on package box ({{ form_data.bar_code }}) is known to the prediction model:</p>
       <p>{{ bde_server_start_response.bar_code_known }}</p>
-      <p>Temporary selection ID: {{ bde_server_start_response.temp_selection_id }}</p>
+      <p>Temporary selection ID: {{ bde_server_start_response.session_key }}</p>
     </div>
     <div v-if="box.bar_code">
       <div v-if="box.image_thumbnail">
@@ -82,13 +90,13 @@
       </div>
     </div>
   </div>
-  <div v-if="form_data.temp_selection_id==bde_server_start_response.temp_selection_id">
+  <div v-if="form_data.session_key==bde_server_start_response.session_key">
     <button
-      @click="changeEvaluation(bde_server_start_response.temp_selection_id)">
+      @click="changeEvaluation(bde_server_start_response.session_key)">
         Put core on scale
     </button>
   </div>
-  <div v-if="form_data.temp_selection_id=='ProcessCompleted'">
+  <div v-if="form_data.session_key=='ProcessCompleted'">
     <button @click="goToHome()"> Go to Home </button>
   </div>
   </template>
@@ -109,7 +117,7 @@ export default {
         bar_code_scanable: 'Y',
         box_exists: 'Y',
         program: 'IAM gesamt',
-        temp_selection_id: '',
+        session_key: '',
       },
       bde_server_start_response: '',
       boxlinks: boxLinks,
@@ -136,6 +144,11 @@ export default {
     generateID() {
       this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
       return this.random_ID;
+    },
+    randomEAN(boxinfos) {
+      const randomIndex = Math.floor(Math.random() * boxinfos.length);
+      this.selected_EAN = boxinfos[randomIndex].bar_code;
+      return this.selected_EAN;
     },
   },
   components: {
