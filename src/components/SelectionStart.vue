@@ -9,7 +9,7 @@
           v-model="form_data.customer_number"
           placeholder="43016357">
       </div>
-      <div>
+      <!-- <div>
         <label for="box">Usually a barcode is printed on the package.
         This barcode stands for a 13 digit european article number (EAN).
         Retrieve the EAN and enter it. </label>
@@ -19,6 +19,13 @@
         label='bar_code'
         placeholder="Enter EAN box code" />
         <input type="hidden" id="box" v-model="box">
+      </div> -->
+      <div>
+        <!-- Shows all barcodes
+          <p v-for="boxinfo in boxinfos" v-bind:key="boxinfo.bar_code">
+          EAN: {{boxinfo.bar_code}}
+        </p> -->
+        <p>EAN: {{selected_EAN}}</p>
       </div>
       <!-- <div>
         <label for="temp_selection_id">Each inspection is a unique process.
@@ -43,7 +50,8 @@
         <div style="position: absolute; top: 50%;"></div>
         <div style="display: flex; align-items: center; padding-left: 20px;">
             <button style="border-radius:10px;"
-            @click="form_data.temp_selection_id=generateID();form_data.bar_code = box.bar_code">
+            @click="form_data.temp_selection_id=generateID();form_data.bar_code = box.bar_code;
+            form_data.bar_code=randomEAN()">
             <img src="../assets/pictures/BarcodeScanner.png" alt="BARCODE BUTTON"
             style="width:200px">
             </button>
@@ -136,6 +144,12 @@ export default {
     generateID() {
       this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
       return this.random_ID;
+    },
+    randomEAN() {
+      const keys = Object.keys(boxInfos.bar_code);
+      const randomIndex = Math.floor(Math.random() * keys.length);
+      this.selected_EAN = keys[randomIndex];
+      return this.selected_EAN;
     },
   },
   components: {
