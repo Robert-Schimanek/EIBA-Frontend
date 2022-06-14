@@ -58,10 +58,10 @@
         </div>
         <div style="display: flex; padding-left: 20px; align-items: flex-end;">
           <div>
-            <div v-if="form_data.bar_code==box.bar_code">
-              <vue-barcode  v-bind:value="form_data.bar_code" :options="{ displayValue: true }"
+            <div v-if="form_data.bar_code">
+              <VueBarcode  v-bind:value="form_data.bar_code" :options="{ displayValue: true }"
               style="width: 170px">
-              </vue-barcode>
+              </VueBarcode>
             </div>
             <button class="bigButtonText" style="width: 170px; "
             @click="form_data.session_key=generateID();form_data.bar_code = 'empty'"
