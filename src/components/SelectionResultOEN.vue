@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p>Selection ID: {{ form_data.temp_selection_id }}</p>
+    <p>Selection ID: {{ form_data.session_key }}</p>
     <p>Core Mass: {{ form_data.core_mass }}</p>
     <p>Method: {{ method }}</p>
-    <form @submit.prevent='SelectionResultOEN(form_data.temp_selection_id)'>
+    <form @submit.prevent='SelectionResultOEN(form_data.session_key)'>
       <button>
       Get results
       </button>
@@ -15,11 +15,11 @@
     <p>OEN Prediction list: {{ bde_server_result_OEN_response.oen_prediction_list}}</p>
     <p>ProductGroup prediction has started:
     {{ bde_server_result_OEN_response.prediction_product_group_commissioned }}</p>
-    <p>Temporary selection id: {{ bde_server_result_OEN_response.temp_selection_id }}</p>
+    <p>Temporary selection id: {{ bde_server_result_OEN_response.session_key }}</p>
   </div>
-  <div v-if="form_data.temp_selection_id==bde_server_result_OEN_response.temp_selection_id">
+  <div v-if="form_data.session_key==bde_server_result_OEN_response.session_key">
     <button
-      @click="changeEvaluation(bde_server_result_OEN_response.temp_selection_id)">
+      @click="changeEvaluation(bde_server_result_OEN_response.session_key)">
         Put core on scale
     </button>
   </div>
@@ -36,7 +36,7 @@ export default {
     return {
       form_data: {
         core_mass: this.core_mass_main,
-        temp_selection_id: this.selection_id_main,
+        session_key: this.selection_id_main,
       },
       bde_server_result_OEN_response: '',
     };
