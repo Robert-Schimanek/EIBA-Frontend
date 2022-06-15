@@ -145,17 +145,8 @@ export default {
       this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
       return this.random_ID;
     },
-    // getBoxInfo() {
-    //   $.getBoxInfo('../assets/bar_code_list.json', function (boxinfos) {
-    //    this.boxinfos = boxinfos;
-    //   }.bind(this));
-    // },
-    // emitBoxInfos(boxinfos) {
-    //   this.$emit('box-infos', boxInfos);
-    // },
     randomEAN(boxinfos) {
       const randomIndex = Math.floor(Math.random() * boxinfos.length);
-      // this.selected_EAN = boxinfos[randomIndex].bar_code;
       this.form_data.bar_code = boxinfos[randomIndex].bar_code;
     },
   },
