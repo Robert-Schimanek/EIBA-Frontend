@@ -55,9 +55,13 @@
             style="width:200px">
             </button>
         </div>
-
         <div style="display: flex; padding-left: 20px; align-items: flex-end;">
           <div>
+            <div v-if="form_data.bar_code">
+              <VueBarcode  v-bind:value="form_data.bar_code" :options="{ displayValue: true }"
+              style="width: 170px">
+              </VueBarcode>
+            </div>
             <button class="bigButtonText" style="width: 170px; "
             @click="form_data.session_key=generateID();form_data.bar_code = 'empty'"
             >NO BOX</button>
@@ -101,6 +105,7 @@
   </template>
 
 <script>
+import VueBarcode from '@chenfengyuan/vue-barcode';
 import boxLinks from '../assets/bar_code.json';
 import boxInfos from '../assets/bar_code_list.json';
 import SelectionOrderData from './SelectionOrderData.vue';
@@ -155,6 +160,7 @@ export default {
   },
   components: {
     SelectionOrderData,
+    VueBarcode,
   },
 };
 
