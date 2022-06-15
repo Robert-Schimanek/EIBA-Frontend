@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div v-if="form_data.bar_code">
+      <button style="border-radius:10px;"
+      @click="randomEAN(boxinfos)">
+      <VueBarcode  v-bind:value="form_data.bar_code" :options="{ displayValue: true }"
+      style="width: 170px">
+      </VueBarcode>
+      </button>
+    </div>
     <form @submit.prevent='SelectionStart'>
       <div>
         <label for="customer_number">Post customer number</label>
@@ -50,18 +58,14 @@
         <div style="position: absolute; top: 50%;"></div>
         <div style="display: flex; align-items: center; padding-left: 20px;">
             <button style="border-radius:10px;"
-            @click="form_data.session_key=generateID();randomEAN(boxinfos)">
+            @click="form_data.session_key=generateID()">
             <img src="../assets/pictures/BarcodeScanner.png" alt="BARCODE BUTTON"
             style="width:200px">
             </button>
         </div>
         <div style="display: flex; padding-left: 20px; align-items: flex-end;">
           <div>
-            <div v-if="form_data.bar_code">
-              <VueBarcode  v-bind:value="form_data.bar_code" :options="{ displayValue: true }"
-              style="width: 170px">
-              </VueBarcode>
-            </div>
+
             <button class="bigButtonText" style="width: 170px; "
             @click="form_data.session_key=generateID();form_data.bar_code = 'empty'"
             >NO BOX</button>
