@@ -25,7 +25,7 @@
           <p v-for="boxinfo in boxinfos" v-bind:key="boxinfo.bar_code">
           EAN: {{boxinfo.bar_code}}
         </p> -->
-        <p>EAN: {{selected_EAN}}</p>
+        <p>EAN: {{form_data.bar_code}}</p>
       </div>
       <!-- <div>
         <label for="session_key">Each inspection is a unique process.
@@ -50,8 +50,7 @@
         <div style="position: absolute; top: 50%;"></div>
         <div style="display: flex; align-items: center; padding-left: 20px;">
             <button style="border-radius:10px;"
-            @click="form_data.session_key=generateID();
-            form_data.bar_code=randomEAN(boxinfos)">
+            @click="form_data.session_key=generateID();randomEAN(boxinfos)">
             <img src="../assets/pictures/BarcodeScanner.png" alt="BARCODE BUTTON"
             style="width:200px">
             </button>
@@ -147,9 +146,12 @@ export default {
     },
     randomEAN(boxinfos) {
       const randomIndex = Math.floor(Math.random() * boxinfos.length);
-      this.selected_EAN = boxinfos[randomIndex].bar_code;
-      return this.selected_EAN;
+      this.form_data.bar_code = boxinfos[randomIndex].bar_code;
     },
+  },
+  mounted() {
+    console.log('the component is now mounted.');
+    this.randomEAN(boxInfos);
   },
   components: {
     SelectionOrderData,
