@@ -18,7 +18,7 @@
     <selection-start
     v-if="aSelTab === 'SelStart'"
     @change-evaluation="change($event)"
-    @selection-id="sendselectionidtochild($event)"/>
+    @session-key="sendselectionidtochild($event)"/>
   </keep-alive>
   <!-- <keep-alive>
     <selection-start

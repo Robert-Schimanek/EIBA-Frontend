@@ -16,7 +16,7 @@
         type="text"
         id="session_key"
         v-model="form_data.session_key"
-        :placeholder="selection_id_main">
+        :placeholder="session_key">
       </div>
       <button>Start evaluation</button>
     </form>
@@ -42,12 +42,12 @@
 <script>
 export default {
   name: 'SelectionEvaluation',
-  props: ['selection_id_main'],
+  props: ['session_key_main'],
   data() {
     return {
       form_data: {
         core_mass: 4213,
-        session_key: this.selection_id_main,
+        session_key: this.session_key_main,
       },
       method: 'SSE',
       bde_server_evaluation_response: '',
@@ -62,9 +62,9 @@ export default {
     goToHome() {
       this.$router.push('/');
     },
-    changeToResults(selectionID) {
+    changeToResults(sessionKey) {
       this.$emit('change-to-results-OEN', 'SelectionResultOEN');
-      this.$emit('selection-id', selectionID);
+      this.$emit('session-key', sessionKey);
     },
     emitCoreMass(coreMass) {
       this.$emit('core-mass', coreMass);

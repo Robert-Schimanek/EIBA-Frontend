@@ -137,12 +137,12 @@ export default {
     goToHome() {
       this.$router.push('/');
     },
-    changeEvaluation(selectionID) {
+    changeEvaluation(sessionKey) {
       this.$emit('change-evaluation', 'SelectionEvaluation');
-      this.$emit('selection-id', selectionID);
+      this.$emit('session-key', sessionKey);
     },
-    emitSelectionid(selectionID) {
-      this.$emit('selection-id', selectionID);
+    emitSelectionid(sessionKey) {
+      this.$emit('session-key', sessionKey);
     },
     generateID() {
       this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
