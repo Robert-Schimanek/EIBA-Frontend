@@ -25,7 +25,6 @@
           <p v-for="boxinfo in boxinfos" v-bind:key="boxinfo.bar_code">
           EAN: {{boxinfo.bar_code}}
         </p> -->
-        <p>EAN: {{selected_EAN}}</p>
         <p>EAN: {{form_data.bar_code}}</p>
       </div>
       <!-- <div>
