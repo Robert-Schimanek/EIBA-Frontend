@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p>Selection ID: {{ form_data.temp_selection_id }}</p>
+    <p>Selection ID: {{ form_data.session_key }}</p>
     <p>Core Mass: {{ form_data.core_mass }}</p>
     <p>Method: {{ method }}</p>
-    <p>bde_server_evaluation_response: {{ bde_server_evaluation_response.temp_selection_id }}</p>
+    <p>bde_server_evaluation_response: {{ bde_server_evaluation_response.session_key }}</p>
 
     <form @submit.prevent='SelectionEvaluation(method)'>
       <div>
@@ -11,11 +11,11 @@
         <input type="text" id="core_mass" v-model="form_data.core_mass">
       </div>
       <div>
-        <label for="temp_selection_id">Post selection ID</label>
+        <label for="session_key">Post selection ID</label>
         <input
         type="text"
-        id="temp_selection_id"
-        v-model="form_data.temp_selection_id"
+        id="session_key"
+        v-model="form_data.session_key"
         :placeholder="selection_id_main">
       </div>
       <button>Start evaluation</button>
@@ -25,12 +25,12 @@
     <p>Evaluation has started: {{ bde_server_evaluation_response.prediction_commissioned }}</p>
     <p>ProductGroup prediction has started:
     {{ bde_server_evaluation_response.prediction_product_group_commissioned }}</p>
-    <p>Temporary selection id: {{ bde_server_evaluation_response.temp_selection_id }}</p>
+    <p>Temporary selection id: {{ bde_server_evaluation_response.session_key }}</p>
   </div>
-  <div v-if="form_data.temp_selection_id==bde_server_evaluation_response.temp_selection_id">
+  <div v-if="form_data.session_key==bde_server_evaluation_response.session_key">
     <button
       @click="emitCoreMass(form_data.core_mass);
-      changeToResults(bde_server_evaluation_response.temp_selection_id)">
+      changeToResults(bde_server_evaluation_response.session_key)">
         Change to result screen
     </button>
   </div>
@@ -47,7 +47,7 @@ export default {
     return {
       form_data: {
         core_mass: 4213,
-        temp_selection_id: this.selection_id_main,
+        session_key: this.selection_id_main,
       },
       method: 'SSE',
       bde_server_evaluation_response: '',

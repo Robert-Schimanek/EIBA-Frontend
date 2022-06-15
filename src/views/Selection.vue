@@ -4,7 +4,7 @@
   <keep-alive>
     <SelectionResultOEN
     v-if="aSelTab === 'SelectionResultOEN'"
-    :selection_id_main="selection_id_main"
+    :session_key_main="session_key_main"
     :core_mass_main="core_mass_main"/>
   </keep-alive>
   <keep-alive>
@@ -12,7 +12,7 @@
     v-if="aSelTab === 'SelectionEvaluation'"
     @change-to-results-OEN="change($event)"
     @core-mass="sendcoremasstochild($event)"
-    :selection_id_main="selection_id_main"/>
+    :session_key_main="session_key_main"/>
   </keep-alive>
   <keep-alive>
     <selection-start
@@ -23,7 +23,7 @@
   <!-- <keep-alive>
     <selection-start
     v-if="aSelTab === 'SelectionSensorInput'"
-    :selection_id_main="selection_id_main"/>
+    :session_key_main="session_key_main"/>
   </keep-alive> -->
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       aSelTab: 'SelStart',
-      selection_id_main: 'initializeID',
+      session_key_main: 'initializeID',
       core_mass_main: null,
     };
   },
@@ -53,7 +53,7 @@ export default {
       this.aSelTab = updatedStuff;
     },
     sendselectionidtochild(updatedStuff) {
-      this.selection_id_main = updatedStuff;
+      this.session_key_main = updatedStuff;
     },
     sendcoremasstochild(updatedStuff) {
       this.core_mass_main = updatedStuff;
