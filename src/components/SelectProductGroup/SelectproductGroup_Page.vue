@@ -2,11 +2,10 @@
   <div align="center">
     <h1 class="roundedContainer">Select product group</h1>
   </div>
-  <div class="grid-container" v-for="item in prodGroups" :key="item">
-    <div class="item"><display :productGroupName="item"></display></div>
-  </div>
   <div class="grid-container">
-    <div class="item"><display productGroupName="item"></display></div>
+    <div class="item" v-for="item in prodGroups" :key="item">
+      <display :productGroupName="item"></display>
+    </div>
   </div>
 </template>
 
@@ -19,7 +18,7 @@ export default {
   },
   data() {
     return {
-      prodGroups: ["Schraube", "Motor", "Wind"],
+      prodGroups: ["Schraube", "Motor", "Wind", "aisjdoisad", "oaspjdpasdjp"],
     };
   },
 };
