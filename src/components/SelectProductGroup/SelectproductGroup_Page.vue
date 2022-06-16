@@ -2,7 +2,11 @@
   <div align="center">
     <h1 class="roundedContainer">Select product group</h1>
   </div>
-  <div class="grid-container">
+  <div
+    class="grid-container"
+    style="width: 700px; height: 700px"
+    align="center"
+  >
     <div
       class="item"
       v-for="i in [0, 1, 2, 3].map((x) => x + index * 4)"
