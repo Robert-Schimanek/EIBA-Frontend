@@ -13,6 +13,8 @@
   </div>
 
   <button @click="countUp">UP</button>
+  <button @click="countDown">Down</button>
+
   <p>{{ index }}</p>
   <p>highest index: {{ highestPage }}</p>
   <p>len Prod = {{ lenProdGroups }}</p>
@@ -39,7 +41,7 @@ export default {
         "5",
       ],
       index: 0,
-      lenProdGroups: 3,
+      lenProdGroups: 0,
       highestPage: 0,
     };
   },
@@ -47,6 +49,11 @@ export default {
     countUp() {
       if (this.index < this.highestPage) {
         this.index++;
+      }
+    },
+    countDown() {
+      if (this.index > 0) {
+        this.index--;
       }
     },
     init() {
