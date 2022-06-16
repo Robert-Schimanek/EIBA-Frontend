@@ -1,18 +1,22 @@
 <template>
   <div align="center">
     <h1 class="roundedContainer">Select product group</h1>
-  </div>
-  <div
-    class="grid-container"
-    style="width: 700px; height: 700px"
-    align="center"
-  >
+
     <div
-      class="item"
-      v-for="i in [0, 1, 2, 3].map((x) => x + index * 4)"
-      :key="i"
+      class="grid-container"
+      style="width: 700px; height: 700px"
+      align="center"
     >
-      <display :productGroupName="prodGroups[i]"></display>
+      <div
+        class="item"
+        v-for="i in [0, 1, 2, 3].map((x) => x + index * 4)"
+        :key="i"
+      >
+        <display
+          :productGroupName="prodGroups[i]"
+          @btnPressed="btnClicked"
+        ></display>
+      </div>
     </div>
   </div>
 
@@ -22,6 +26,7 @@
   <p>{{ index }}</p>
   <p>highest index: {{ highestPage }}</p>
   <p>len Prod = {{ lenProdGroups }}</p>
+  <p>current active Btn: {{ currentActivatedBtn }}</p>
 </template>
 
 <script>
@@ -47,17 +52,21 @@ export default {
       index: 0,
       lenProdGroups: 0,
       highestPage: 0,
+      currentActivatedBtn: null,
+      text: "",
     };
   },
   methods: {
     countUp() {
       if (this.index < this.highestPage) {
         this.index++;
+        this.currentActivatedBtn = null;
       }
     },
     countDown() {
       if (this.index > 0) {
         this.index--;
+        this.currentActivatedBtn = null;
       }
     },
     init() {
@@ -67,6 +76,14 @@ export default {
       } else {
         this.highestPage = Math.floor(this.lenProdGroups / 4) - 1;
       }
+    },
+    btnClicked(newButtonId) {
+      if (this.currentActivatedBtn != null) {
+        document
+          .getElementById(this.currentActivatedBtn)
+          .classList.remove("active");
+      }
+      this.currentActivatedBtn = newButtonId;
     },
   },
   mounted() {
