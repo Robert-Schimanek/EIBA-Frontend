@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import display from "./SelectProductGroupDisplay.vue";
+import display from "./ScrollableListEntry.vue";
 
 export default {
   components: {
@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      names: ["a", "b", "c", "d", "e", "f", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      names: [1, 2, 3, 4],
     };
   },
 

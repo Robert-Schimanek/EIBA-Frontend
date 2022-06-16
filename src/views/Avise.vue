@@ -1,14 +1,14 @@
 <template>
   <p>Avise</p>
-  <PageSelectProductGroup></PageSelectProductGroup>
+  <SProductGroup></SProductGroup>
 </template>
 
 <script>
-import PageSelectProductGroup from "../components/SelectProductGroup/PageSelectProductGroup.vue";
+import SProductGroup from "../components/SelectProductGroup/SelectproductGroup_Page.vue";
 
 export default {
   components: {
-    PageSelectProductGroup,
+    SProductGroup,
   },
 };
 </script>
