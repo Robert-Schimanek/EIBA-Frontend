@@ -20,6 +20,7 @@ module.exports = exports = {
         "quotes": "off",
         "no-undef": "off",
         "prefer-const": "off",
+        "no-plusplus": "off",
 
     }
 };

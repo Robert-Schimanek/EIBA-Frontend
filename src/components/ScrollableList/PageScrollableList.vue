@@ -77,4 +77,5 @@ export default {
 };
 </script>
 
-<style src="../../assets/styles/styles.css"></style>
+<style src="../../assets/styles/styles.css">
+</style>

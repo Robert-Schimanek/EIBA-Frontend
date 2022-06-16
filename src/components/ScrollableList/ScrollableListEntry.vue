@@ -14,6 +14,11 @@ export default {
       console.log(this.$parent);
     },
   },
+  data() {
+    return {
+      pathToImage: "../../../src/assets/pictures/productGroup/BrakeCaliper.png",
+    };
+  },
 };
 </script>
 
