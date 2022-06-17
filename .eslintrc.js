@@ -21,6 +21,5 @@ module.exports = exports = {
         "no-undef": "off",
         "prefer-const": "off",
         "no-plusplus": "off",
-
     }
 };

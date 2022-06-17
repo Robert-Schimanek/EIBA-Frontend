@@ -42,7 +42,7 @@ export default {
         "BrakeCaliper",
         "CommonRailInjector",
         "Starter",
-        "aisjdoisad",
+        "Alternator",
         "1",
         "2",
         "3",

@@ -6,7 +6,7 @@
   >
     <p>{{ productGroupName }}</p>
     <img
-      :src="require(`../../assets/pictures/productGroup/` + picSource)"
+      :src="require(`../../assets/pictures/productGroup/${picSource}`)"
       style="width: 200px; height: 200px"
     />
   </button>
