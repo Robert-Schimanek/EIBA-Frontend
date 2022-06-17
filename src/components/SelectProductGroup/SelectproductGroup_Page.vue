@@ -39,9 +39,9 @@ export default {
   data() {
     return {
       prodGroups: [
-        "Schraube",
-        "Motor",
-        "Wind",
+        "BrakeCaliper",
+        "CommonRailInjector",
+        "Starter",
         "aisjdoisad",
         "1",
         "2",
