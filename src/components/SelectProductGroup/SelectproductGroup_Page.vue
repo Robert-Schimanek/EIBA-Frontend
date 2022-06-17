@@ -1,32 +1,49 @@
 <template>
-  <div align="center">
-    <h1 class="roundedContainer">Select product group</h1>
-
-    <div
-      class="grid-container"
-      style="width: 700px; height: 700px"
-      align="center"
-    >
-      <div
-        class="item"
-        v-for="i in [0, 1, 2, 3].map((x) => x + index * 4)"
-        :key="i"
+  <div id="mainDiv" align="center" style="display: flex">
+    <div id="UpDown" style="width: 250px; margin-top: 300px" align="center">
+      <button
+        style="margin-bottom: 50px"
+        class="bigButtonText"
+        @click="countDown"
       >
-        <display
-          :productGroupName="prodGroups[i]"
-          @btnPressed="btnClicked"
-        ></display>
+        UP
+      </button>
+      <p></p>
+      <button class="bigButtonText" @click="countUp">Down</button>
+    </div>
+    <div id="ListProductGroups">
+      <h1 class="roundedContainer">Select product group</h1>
+
+      <div
+        class="grid-container"
+        style="width: 700px; height: 700px"
+        align="center"
+      >
+        <div
+          class="item"
+          v-for="i in [0, 1, 2, 3].map((x) => x + index * 4)"
+          :key="i"
+        >
+          <display
+            :productGroupName="prodGroups[i]"
+            @btnPressed="btnClicked"
+          ></display>
+        </div>
       </div>
     </div>
+    <div id="ConfirmBtn" align="center" style="width: 120px">
+      <button
+        class="bigButtonText"
+        id="confirmBtnPrdGroup"
+        disabled="true"
+        style="margin-top: 350px"
+        @click="confirmed"
+      >
+        Confirm
+      </button>
+    </div>
   </div>
-
-  <button @click="countUp">UP</button>
-  <button @click="countDown">Down</button>
-
-  <p>{{ index }}</p>
-  <p>highest index: {{ highestPage }}</p>
-  <p>len Prod = {{ lenProdGroups }}</p>
-  <p>current active Btn: {{ currentActivatedBtn }}</p>
+  <p style="font-size: 40pt">Page {{ index + 1 }} / {{ highestPage + 1 }}</p>
 </template>
 
 <script>
@@ -43,10 +60,10 @@ export default {
         "CommonRailInjector",
         "Starter",
         "Alternator",
-        "1",
-        "2",
-        "3",
-        "4",
+        "CommonRailHighPressurePump",
+        "UnitInjector",
+        "TorqueConverter",
+        "Mechantronics",
         "5",
       ],
       index: 0,
@@ -61,12 +78,14 @@ export default {
       if (this.index < this.highestPage) {
         this.index++;
         this.currentActivatedBtn = null;
+        document.getElementById("confirmBtnPrdGroup").disabled = true;
       }
     },
     countDown() {
       if (this.index > 0) {
         this.index--;
         this.currentActivatedBtn = null;
+        document.getElementById("confirmBtnPrdGroup").disabled = true;
       }
     },
     init() {
@@ -84,6 +103,10 @@ export default {
           .classList.remove("active");
       }
       this.currentActivatedBtn = newButtonId;
+      document.getElementById("confirmBtnPrdGroup").disabled = false;
+    },
+    confirmed() {
+      alert(`Confirm with ${this.currentActivatedBtn} selected`);
     },
   },
   mounted() {

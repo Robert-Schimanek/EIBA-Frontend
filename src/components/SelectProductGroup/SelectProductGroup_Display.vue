@@ -4,7 +4,7 @@
     :id="productGroupName"
     @click="btnPress($event)"
   >
-    <p>{{ productGroupName }}</p>
+    <p style="font-size: 15pt">{{ productGroupName }}</p>
     <img
       :src="require(`../../assets/pictures/productGroup/${picSource}`)"
       style="width: 200px; height: 200px"
