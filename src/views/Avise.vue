@@ -1,5 +1,4 @@
 <template>
-  <p>Avise</p>
   <SProductGroup></SProductGroup>
 </template>
 
