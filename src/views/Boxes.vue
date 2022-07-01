@@ -1,13 +1,13 @@
 <template>
-  <SList></SList>
+  <MAIN></MAIN>
 </template>
 
 <script>
-import SList from "../components/ScrollableList/PageScrollableList.vue";
+import MAIN from "../components/MAINPAGE.vue";
 
 export default {
   components: {
-    SList,
+    MAIN,
   },
 };
 </script>
