@@ -1,3 +1,4 @@
+<!-- This is the main component for selecting the product group.-->
 <template>
   <div id="mainDiv" align="center" style="display: flex">
     <div id="UpDown" style="width: 250px; margin-top: 300px" align="center">

@@ -1,3 +1,6 @@
+<!-- This is currently just for testing purpose. This code tries to show a webcam stream on the
+monitor. Currently (3.7.22) it does not work-->
+
 <template>
   <div class="camera-box">
     <div style="display: flex; justify-content: center">

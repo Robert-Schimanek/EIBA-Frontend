@@ -1,3 +1,4 @@
+<!-- This component is used to manually input the oen Number-->
 <template>
   <h1>THIS IS ONLY A PLACEHOLDER</h1>
   <button @click="confirm()">Confirm</button>

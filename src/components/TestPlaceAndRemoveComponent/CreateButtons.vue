@@ -1,3 +1,5 @@
+<!-- this is for testing only. Here it is tested how to create and remove
+components on a button click-->
 <template>
   <button @click="createButton">Create</button>
   <div id="Liste">

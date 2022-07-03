@@ -1,3 +1,4 @@
+<!-- Single entry of "PageSCrollableList" Single entries turn green if clicked on them-->
 <template>
   <button @click="buttonSelected" class="productGroupDisplay">
     {{ productGroupName }}

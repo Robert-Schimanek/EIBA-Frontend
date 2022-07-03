@@ -1,3 +1,5 @@
+<!-- This is the main script of the Scrollable list. The scrollable list can
+display multiple "ScrollableListEntry"s -->
 <template>
   <div align="center">
     <h1 class="roundedContainer">Select product group</h1>
