@@ -23,5 +23,6 @@ module.exports = exports = {
         "no-plusplus": "off",
         "comma-dangle": "off",
         "no-multi-assign": "off",
+        "no-restricted-globals": "off",
     }
 };

@@ -4,19 +4,19 @@
     <table align="center">
       <tr>
         <th align="left" width="100px">Customer:</th>
-        <td align="left">{{ customer }}</td>
+        <td align="left">{{ $root.form_data.customer_number }}</td>
       </tr>
       <tr>
         <th align="left">Program:</th>
-        <td align="left">{{ program }}</td>
+        <td align="left">{{ $root.form_data.program }}</td>
       </tr>
       <tr>
         <th align="left">Order:</th>
-        <td align="left">{{ order }}</td>
+        <td align="left">WHAT IS THIS VALUE?</td>
       </tr>
       <tr>
         <th align="left">Reman:</th>
-        <td align="left">{{ reman }}</td>
+        <td align="left">{{ $root.form_data.reman }}</td>
       </tr>
     </table>
     <p style="margin: 30px"></p>
@@ -39,12 +39,6 @@ export default {
   components: {
     SelectionOrderDataButton: OrderDataButton,
   },
-  props: {
-    customer: { default: "Customer Unknown" },
-    order: { default: "Order Unknown" },
-    program: { default: "Program Unknown" },
-    reman: { default: "Reman Unkown" },
-  },
   methods: {
     putOnShelf() {
       window.alert("placed on shelf!");
@@ -53,6 +47,13 @@ export default {
       const message = "order closed";
       window.alert(message);
     },
+  },
+  mounted() {
+    console.log("mounted");
+    this.$nextTick(() => {
+      console.log("mount2");
+      console.log(this.$refs);
+    });
   },
 };
 </script>

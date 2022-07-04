@@ -18,24 +18,22 @@
 export default {
   methods: {
     SelectionStart() {
-      console.log("C-> Selection start");
       this.$axios
         .post(
           "http://localhost:5100/bde/selection/start",
           this.$parent.form_data
         )
         .then((response) => {
-          this.$emit("updateServerStatus", response.data);
-        }, this.$emit("updateServerStatus", "No response"));
+          this.$root.bde_server_start_response = response.data;
+        }, (this.$root.bde_server_start_response = "No Response"));
     },
     inputCustomerNumber(event) {
-      this.$emit("updateCustomerNumber", event.target.value);
+      this.$root.form_data.customer_number = event.target.value;
     },
   },
   data() {
     return {};
   },
-  emits: ["updateCustomerNumber"],
 };
 </script>
 

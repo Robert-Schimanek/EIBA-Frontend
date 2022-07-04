@@ -1,21 +1,49 @@
-<script>
-</script>
 <template>
-<header>
+  <header>
     <div id="nav" class="nav_bar">
-    <router-link to="/"><button class="nav_button">Home</button></router-link>
-    <router-link to="/Avise"><button class="nav_button">Avise</button></router-link>
-    <router-link to="/selection"><button class="nav_button">Selection</button></router-link>
-    <router-link to="/Goodsin"><button class="nav_button">Goods in</button></router-link>
-    <router-link to="/Boxes"><button class="nav_button">Boxes</button></router-link>
-    <router-link to="/Goodsout"><button class="nav_button">Goods out</button></router-link>
-  </div>
-</header>
+      <router-link to="/"><button class="nav_button">Home</button></router-link>
+      <router-link to="/Avise"
+        ><button class="nav_button">Avise</button></router-link
+      >
+      <router-link to="/selection"
+        ><button class="nav_button">Selection</button></router-link
+      >
+      <router-link to="/Goodsin"
+        ><button class="nav_button">Goods in</button></router-link
+      >
+      <router-link to="/Boxes"
+        ><button class="nav_button">Boxes</button></router-link
+      >
+      <router-link to="/Goodsout"
+        ><button class="nav_button">Goods out</button></router-link
+      >
+    </div>
+  </header>
 
   <div class="container">
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      oenNumber: "123", // stores the oen number
+      form_data: {
+        customer_number: "CUSTOMER",
+        bar_code: "BARDCODE",
+        bar_code_scanable: "Y",
+        box_exists: "Y",
+        program: "IAM gesamt",
+        session_key: "", // Used for ????????????????
+        reman: "NO REMAN", // only displayed on order data -> remove?
+      },
+      bde_server_start_response: "NO CALL YET",
+    };
+  },
+};
+</script>
 
 <style>
 #app {

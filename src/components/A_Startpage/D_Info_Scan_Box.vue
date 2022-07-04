@@ -50,14 +50,6 @@ export default {
   components: {
     OrderData,
   },
-  methods: {
-    debug() {
-      console.log(this.$parent.$data);
-    },
-  },
-  mounted() {
-    this.debug();
-  },
 };
 </script>
 

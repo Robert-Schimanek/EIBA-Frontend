@@ -4,8 +4,8 @@
 <!-- Author: Petz, (restructured by Schuster)-->
 <template>
   <h1>Start Page</h1>
-  <p>Barcode: {{ bar_code }}</p>
-  <barcode @update:bar_code="updateBarcode"></barcode>
+  <p>Barcode: {{ this.$root.form_data.bar_code }}</p>
+  <barcode></barcode>
   <customerNumber v-bind="$attrs"></customerNumber>
   <!-- v-bind="$attrs" -> used to pass event "updateCustomerNumber" from component "customerNumber"
   to "mainpage.vue" -->
@@ -25,17 +25,12 @@ export default {
     InfoScanBox,
   },
   methods: {
-    updateBarcode(event) {
-      this.bar_code = event;
-      this.$emit("updateBarcode", event);
-    },
   },
   data() {
     return {
       bar_code: "startPage",
     };
   },
-  emits: ["updateOEN", "updateBarcode"], // "updateOEN" Just used to surpress warning
 };
 </script>
 

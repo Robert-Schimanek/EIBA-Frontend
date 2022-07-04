@@ -3,7 +3,7 @@
 <template>
   <button style="border-radius: 10px" @click="randomEAN(boxinfos)">
     <VueBarcode
-      v-bind:value="bar_code"
+    v-bind:value="bar_code"
       :options="{ displayValue: true }"
       style="width: 170px"
     >
@@ -21,14 +21,14 @@ export default {
     randomEAN(boxinfos) {
       const randomIndex = Math.floor(Math.random() * boxinfos.length);
       this.bar_code = boxinfos[randomIndex].bar_code;
-      this.$emit("update:bar_code", this.bar_code);
+      this.$root.form_data.bar_code = this.bar_code;
     },
   },
   emits: ["update:bar_code"],
   data() {
     return {
       boxinfos: boxInfos,
-      bar_code: "a",
+      bar_code: "0000000",
     };
   },
   components: {
