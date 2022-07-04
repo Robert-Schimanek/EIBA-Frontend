@@ -1,3 +1,6 @@
+<!-- Component displays: customer, order nr, reman and programm.
+Gets values form this.$root (App.vue)-->
+<!-- Author: Schuster-->
 <template>
   <div class="roundedContainer">
     <h1>Order Data</h1>
@@ -41,11 +44,12 @@ export default {
   },
   methods: {
     putOnShelf() {
-      window.alert("placed on shelf!");
+      window.alert("placed on shelf. All data deleted");
+      this.$root.resetValues();
     },
     closeOrder() {
-      const message = "order closed";
-      window.alert(message);
+      window.alert("order closed. All data deleted");
+      this.$root.resetValues();
     },
   },
   mounted() {

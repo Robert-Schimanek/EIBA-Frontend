@@ -1,4 +1,5 @@
 <!-- Single entry of "PageSCrollableList" Single entries turn green if clicked on them-->
+<!-- Author: Kröger, Schuster-->
 <template>
   <button @click="buttonSelected" class="productGroupDisplay">
     {{ productGroupName }}

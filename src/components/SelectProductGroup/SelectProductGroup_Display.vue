@@ -1,3 +1,5 @@
+
+<!-- Author: Schuster-->
 <template>
   <button
     v-if="productGroupName !== 'XXX'"

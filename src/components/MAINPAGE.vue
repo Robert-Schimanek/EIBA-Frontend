@@ -14,12 +14,13 @@
     <button @click="setComponent('webcam')">Webcam</button>
 
     <p>Values:</p>
-    <p>OEN: {{ $root.oenNumber }}</p>
+    <p>OEN: {{$root.returnpartInfo.oenNumber }}</p>
     <p>barcode: {{ $root.form_data.bar_code }}</p>
     <p>Server start response: {{ $root.bde_server_start_response }}</p>
     <p>Customer number: {{ $root.form_data.customer_number }}</p>
     <p>Program: {{ $root.form_data.program }}</p>
     <p>Session key: {{ $root.form_data.session_key }}</p>
+    <p>Product Group: {{$root.returnpartInfo.productGroup}}</p>
   </div>
 
   <!-- this is the line where the dynamic components are placed-->

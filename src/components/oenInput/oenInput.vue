@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  emits: ["updateOEN"],
   methods: {
     confirm() {
-      this.$emit("updateOEN", this.oenNumber);
+      console.log("confirm oen");
+      this.$root.returnpartInfo.oenNumber = this.oenNumber;
     },
   },
   data() {

@@ -29,7 +29,6 @@
 export default {
   data() {
     return {
-      oenNumber: "NOT SET", // stores the oen number
       form_data: {
         customer_number: "NOT SET",
         bar_code: "NOT SET",
@@ -37,13 +36,33 @@ export default {
         box_exists: "NOT SET",
         program: "NOT SET",
         session_key: "NOT SET", // Used for ????????????????
-        reman: "NOT SET", // only displayed on order data -> remove?
       },
       returnpartInfo: {
         productGroup: "not set", // set by SelectProductGroup_Page.vue
+        oenNumber: "NOT SET", // stores the oen number
+        reman: "NOT SET", // only displayed on order data -> remove?
       },
       bde_server_start_response: "NO CALL YET",
     };
+  },
+  methods: {
+    // sets all values of $root.data to the default ones
+    resetValues() {
+      this.form_data = {
+        customer_number: "NOT SET",
+        bar_code: "NOT SET",
+        bar_code_scanable: "NOT SET",
+        box_exists: "NOT SET",
+        program: "NOT SET",
+        session_key: "NOT SET",
+      };
+      this.returnpartInfo = {
+        productGroup: "not set",
+        oenNumber: "NOT SET",
+        reman: "NOT SET",
+      };
+      this.bde_server_start_response = "NO CALL YET";
+    },
   },
 };
 </script>

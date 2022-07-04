@@ -1,4 +1,6 @@
-<!-- Sets the "customer_number" (send to MAINPAGE.vue) -->
+<!-- Sets the "customer_number" (sets this.$root.form_data.customer_number)
+and posts  bde/selection/start to the server. Response of server is saved in
+this.$root.bde_server_start_response -->
 <!-- Author: Petz, (restructured by Schuster)-->
 <template>
   <form @submit.prevent="SelectionStart">
