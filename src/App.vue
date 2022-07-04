@@ -29,15 +29,18 @@
 export default {
   data() {
     return {
-      oenNumber: "123", // stores the oen number
+      oenNumber: "NOT SET", // stores the oen number
       form_data: {
-        customer_number: "CUSTOMER",
-        bar_code: "BARDCODE",
-        bar_code_scanable: "Y",
-        box_exists: "Y",
-        program: "IAM gesamt",
-        session_key: "", // Used for ????????????????
-        reman: "NO REMAN", // only displayed on order data -> remove?
+        customer_number: "NOT SET",
+        bar_code: "NOT SET",
+        bar_code_scanable: "NOT SET",
+        box_exists: "NOT SET",
+        program: "NOT SET",
+        session_key: "NOT SET", // Used for ????????????????
+        reman: "NOT SET", // only displayed on order data -> remove?
+      },
+      returnpartInfo: {
+        productGroup: "not set", // set by SelectProductGroup_Page.vue
       },
       bde_server_start_response: "NO CALL YET",
     };

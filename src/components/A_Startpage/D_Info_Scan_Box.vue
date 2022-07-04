@@ -1,3 +1,6 @@
+<!-- Component diplays E_orderData.vue, Barcode scan button,
+no Box and no barcode button-->
+<!-- Author: Petz, (restructured by Schuster)-->
 <template>
   <h1>info scan box</h1>
   <div style="display: flex">
@@ -5,7 +8,7 @@
     <div style="display: flex; align-items: center; padding-left: 20px">
       <button
         style="border-radius: 10px"
-        @click="form_data.session_key = generateID()"
+        @click="scanProcess()"
       >
         <img
           src="../../assets/pictures/BarcodeScanner.png"
@@ -14,15 +17,13 @@
         />
       </button>
     </div>
+
     <div style="display: flex; padding-left: 20px; align-items: flex-end">
       <div>
         <button
           class="bigButtonText"
           style="width: 170px"
-          @click="
-            form_data.session_key = generateID();
-            form_data.bar_code = 'empty';
-          "
+          @click="noBox()"
         >
           NO BOX
         </button>
@@ -30,10 +31,7 @@
         <button
           class="bigButtonText"
           style="width: 170px; vertical-align: baseline"
-          @click="
-            form_data.session_key = generateID();
-            form_data.bar_code = 'empty';
-          "
+          @click="noBarcode()"
         >
           NO BARCODE
         </button>
@@ -46,9 +44,27 @@
 import OrderData from "./E_OrderData.vue";
 
 export default {
-  props: ["customer"],
   components: {
     OrderData,
+  },
+  methods: {
+    noBox() {
+      alert("Just set session key");
+      this.$root.form_data.session_key = this.generateSessionID();
+    },
+    noBarcode() {
+      alert("Just set session key");
+      this.$root.form_data.session_key = this.generateSessionID();
+      this.$root.form_data.bar_code = "empty";
+    },
+    scanProcess() {
+      // this is triggered, when the barcodescanner button is pressed
+      alert("Just set session key. Use the barcode generator please");
+      this.$root.form_data.session_key = this.generateSessionID();
+    },
+    generateSessionID() {
+      return Math.floor(Math.random() * 1000000000000).toString();
+    },
   },
 };
 </script>

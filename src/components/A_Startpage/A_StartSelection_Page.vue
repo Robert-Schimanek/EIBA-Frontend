@@ -4,11 +4,9 @@
 <!-- Author: Petz, (restructured by Schuster)-->
 <template>
   <h1>Start Page</h1>
-  <p>Barcode: {{ this.$root.form_data.bar_code }}</p>
+  <p>Barcode: {{ $root.form_data.bar_code }}</p>
   <barcode></barcode>
-  <customerNumber v-bind="$attrs"></customerNumber>
-  <!-- v-bind="$attrs" -> used to pass event "updateCustomerNumber" from component "customerNumber"
-  to "mainpage.vue" -->
+  <customerNumber></customerNumber>
   <InfoScanBox></InfoScanBox>
 </template>
 
@@ -23,13 +21,6 @@ export default {
     barcode,
     customerNumber,
     InfoScanBox,
-  },
-  methods: {
-  },
-  data() {
-    return {
-      bar_code: "startPage",
-    };
   },
 };
 </script>

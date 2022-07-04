@@ -19,6 +19,7 @@
     <p>Server start response: {{ $root.bde_server_start_response }}</p>
     <p>Customer number: {{ $root.form_data.customer_number }}</p>
     <p>Program: {{ $root.form_data.program }}</p>
+    <p>Session key: {{ $root.form_data.session_key }}</p>
   </div>
 
   <!-- this is the line where the dynamic components are placed-->

@@ -1,0 +1,1 @@
+<!-- This component is shown, if the scan button is pressed-->

@@ -18,6 +18,8 @@ import boxInfos from "../../assets/bar_code_list.json";
 export default {
   name: "GenerateBarcodeScan",
   methods: {
+    // chooses a rondom barcode out of boxInfos (which is a json list)
+    // and sets  this.$root.form_data.bar_code to it
     randomEAN(boxinfos) {
       const randomIndex = Math.floor(Math.random() * boxinfos.length);
       this.bar_code = boxinfos[randomIndex].bar_code;

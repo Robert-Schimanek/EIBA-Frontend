@@ -1,16 +1,18 @@
-<!-- This is the main component for selecting the product group.-->
+<!-- Component currently shows product groups (yet not based on AI
+recommendation) and sets4  this.$root.returnpartInfo.productGroup-->
+<!-- Author: Schuster-->
 <template>
   <div id="mainDiv" align="center" style="display: flex">
     <div id="UpDown" style="width: 250px; margin-top: 300px" align="center">
       <button
         style="margin-bottom: 50px"
         class="bigButtonText"
-        @click="countDown"
+        @click="scrollDown"
       >
         UP
       </button>
       <p></p>
-      <button class="bigButtonText" @click="countUp">Down</button>
+      <button class="bigButtonText" @click="scrollUp">Down</button>
     </div>
     <div id="ListProductGroups">
       <h1 class="roundedContainer">Select product group</h1>
@@ -75,14 +77,14 @@ export default {
     };
   },
   methods: {
-    countUp() {
+    scrollUp() {
       if (this.index < this.highestPage) {
         this.index++;
         this.currentActivatedBtn = null;
         document.getElementById("confirmBtnPrdGroup").disabled = true;
       }
     },
-    countDown() {
+    scrollDown() {
       if (this.index > 0) {
         this.index--;
         this.currentActivatedBtn = null;
@@ -98,6 +100,7 @@ export default {
       }
     },
     btnClicked(newButtonId) {
+      // a product group button has been clicked
       if (this.currentActivatedBtn != null) {
         document
           .getElementById(this.currentActivatedBtn)
@@ -107,7 +110,8 @@ export default {
       document.getElementById("confirmBtnPrdGroup").disabled = false;
     },
     confirmed() {
-      alert(`Confirm with ${this.currentActivatedBtn} selected`);
+      alert(`$root.productGroup set to ${this.currentActivatedBtn}`);
+      this.$root.returnpartInfo.productGroup = this.currentActivatedBtn;
     },
   },
   mounted() {
