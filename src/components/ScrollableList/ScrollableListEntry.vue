@@ -1,32 +1,46 @@
 <template>
-  <button @click="buttonSelected" class="productGroupDisplay">
-    {{ productGroupName }}
+  <button @click="btnPress($event)" :id="displayedNames"
+  class="displayedNames">
+    {{ displayedNames }}
   </button>
 </template>
 
 <script>
 export default {
   props: {
-    productGroupName: { default: "Unknown Name" },
+    displayedNames: { default: "Unknown OEN" },
   },
   methods: {
-    buttonSelected() {
-      console.log(this.$parent);
+    init() {
+      this.targetId = this.displayedNames;
+      console.log(this.targetId);
+      this.button = document.getElementById(this.targetId);
+    },
+    btnPress(event) {
+      this.activateBtn();
+      this.$emit("btnPressed", this.targetId);
+    },
+    activateBtn() {
+      this.button.classList.add("active");
     },
   },
   data() {
     return {
-      pathToImage: "../../../src/assets/pictures/productGroup/BrakeCaliper.png",
+      activated: false,
+      targetId: null,
+      button: null,
     };
+  },
+  mounted() {
+    this.init();
   },
 };
 </script>
 
-<style>
-.productGroupDisplay {
-  width: 100px;
-  border: 1px solid black;
-  width: 100%;
+<style scoped>
+.displayedNames {
+  border: 2px solid black;
+  width: 99%;
   border-radius: 5px;
   font-size: 30px;
 }
