@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-      activeComponent: "", // here  currently shown component is stored
+      activeComponent: "startPage", // here  currently shown component is stored
     };
   },
   components: {

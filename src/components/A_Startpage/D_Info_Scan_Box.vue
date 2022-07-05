@@ -3,31 +3,33 @@ no Box and no barcode button-->
 <!-- Author: Petz, (restructured by Schuster)-->
 <template>
   <h1>info scan box</h1>
-  <div style="display: flex">
-    <OrderData></OrderData>
-    <div style="display: flex; align-items: center; padding-left: 20px">
-      <button style="border-radius: 10px" @click="scanProcess()">
-        <img
-          src="../../assets/pictures/BarcodeScanner.png"
-          alt="BARCODE BUTTON"
-          style="width: 200px"
-        />
-      </button>
-    </div>
+  <div>
+    <div style="display: flex; justify-content: center;">
+      <OrderData></OrderData>
+      <div style="display: flex; align-items: center; padding-left: 20px">
+        <button style="border-radius: 10px" @click="scanProcess()">
+          <img
+            src="../../assets/pictures/BarcodeScanner.png"
+            alt="BARCODE BUTTON"
+            style="width: 200px"
+          />
+        </button>
+      </div>
 
-    <div style="display: flex; padding-left: 20px; align-items: flex-end">
-      <div>
-        <button class="bigButtonText" style="width: 170px" @click="noBox()">
-          NO BOX
-        </button>
-        <p style="font-size: 40px"></p>
-        <button
-          class="bigButtonText"
-          style="width: 170px; vertical-align: baseline"
-          @click="noBarcode()"
-        >
-          NO BARCODE
-        </button>
+      <div style="display: flex; padding-left: 20px; align-items: flex-end">
+        <div>
+          <button class="bigButtonText" style="width: 170px" @click="noBox()">
+            NO BOX
+          </button>
+          <p style="font-size: 40px"></p>
+          <button
+            class="bigButtonText"
+            style="width: 170px; vertical-align: baseline"
+            @click="noBarcode()"
+          >
+            NO BARCODE
+          </button>
+        </div>
       </div>
     </div>
   </div>
