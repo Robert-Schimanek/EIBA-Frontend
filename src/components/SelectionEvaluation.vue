@@ -31,14 +31,14 @@
     <button
       @click="emitCoreMass(form_data.core_mass);
       changeToResults(bde_server_evaluation_response.session_key)">
-        Change to result screen
+        Change to result screen OEN prediction_commissioned
     </button>
   </div>
   <div v-if="form_data.session_key==bde_server_evaluation_response.session_key">
     <button
       @click="emitCoreMass(form_data.core_mass);
       changeToProductGroupResults(bde_server_evaluation_response.session_key)">
-        Change to result screen
+        Change to result screen if NO BOX NO BARCODE PG PRE prediction_commissioned
     </button>
   </div>
   <ul id="array-rendering">

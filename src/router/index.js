@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-import Selection from '../views/Selection.vue';
 import SelectionII from '../views/SelectionII.vue';
 import Avise from '../views/Avise.vue';
 import Goodsin from '../views/Goods_in.vue';

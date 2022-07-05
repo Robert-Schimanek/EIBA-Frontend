@@ -1,6 +1,10 @@
 <template>
   <div class="selectionII">
       <button v-if="aSelTab === 'SelectionEvaluation'" @click="aSelTab = 'SelStart'">Back</button>
+      <button v-if="aSelTab === 'SelectionResultPG'" @click="aSelTab = 'SelectionEvaluation'">
+      Back</button>
+      <button v-if="aSelTab === 'SelectionResultOEN'" @click="aSelTab = 'SelectionEvaluation'">
+      Back</button>
   <keep-alive>
     <SelectionResultOEN
     v-if="aSelTab === 'SelectionResultOEN'"
@@ -10,6 +14,7 @@
   <keep-alive>
     <SelectionProductGroup
     v-if="aSelTab === 'SelectionResultPG'"
+    @change-to-results-OEN="change($event)"
     :session_key_main="session_key_main"
     :core_mass_main="core_mass_main"/>
   </keep-alive>
@@ -37,7 +42,7 @@
 import SelectionStart from '../components/SelectionStart.vue';
 import SelectionEvaluation from '../components/SelectionEvaluation.vue';
 import SelectionResultOEN from '../components/SelectionResultOEN.vue';
-import SelectionProductGroup from "../components/SelectionProductGroup.vue";
+import SelectionProductGroup from '../components/SelectionProductGroup.vue';
 
 export default {
   name: 'SelectionII',
