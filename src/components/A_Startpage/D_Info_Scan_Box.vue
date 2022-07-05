@@ -6,10 +6,7 @@ no Box and no barcode button-->
   <div style="display: flex">
     <OrderData></OrderData>
     <div style="display: flex; align-items: center; padding-left: 20px">
-      <button
-        style="border-radius: 10px"
-        @click="scanProcess()"
-      >
+      <button style="border-radius: 10px" @click="scanProcess()">
         <img
           src="../../assets/pictures/BarcodeScanner.png"
           alt="BARCODE BUTTON"
@@ -20,11 +17,7 @@ no Box and no barcode button-->
 
     <div style="display: flex; padding-left: 20px; align-items: flex-end">
       <div>
-        <button
-          class="bigButtonText"
-          style="width: 170px"
-          @click="noBox()"
-        >
+        <button class="bigButtonText" style="width: 170px" @click="noBox()">
           NO BOX
         </button>
         <p style="font-size: 40px"></p>
@@ -56,6 +49,8 @@ export default {
       alert("Just set session key");
       this.$root.form_data.session_key = this.generateSessionID();
       this.$root.form_data.bar_code = "empty";
+      // JUST FOR TESTING PURPOSE: Go to "B_ManualOENInput.vue"
+      this.$emit("changeComponent", "oenInput");
     },
     scanProcess() {
       // this is triggered, when the barcodescanner button is pressed

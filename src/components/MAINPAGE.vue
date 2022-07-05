@@ -29,7 +29,7 @@
 
   <!-- this is the line where the dynamic components are placed-->
   <keep-alive>
-    <component :is="activeComponent"></component>
+    <component :is="activeComponent" @changeComponent="activeComponent= $event"></component>
   </keep-alive>
   <!--updateOEN: updates the oen, triggered by "oenInput.vue"
   updateBarcode: update Barcode, triggered by "A_SartSelection_Page.vue"
@@ -43,7 +43,7 @@ import TestButtons from "./TestPlaceAndRemoveComponent/CreateButtons.vue";
 import SelectProductGroup from "./SelectProductGroup/SelectproductGroup_Page.vue";
 import ScrollableList from "./Reuseables/ScrollableList/PageScrollableList.vue";
 import OrderData from "./SelectionOrderData.vue";
-import oenInput from "./oenInput/oenInput.vue";
+import oenInput from "./C_Identification/B_ManualOENIput.vue";
 import webcam from "./imageCaptureTest/webcamTest.vue";
 import identification from "./C_Identification/A_Identification_Page.vue";
 
