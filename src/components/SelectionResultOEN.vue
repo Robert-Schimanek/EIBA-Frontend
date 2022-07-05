@@ -31,12 +31,12 @@
 <script>
 export default {
   name: 'SelectionResultOEN',
-  props: ['selection_id_main', 'core_mass_main'],
+  props: ['session_key_main', 'core_mass_main'],
   data() {
     return {
       form_data: {
         core_mass: this.core_mass_main,
-        session_key: this.selection_id_main,
+        session_key: this.session_key_main,
       },
       bde_server_result_OEN_response: '',
     };
