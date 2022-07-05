@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import CIdent from "../components/CoreIdentification/CoreIdentification_Page.vue";
+import CIdent from "../components/C_Identification/A_Identification_Page.vue";
 
 export default {
   components: {

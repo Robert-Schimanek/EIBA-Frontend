@@ -3,13 +3,17 @@
     <div style="width: 15%">
       <p style="margin-top: 10px"></p>
       <v-btn @click="scrollUp">
-        <img style="height: 35px; width: 35px"
-        src="../../assets/pictures/Icons/bleach.png"/>
+        <img
+          style="height: 35px; width: 35px"
+          src="../../assets/pictures/Icons/bleach.png"
+        />
       </v-btn>
       <p style="margin-top: 25px"></p>
       <v-btn @click="scrollDown">
-        <img style="height: 35px; width: 35px;
-        transform: rotate(180deg);" src="../../assets/pictures/Icons/bleach.png"/>
+        <img
+          style="height: 35px; width: 35px; transform: rotate(180deg)"
+          src="../../assets/pictures/Icons/bleach.png"
+        />
       </v-btn>
     </div>
 
@@ -28,11 +32,23 @@
     </div>
     <div style="width: 15%">
       <p style="margin-top: 10px"></p>
-      <button style="border-radius: 4px; background-color: #7cb8fc;
-      padding: 10px 20px; font-size: 15px; border: 4px solid black;
-      transition-duration: 0.5s; font-weight: 100;"
-      id="ConfirmBtn" disabled="true" @click="confirmed">Confirm</button>
-      {{currentActivatedBtn}}
+      <button
+        style="
+          border-radius: 4px;
+          background-color: #7cb8fc;
+          padding: 10px 20px;
+          font-size: 15px;
+          border: 4px solid black;
+          transition-duration: 0.5s;
+          font-weight: 100;
+        "
+        id="ConfirmBtn"
+        disabled="true"
+        @click="confirmed"
+      >
+        Confirm
+      </button>
+      {{ currentActivatedBtn }}
     </div>
   </div>
 </template>
@@ -45,12 +61,15 @@ export default {
     display,
   },
   props: {
-    valuefromInput: { default: 'XXX' },
+    valuefromInput: { default: "XXX" },
   },
   data() {
     return {
-      names: [900914562, 900913556, 900912556, 900934589, 900911406, 900987003,
-        900922309, 900934122, 900945367, 900976032, 900923112, 900934522, 900990002],
+      names: [
+        900914562, 900913556, 900912556, 900934589, 900911406, 900987003,
+        900922309, 900934122, 900945367, 900976032, 900923112, 900934522,
+        900990002,
+      ],
       currentActivatedBtn: null,
     };
   },
@@ -102,8 +121,10 @@ export default {
     confirmed() {
       if (this.currentActivatedBtn == null) {
         alert(`Confirm with ${this.valuefromInput} selected`);
+        this.$root.returnpartInfo.oenNumber = this.valuefromInput;
       } else {
         alert(`Confirm with ${this.currentActivatedBtn} selected`);
+        this.$root.returnpartInfo.oenNumber = this.currentActivatedBtn;
       }
     },
   },
@@ -114,7 +135,6 @@ export default {
 </style>
 
 <style scoped>
-
 .active {
   background-color: green;
   transition-duration: 0.2s;
@@ -122,5 +142,4 @@ export default {
   height: 65px;
   font-size: 40px;
 }
-
 </style>

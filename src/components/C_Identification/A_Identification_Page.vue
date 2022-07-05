@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import CImages from "./CoreIdentification_Image.vue";
+import CImages from "./A_Identification_Image.vue";
 import Scroll from "../ScrollableList/PageScrollableList.vue";
-import Spinner from "./CoreIdentification_Spinner.vue";
+import Spinner from "./A_Identification_Spinner.vue";
 
 export default {
   components: {
