@@ -99,7 +99,7 @@ export default {
           0,
           0,
           self.canvasWidth,
-          self.canvasHeight
+          self.canvasHeight,
         );
         const dataUrl = self.$refs.canvas
           .toDataURL("image/jpeg")
@@ -124,7 +124,7 @@ export default {
       let uniquePictureName = this.generateCapturePhotoName();
       let capturedPhotoFile = this.dataURLtoFile(
         dataURL,
-        `${uniquePictureName} + .jpg`
+        `${uniquePictureName} + .jpg`,
       );
       let formData = new FormData();
       formData.append("file", capturedPhotoFile);
@@ -155,12 +155,11 @@ export default {
 </script>
 
 <style scoped>
-    .camera-box {
-        border: 1px dashed #d6d6d6;
-        border-radius: 4px;
-        padding: 2px;
-        width: 80%;
-        min-height: 300px;
-    }
-
+.camera-box {
+  border: 1px dashed #d6d6d6;
+  border-radius: 4px;
+  padding: 2px;
+  width: 80%;
+  min-height: 300px;
+}
 </style>
