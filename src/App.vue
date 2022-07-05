@@ -89,7 +89,7 @@ export default {
   color: #42b983;
 }
 .container {
-  width: 900px;
+  width: 100%;
   border: 1px solid black;
   margin: auto;
 
@@ -107,7 +107,7 @@ export default {
 .nav_button:hover {
   background-color: #a9b9b2;
 }
-.nav_button:checked{
+.nav_button:checked {
   background-color: beige;
 }
 

@@ -1,40 +1,38 @@
-<!-- This is the main script of the Scrollable list. The scrollable list can
-display multiple "ScrollableListEntry"s -->
-<!-- Author: Kröger, Schuster-->
 <template>
-  <div align="center">
-    <h1 class="roundedContainer">Select product group</h1>
-  </div>
-
   <div style="display: flex">
-    <div>
-      <button class="bigButtonText" @click="scrollUp">Up</button>
-      <p style="margin-top: 300px; padding-left: 300px"></p>
-      <button class="bigButtonText" @click="scrollDown">Down</button>
+    <div style="width: 15%">
+      <p style="margin-top: 10px"></p>
+      <v-btn @click="scrollUp">
+        <img style="height: 35px; width: 35px"
+        src="../../assets/pictures/Icons/bleach.png"/>
+      </v-btn>
+      <p style="margin-top: 25px"></p>
+      <v-btn @click="scrollDown">
+        <img style="height: 35px; width: 35px;
+        transform: rotate(180deg);" src="../../assets/pictures/Icons/bleach.png"/>
+      </v-btn>
     </div>
 
     <div
       id="scroller"
       style="
-        width: 300px;
-        height: 500px;
+        width: 70%;
+        height: 491px;
         overflow-y: auto;
         border: 1px solid black;
       "
     >
-      <div v-for="item in names" :key="item" style="padding-top: 20px">
-        <display :productGroupName="item"></display>
+      <div v-for="item in names" :key="item" style="padding-top: 30px">
+        <display :displayedNames="item" @btnPressed="btnClicked"></display>
       </div>
     </div>
-    <div>
-      <p style="margin-top: 150px"></p>
-      <img
-        src="../../assets/pictures/BarcodeScanner.png"
-        alt="SELECT A GROUP"
-        style="width: 300px"
-      />
-      <p style="margin-top: 50px"></p>
-      <button class="bigButtonText">Continue</button>
+    <div style="width: 15%">
+      <p style="margin-top: 10px"></p>
+      <button style="border-radius: 4px; background-color: #7cb8fc;
+      padding: 10px 20px; font-size: 15px; border: 4px solid black;
+      transition-duration: 0.5s; font-weight: 100;"
+      id="ConfirmBtn" disabled="true" @click="confirmed">Confirm</button>
+      {{currentActivatedBtn}}
     </div>
   </div>
 </template>
@@ -46,9 +44,14 @@ export default {
   components: {
     display,
   },
+  props: {
+    valuefromInput: { default: 'XXX' },
+  },
   data() {
     return {
-      names: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+      names: [900914562, 900913556, 900912556, 900934589, 900911406, 900987003,
+        900922309, 900934122, 900945367, 900976032, 900923112, 900934522, 900990002],
+      currentActivatedBtn: null,
     };
   },
 
@@ -76,9 +79,48 @@ export default {
         console.log("Nope");
       }
     },
+    btnClicked(newButtonId) {
+      if (this.currentActivatedBtn != null) {
+        if (this.currentActivatedBtn === newButtonId) {
+          document
+            .getElementById(this.currentActivatedBtn)
+            .classList.remove("active");
+          this.currentActivatedBtn = null;
+          document.getElementById("ConfirmBtn").disabled = true;
+        } else {
+          document
+            .getElementById(this.currentActivatedBtn)
+            .classList.remove("active");
+          this.currentActivatedBtn = newButtonId;
+          document.getElementById("ConfirmBtn").disabled = false;
+        }
+      } else {
+        this.currentActivatedBtn = newButtonId;
+        document.getElementById("ConfirmBtn").disabled = false;
+      }
+    },
+    confirmed() {
+      if (this.currentActivatedBtn == null) {
+        alert(`Confirm with ${this.valuefromInput} selected`);
+      } else {
+        alert(`Confirm with ${this.currentActivatedBtn} selected`);
+      }
+    },
   },
 };
 </script>
 
 <style src="../../assets/styles/styles.css">
+</style>
+
+<style scoped>
+
+.active {
+  background-color: green;
+  transition-duration: 0.2s;
+  opacity: 0.6;
+  height: 65px;
+  font-size: 40px;
+}
+
 </style>

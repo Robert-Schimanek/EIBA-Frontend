@@ -14,9 +14,13 @@
     "@chenfengyuan/vue-barcode": "^2.0.0",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "node-sass": "^7.0.1",
     "vue": "^3.0.0",
+    "vue-cli": "^2.9.6",
+    "vue-media-recorder": "^0.1.25",
     "vue-router": "^4.0.0-0",
-    "vue-select": "^4.0.0-beta.1"
+    "vue-select": "^4.0.0-beta.1",
+    "vue-web-cam": "^1.9.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -28,7 +32,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^7.0.0",
+    "sass-loader": "^13.0.2"
   },
   "browserslist": [
     "> 1%",
