@@ -1,3 +1,4 @@
+<!-- Author: Kröger-->
 <template>
     <div align="center">
         <h1 class="roundedContainer">Core Identification</h1>

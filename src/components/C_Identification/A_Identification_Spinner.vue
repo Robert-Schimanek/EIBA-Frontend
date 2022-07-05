@@ -1,3 +1,4 @@
+<!-- Author: Kröger-->
 <template>
   <div class="lds-dual-ring"></div>
 </template>

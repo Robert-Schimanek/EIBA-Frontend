@@ -1,4 +1,7 @@
 <!-- This is the main page. From here all other components are shown-->
+<!-- For new components: Import them, (if wished) add a button with the method-->
+<!-- @click="setComponent('GIVEN NAME OF THE IMPORTED MODULE')"-->
+<!-- Author: Schuster, Kröger-->
 <template>
   <div style="border: thin solid black">
     <p>MAINPAGE STUFF</p>

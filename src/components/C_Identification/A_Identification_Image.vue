@@ -1,3 +1,4 @@
+<!-- Author: Kröger-->
 <template>
   <div class="image">
     <p style="font-size: 10pt">{{ Image.slice(18) }}</p>
