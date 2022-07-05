@@ -5,14 +5,14 @@
       <v-btn @click="scrollUp">
         <img
           style="height: 35px; width: 35px"
-          src="../../assets/pictures/Icons/bleach.png"
+          src="../../../assets/pictures/Icons/bleach.png"
         />
       </v-btn>
       <p style="margin-top: 25px"></p>
       <v-btn @click="scrollDown">
         <img
           style="height: 35px; width: 35px; transform: rotate(180deg)"
-          src="../../assets/pictures/Icons/bleach.png"
+          src="../../../assets/pictures/Icons/bleach.png"
         />
       </v-btn>
     </div>
@@ -131,7 +131,7 @@ export default {
 };
 </script>
 
-<style src="../../assets/styles/styles.css">
+<style src="../../../assets/styles/styles.css">
 </style>
 
 <style scoped>
