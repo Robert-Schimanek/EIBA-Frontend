@@ -31,7 +31,14 @@
     <button
       @click="emitCoreMass(form_data.core_mass);
       changeToResults(bde_server_evaluation_response.session_key)">
-        Change to result screen
+        Change to result screen OEN prediction_commissioned
+    </button>
+  </div>
+  <div v-if="form_data.session_key==bde_server_evaluation_response.session_key">
+    <button
+      @click="emitCoreMass(form_data.core_mass);
+      changeToProductGroupResults(bde_server_evaluation_response.session_key)">
+        Change to result screen if NO BOX NO BARCODE PG PRE prediction_commissioned
     </button>
   </div>
   <ul id="array-rendering">
@@ -53,7 +60,7 @@ export default {
       bde_server_evaluation_response: '',
     };
   },
-  emits: ['change-to-results-OEN'],
+  emits: ['change-to-results-OEN', 'change-to-results-PG'],
   methods: {
     SelectionEvaluation(method) {
       this.$axios.post(`http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(method)}`, this.form_data)
@@ -64,6 +71,10 @@ export default {
     },
     changeToResults(sessionKey) {
       this.$emit('change-to-results-OEN', 'SelectionResultOEN');
+      this.$emit('session-key', sessionKey);
+    },
+    changeToProductGroupResults(sessionKey) {
+      this.$emit('change-to-results-PG', 'SelectionResultPG');
       this.$emit('session-key', sessionKey);
     },
     emitCoreMass(coreMass) {

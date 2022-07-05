@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-import Selection from '../views/Selection.vue';
+import SelectionII from '../views/SelectionII.vue';
 import Avise from '../views/Avise.vue';
 import Goodsin from '../views/Goods_in.vue';
 import Goodsout from '../views/Goods_out.vue';
@@ -19,6 +19,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: Selection,
+  },
+  {
+    path: '/selectionII',
+    name: 'SelectionII',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: SelectionII,
   },
   {
     path: '/Avise',
