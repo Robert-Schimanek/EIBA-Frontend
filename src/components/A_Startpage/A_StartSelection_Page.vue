@@ -7,7 +7,7 @@
   <p>Barcode: {{ $root.form_data.bar_code }}</p>
   <barcode></barcode>
   <customerNumber></customerNumber>
-  <InfoScanBox></InfoScanBox>
+  <InfoScanBox v-bind="$attrs"></InfoScanBox>
 </template>
 
 <script>
