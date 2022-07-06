@@ -27,6 +27,6 @@ export default {
 .image {
     border: 2px solid black;
     border-radius: 5px;
-    box-shadow: 2px 2px 3px gray;
+    box-shadow: 2px 2px 10px gray;
 }
 </style>

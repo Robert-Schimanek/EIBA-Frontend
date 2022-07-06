@@ -48,7 +48,7 @@
       >
         Confirm
       </button>
-      {{ currentActivatedBtn }}
+      {{ this.$root.returnpartInfo.oenNumber }}
     </div>
   </div>
 </template>

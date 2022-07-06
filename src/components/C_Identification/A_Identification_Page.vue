@@ -32,6 +32,7 @@
             <label>OEN Number: </label>
             <input type="text"
                 placeholder="Manual input"
+                id="inputOEN"
                 v-model.lazy="value"/>
             <p style="height: 20px"></p>
             <div>

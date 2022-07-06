@@ -19,6 +19,7 @@ export default {
     btnPress(event) {
       this.activateBtn();
       this.$emit("btnPressed", this.targetId);
+      document.getElementById("inputOEN").value = '';
     },
     activateBtn() {
       this.button.classList.add("active");
@@ -42,6 +43,6 @@ export default {
   border: 2px solid black;
   width: 99%;
   border-radius: 5px;
-  font-size: 30px;
+  font-size: 35px;
 }
 </style>
