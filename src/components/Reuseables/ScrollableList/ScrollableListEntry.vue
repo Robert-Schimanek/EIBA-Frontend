@@ -1,6 +1,6 @@
 <template>
-  <button @click="btnPress($event)" :id="displayedNames"
-  class="displayedNames">
+  <button @click='btnPress($event)' :id='displayedNames'
+  class='displayedNames'>
     {{ displayedNames }}
   </button>
 </template>
@@ -8,7 +8,7 @@
 <script>
 export default {
   props: {
-    displayedNames: { default: "Unknown OEN" },
+    displayedNames: { default: 'Unknown OEN' },
   },
   methods: {
     init() {
@@ -18,10 +18,10 @@ export default {
     },
     btnPress(event) {
       this.activateBtn();
-      this.$emit("btnPressed", this.targetId);
+      this.$emit('btnPressed', this.targetId);
     },
     activateBtn() {
-      this.button.classList.add("active");
+      this.button.classList.add('active');
     },
   },
   data() {

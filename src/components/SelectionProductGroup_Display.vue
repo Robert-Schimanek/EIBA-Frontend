@@ -19,12 +19,12 @@
 </template>
 
 <script>
-const Fs = require("fs");
-const Path = require("path");
+const Fs = require('fs');
+const Path = require('path');
 
 export default {
   props: {
-    productGroupName: { default: "XXX" },
+    productGroupName: { default: 'XXX' },
   },
   mounted() {
     this.init();
@@ -36,7 +36,7 @@ export default {
       targetId: null,
       counter: 0,
       button: null,
-      picSource: "NoPicFound.png",
+      picSource: 'NoPicFound.png',
     };
   },
   methods: {
@@ -47,23 +47,23 @@ export default {
     },
     btnPress(event) {
       this.activateBtn();
-      this.$emit("btnPressed", this.targetId);
+      this.$emit('btnPressed', this.targetId);
     },
     activateBtn() {
-      this.button.classList.add("active");
+      this.button.classList.add('active');
     },
     deactivateBtn() {
-      this.button.classList.remove("active");
+      this.button.classList.remove('active');
     },
     setPicture2() {
       this.png = `${this.productGroupName}.png`;
-      this.p = Path.join(__dirname, "..", "..", "assets", "pictures", this.png);
+      this.p = Path.join(__dirname, '..', '..', 'assets', 'pictures', this.png);
 
       if (Fs.existsSync(this.p)) {
         this.picSource = `${this.productGroupName}.png`;
-        console(`no Pic found`);
+        console('no Pic found');
       } else {
-        this.picSource = "NoPicFound.png";
+        this.picSource = 'NoPicFound.png';
       }
     },
     setPicture() {
