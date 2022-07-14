@@ -10,6 +10,9 @@
         </template>
 
 <script>
+export default {
+  props: ['mode']
+};
 </script>
 
 <style>
