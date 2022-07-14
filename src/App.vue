@@ -2,15 +2,29 @@
 import Toggle from '@/components/ColorSwitch.vue';
 
 export default {
-  props: ['mode'],
+  // props: ['mode'],
   components: {
     Toggle,
+  },
+  data() {
+    return {
+      mode: 'light'
+    };
+  },
+  methods: {
+    toggle() {
+      if (this.mode === "dark") {
+        this.mode = "light";
+      } else {
+        this.mode = "dark";
+      }
+    }
   },
 };
 </script>
 <template>
 <header>
-    <div id="nav" class="nav_bar">
+    <div id="nav" class="nav_bar" :class="mode">
     <router-link to="/"><button class="nav_button">Home</button></router-link>
     <router-link to="/Avise"><button class="nav_button">Avise</button></router-link>
     <router-link to="/selectionII"><button class="nav_button">Selection</button></router-link>
@@ -74,5 +88,9 @@ export default {
 
  /**     display:table; */
       border: 1px solid black;
+}
+
+.dark{
+  background: #2c3e50;
 }
 </style>
