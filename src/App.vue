@@ -31,7 +31,9 @@ export default {
     <router-link to="/Goodsin"><button class="nav_button">Goods in</button></router-link>
     <router-link to="/Boxes"><button class="nav_button">Boxes</button></router-link>
     <router-link to="/Goodsout"><button class="nav_button">Goods out</button></router-link>
+    <div id="tog">
     <Toggle :mode="mode" @toggle="toggle" />
+    </div>
   </div>
 </header>
 
@@ -47,6 +49,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#tog {
+  padding: 10px;
+  position: absolute;
+  top: 20px;
+  right: 5px;
 }
 
 #nav {
@@ -88,6 +97,7 @@ export default {
 
  /**     display:table; */
       border: 1px solid black;
+      position: relative;
 }
 
 .dark{
