@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     change(updatedStuff) {
-      this.aSelTab = updatedStuff;
+      this.aSelTab = updatedStuff;  
     },
     sendselectionidtochild(updatedStuff) {
       this.session_key_main = updatedStuff;

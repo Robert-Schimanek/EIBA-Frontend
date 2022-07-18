@@ -1,21 +1,24 @@
 <template>
   <div>
     <div v-if="form_data.bar_code">
-      <button style="border-radius:10px;"
-      @click="randomEAN(boxinfos)">
-      <VueBarcode  v-bind:value="form_data.bar_code" :options="{ displayValue: true }"
-      style="width: 170px">
-      </VueBarcode>
+      <button style="border-radius: 10px" @click="loadRandomExistingEAN">
+        <VueBarcode
+          v-bind:value="form_data.bar_code"
+          :options="{ displayValue: true }"
+          style="width: 170px"
+        >
+        </VueBarcode>
       </button>
     </div>
-    <form @submit.prevent='SelectionStart'>
+    <form @submit.prevent="SelectionStart">
       <div>
         <label for="customer_number">Post customer number</label>
         <input
           type="text"
           id="customer_number"
           v-model="form_data.customer_number"
-          placeholder="43016357">
+          placeholder="43016357"
+        />
       </div>
       <!-- <div>
         <label for="box">Usually a barcode is printed on the package.
@@ -28,8 +31,7 @@
         placeholder="Enter EAN box code" />
         <input type="hidden" id="box" v-model="box">
       </div> -->
-      <div>
-      </div>
+      <div></div>
       <!-- <div>
         <label for="session_key">Each inspection is a unique process.
         Assign a unique identifier (Selection ID) to this operation to initialize
@@ -41,108 +43,134 @@
           placeholder="Enter insepection ID">
       </div> -->
       <div>
-        <p>Each inspection is a unique process.
-        Generate a unique identifier (Selection ID) to this operation to initialize
-        the operation in the system.</p>
+        <p>
+          Each inspection is a unique process. Generate a unique identifier
+          (Selection ID) to this operation to initialize the operation in the
+          system.
+        </p>
         <!-- <button @click="form_data.session_key=generateID()">Generate ID</button>-->
-        <p>Selection ID: {{random_ID}}</p>
+        <p>Selection ID: {{ loadedData.ID}}</p>
       </div>
 
-      <div style="display: flex;">
-        <SelectionOrderData></SelectionOrderData>
-        <div style="position: absolute; top: 50%;"></div>
-        <div style="display: flex; align-items: center; padding-left: 20px;">
-            <button style="border-radius:10px;"
-            @click="form_data.session_key=generateID()">
-            <img src="../assets/pictures/BarcodeScanner.png" alt="BARCODE BUTTON"
-            style="width:200px">
-            </button>
+      <div style="display: flex">
+        <SelectionOrderData :jsonObject="loadedData"></SelectionOrderData>
+        <div style="position: absolute; top: 50%"></div>
+        <div style="display: flex; align-items: center; padding-left: 20px">
+          <button
+            style="border-radius: 10px"
+            @click="form_data.session_key = generateID()"
+          >
+            <img
+              src="../assets/pictures/BarcodeScanner.png"
+              alt="BARCODE BUTTON"
+              style="width: 200px"
+            />
+          </button>
         </div>
-        <div style="display: flex; padding-left: 20px; align-items: flex-end;">
+        <div style="display: flex; padding-left: 20px; align-items: flex-end">
           <div>
-
-            <button class="bigButtonText" style="width: 170px; "
-            @click="form_data.session_key=generateID();form_data.bar_code = 'empty'"
-            >NO BOX</button>
-            <p style="font-size:40px"></p>
-            <button class="bigButtonText" style="width: 170px;
-            vertical-align: baseline;"
-            @click="form_data.session_key=generateID();form_data.bar_code = 'empty'" >
-            NO BARCODE</button>
+            <button
+              class="bigButtonText"
+              style="width: 170px"
+              @click="
+                form_data.session_key = generateID();
+                form_data.bar_code = 'empty';
+              "
+            >
+              NO BOX
+            </button>
+            <p style="font-size: 40px"></p>
+            <button
+              class="bigButtonText"
+              style="width: 170px; vertical-align: baseline"
+              @click="
+                form_data.session_key = generateID();
+                form_data.bar_code = 'empty';
+              "
+            >
+              NO BARCODE
+            </button>
           </div>
         </div>
-
       </div>
-
     </form>
   </div>
   <div>
-    <div v-if="form_data.session_key==bde_server_start_response.session_key">
+    <div v-if="form_data.session_key == bde_server_start_response.session_key">
       <p>Customer is known to the prediction model:</p>
       <p>{{ bde_server_start_response.customer_known }}</p>
-      <p>Bar code on package box ({{ form_data.bar_code }}) is known to the prediction model:</p>
+      <p>
+        Bar code on package box ({{ form_data.bar_code }}) is known to the
+        prediction model:
+      </p>
       <p>{{ bde_server_start_response.bar_code_known }}</p>
       <p>Temporary selection ID: {{ bde_server_start_response.session_key }}</p>
     </div>
     <div v-if="box.bar_code">
       <div v-if="box.image_thumbnail">
-        <p>The EAN box code {{ box.bar_code }}
-        is associated with a core similar to the image:</p>
-        <img v-bind:src="box.image_thumbnail"/>
+        <p>
+          The EAN box code {{ box.bar_code }} is associated with a core similar
+          to the image:
+        </p>
+        <img v-bind:src="box.image_thumbnail" />
       </div>
     </div>
   </div>
-  <div v-if="form_data.session_key==bde_server_start_response.session_key">
-    <button
-      @click="changeEvaluation(bde_server_start_response.session_key)">
-        Put core on scale
+  <div v-if="form_data.session_key == bde_server_start_response.session_key">
+    <button @click="changeEvaluation(bde_server_start_response.session_key)">
+      Put core on scale
     </button>
   </div>
-  <div v-if="form_data.session_key=='ProcessCompleted'">
-    <button @click="goToHome()"> Go to Home </button>
+  <div v-if="form_data.session_key == 'ProcessCompleted'">
+    <button @click="goToHome()">Go to Home</button>
   </div>
-  </template>
+</template>
 
 <script>
-import VueBarcode from '@chenfengyuan/vue-barcode';
-import boxLinks from '../assets/bar_code.json';
-import boxInfos from '../assets/bar_code_list.json';
-import SelectionOrderData from './SelectionOrderData.vue';
+import VueBarcode from "@chenfengyuan/vue-barcode";
+import boxLinks from "../assets/bar_code.json";
+import boxInfos from "../assets/bar_code_list.json";
+import SelectionOrderData from "./SelectionOrderData.vue";
+import demoData from "../assets/Data/sample.json";
 
 export default {
-  name: 'SelectionStart',
+  name: "SelectionStart",
   data() {
     return {
-      box: '',
+      box: "",
       form_data: {
-        customer_number: '43016357',
-        bar_code: '',
-        bar_code_scanable: 'Y',
-        box_exists: 'Y',
-        program: 'IAM gesamt',
-        session_key: '',
+        customer_number: "43016357",
+        bar_code: "",
+        bar_code_scanable: "Y",
+        box_exists: "Y",
+        program: "IAM gesamt",
+        session_key: "",
       },
-      bde_server_start_response: '',
+      bde_server_start_response: "",
       boxlinks: boxLinks,
       boxinfos: boxInfos,
-      selected: '',
+      selected: "",
+      loadedData: { ID: "NULL" }, // this is a single object loaded from /src/assets/Data/samples.json
     };
   },
-  emits: ['change-evaluation'],
+  emits: ["change-evaluation", "session-key"],
   methods: {
     SelectionStart() {
-      this.$axios.post('http://localhost:5100/bde/selection/start', this.form_data)
-        .then((response) => { this.bde_server_start_response = response.data; });
+      this.$axios
+        .post("http://localhost:5100/bde/selection/start", this.form_data)
+        .then((response) => {
+          this.bde_server_start_response = response.data;
+        });
     },
     goToHome() {
-      this.$router.push('/');
+      this.$router.push("/");
     },
     changeEvaluation(sessionKey) {
-      this.$emit('change-evaluation', 'SelectionEvaluation');
-      this.$emit('session-key', sessionKey);
+      this.$emit("change-evaluation", "SelectionEvaluation");
+      this.$emit("session-key", sessionKey);
     },
     emitSelectionid(sessionKey) {
-      this.$emit('session-key', sessionKey);
+      this.$emit("session-key", sessionKey);
     },
     generateID() {
       this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
@@ -152,9 +180,23 @@ export default {
       const randomIndex = Math.floor(Math.random() * boxinfos.length);
       this.form_data.bar_code = boxinfos[randomIndex].bar_code;
     },
+    loadRandomExistingEAN() {
+      const randomIndex = Math.floor(Math.random() * Object.keys(demoData).length);
+      console.log(`Index: ${randomIndex}`);
+      this.loadDataWithEAN13(demoData[randomIndex].EAN13);
+    },
+    loadDataWithEAN13(EAN) {
+      for (let [key, value] of Object.entries(demoData)) {
+        if (value.EAN13 === EAN) {
+          console.log(`FIRST! hit for${EAN} found in samples.json for key ${key}`);
+          this.loadedData = value;
+          break;
+        }
+      }
+    },
   },
   mounted() {
-    console.log('the component is now mounted.');
+    console.log("the component is now mounted.");
     this.randomEAN(boxInfos);
   },
   components: {
@@ -162,7 +204,6 @@ export default {
     VueBarcode,
   },
 };
-
 </script>
 
 <style>

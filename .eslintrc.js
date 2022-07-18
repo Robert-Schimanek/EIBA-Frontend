@@ -24,5 +24,6 @@ module.exports = exports = {
         "comma-dangle": "off",
         "no-multi-assign": "off",
         "no-restricted-globals": "off",
+        "no-restricted-syntax": "off",
     }
 };
