@@ -8,7 +8,7 @@ export default {
   },
   data() {
     return {
-      mode: 'light'
+      mode: localStorage.getItem('colormode')
     };
   },
   methods: {
@@ -18,6 +18,7 @@ export default {
       } else {
         this.mode = "dark";
       }
+      localStorage.setItem('colormode', this.mode);
     }
   },
 };
