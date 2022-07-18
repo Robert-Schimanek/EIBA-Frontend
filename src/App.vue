@@ -31,7 +31,7 @@ export default {
     <router-link to="/Goodsin"><button class="nav_button">Goods in</button></router-link>
     <router-link to="/Boxes"><button class="nav_button">Boxes</button></router-link>
     <router-link to="/Goodsout"><button class="nav_button">Goods out</button></router-link>
-    <Toggle :mode="mode" @toggle="$emit('toggle')" />
+    <Toggle :mode="mode" @toggle="toggle" />
   </div>
 </header>
 
