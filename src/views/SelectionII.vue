@@ -23,6 +23,7 @@
         v-if="aSelTab === 'SelectionResultOEN'"
         :session_key_main="session_key_main"
         :core_mass_main="core_mass_main"
+        :loadedData="loadedData"
       />
     </keep-alive>
     <keep-alive>

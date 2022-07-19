@@ -1,4 +1,5 @@
 <template>
+<p>TESTWERT GEWICHT: {{loadedData.Weight}}</p>
   <div id='mainDiv' align='center' style='display: flex'>
     <div id='UpDown' style='width: 250px; margin-top: 300px' align='center'>
       <button

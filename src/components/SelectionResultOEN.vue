@@ -1,4 +1,5 @@
 <template>
+<h1>TESTWERT GEWICHT VON LOADED DATA: {{loadedData.Weight}}</h1>
   <div align="center">
         <h1 class="roundedContainer">OEN Identification</h1>
   </div>
@@ -72,7 +73,7 @@ export default {
     Scroll,
   },
   name: 'SelectionResultOEN',
-  props: ['session_key_main', 'core_mass_main'],
+  props: ['session_key_main', 'core_mass_main', 'loadedData'],
   data() {
     return {
       form_data: {
