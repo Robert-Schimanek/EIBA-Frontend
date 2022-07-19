@@ -82,20 +82,6 @@ export default {
       this.$emit('core-mass', coreMass);
     },
   },
-  computed: {
-    mass: () => {
-      let m = 0;
-      try { m = this.loadedData.Weight; } catch (e) {
-        m = 0;
-      }
-      return m;
-    }
-  },
-  watch: {
-    loadedData(newVal, oldVal) {
-      mass = newVal.Weight;
-    }
-  }
 };
 </script>
 
