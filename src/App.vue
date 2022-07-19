@@ -37,8 +37,7 @@ export default {
     </div>
   </div>
 </header>
-
-  <div class="container">
+  <div class="container" :class="mode">
     <router-view/>
   </div>
 </template>
@@ -103,5 +102,6 @@ export default {
 
 .dark{
   background: #2c3e50;
+  color: white;
 }
 </style>
