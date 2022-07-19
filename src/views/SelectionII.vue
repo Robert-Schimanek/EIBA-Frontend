@@ -30,6 +30,7 @@
       <SelectionProductGroup
         v-if="aSelTab === 'SelectionResultPG'"
         @change-to-results-OEN="change($event)"
+        @updateLoadedData="updateLoadedData($event)"
         :session_key_main="session_key_main"
         :core_mass_main="core_mass_main"
         :loadedData="loadedData"
@@ -49,8 +50,11 @@
         @change-evaluation="change($event)"
         @session-key="sendselectionidtochild($event)"
         @sendLoadedData="loadedData = $event"
+        :loadedData2="loadedData"
       />
     </keep-alive>
+    <!--loadedData2: storing data at $root, instead inside components,
+      wouldn't have caused this line -->
     <!-- <keep-alive>
     <selection-start
     v-if="aSelTab === 'SelectionSensorInput'"
@@ -93,6 +97,10 @@ export default {
     },
     sendcoremasstochild(updatedStuff) {
       this.core_mass_main = updatedStuff;
+    },
+    updateLoadedData(newData) {
+      // newData = [NameOfValue, Value]
+      this.loadedData[newData[0]] = newData[1];
     },
   },
 };

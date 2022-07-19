@@ -60,6 +60,8 @@
           <tr>
           <th align="left" width="100px">Accept state:</th>
           <td align="left">{{ loadedData["Accept State"] }}</td>
+          <th align="left" width="100px">prod group:</th>
+          <td align="left">{{ loadedData["Product Group from ID"] }}</td>
           </tr>
           <tr>
           <th align="left" width="100px">Box:</th>
@@ -157,6 +159,12 @@ import demoData from "../assets/Data/sample.json";
 
 export default {
   name: "SelectionStart",
+  props: ['loadedData2'],
+  watch: {
+    loadedData2(newVal, oldVal) {
+      this.loadedData = newVal;
+    }
+  },
   data() {
     return {
       box: "",
@@ -177,7 +185,7 @@ export default {
       }, // this is a single object loaded from /src/assets/Data/samples.json
     };
   },
-  emits: ["change-evaluation", "session-key"],
+  emits: ["change-evaluation", "session-key", "sendLoadedData"],
   methods: {
     SelectionStart() {
       console.log("selectionStart -> SelectionStart() triggered");

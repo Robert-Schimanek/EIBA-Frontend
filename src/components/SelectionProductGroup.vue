@@ -38,7 +38,8 @@
         id='confirmBtnPrdGroup'
         disabled='true'
         style='margin-top: 350px'
-        @click="changeToResults(form_data.session_key)"
+        @click="confirmed(),
+        changeToResults(form_data.session_key)"
       >
         Confirm
       </button>
@@ -53,6 +54,7 @@ import display from './SelectionProductGroup_Display.vue';
 export default {
   name: 'SelectionProductGroup',
   props: ['session_key_main', 'loadedData'],
+  emits: ['updateLoadedData'],
   components: {
     display,
   },
@@ -116,7 +118,8 @@ export default {
       document.getElementById('confirmBtnPrdGroup').disabled = false;
     },
     confirmed() {
-      alert(`Confirm with ${this.currentActivatedBtn} selected`);
+      console.log(`${this.currentActivatedBtn} selected`);
+      this.$emit("updateLoadedData", ["Product Group from ID", this.currentActivatedBtn]);
     },
   },
   mounted() {
