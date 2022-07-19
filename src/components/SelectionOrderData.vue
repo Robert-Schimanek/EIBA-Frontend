@@ -12,7 +12,7 @@
       </tr>
       <tr>
         <th align="left">Order:</th>
-        <td align="left">{{ order_i }}</td>
+        <td align="left">{{ order }}</td>
       </tr>
       <tr>
         <th align="left">Reman:</th>
@@ -29,7 +29,6 @@
       funcDesc="Close"
       :functionToExecute="closeOrder"
     />
-    <button>DEBUG</button>
   </div>
 </template>
 
@@ -41,29 +40,34 @@ export default {
     SelectionOrderDataButton,
   },
   props: {
-    customer_i: { default: "Customer Unknown" },
-    order_i: { default: "Order Unknown" },
-    program_i: { default: "Program Unknown" },
-    reman_i: { default: "Reman Unkown" },
-    jsonObject: { default: null },
+    jsonObject: {
+      /*
+      "Customer Number": "Custome r Number Unkown",
+      Program: "Program Unknown",
+      ID: "ID unknown",
+      EnteredReman: "Reman unkown", */
+    },
   },
-  wattch: {
-    jsonObject: (newVal, oldVal) => {
+  watch: {
+    jsonObject(newVal, oldVal) {
       console.log("selectionOrderData Watch triggered");
-      if (jsonObject !== null) {
-        customer = this.newVal["Customer Number"];
-        program = this.newVal.Program;
-        order = this.newVal.ID;
-        reman = this.newVal.ID == null ? "Reman Unkown" : this.EnteredReman.ID;
+      if (newVal !== null) {
+        console.log("newVal:");
+        console.log(newVal);
+        this.customer = newVal["Customer Number"];
+        this.program = newVal.Program;
+        this.order = newVal.ID;
+        this.reman =
+          newVal.EnteredReman == null ? "Reman Unkown" : newVal.EnteredReman;
       }
     },
   },
   data() {
     return {
-      customer: this.customer_i,
-      program: this.program_i,
-      order: this.order_i,
-      reman: this.reman_i,
+      customer: "Customer Unknown",
+      program: "Program Unknown",
+      order: "Order Unknown",
+      reman: "Reman Unkown",
     };
   },
   methods: {
@@ -73,9 +77,6 @@ export default {
     closeOrder() {
       const message = "order closed";
       window.alert(message);
-    },
-    debug() {
-      console.log(this.jsonObject.ID);
     },
   },
 };

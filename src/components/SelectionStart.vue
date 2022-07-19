@@ -49,11 +49,12 @@
           system.
         </p>
         <!-- <button @click="form_data.session_key=generateID()">Generate ID</button>-->
-        <p>Selection ID: {{ loadedData.ID}}</p>
+        <p>Selection ID: {{ loadedData.ID }}</p>
+        <p>Accept state: {{loadedData["Accept State"]}}</p>
       </div>
 
       <div style="display: flex">
-        <SelectionOrderData :jsonObject="loadedData"></SelectionOrderData>
+        <SelectionOrderData v-model:jsonObject="loadedData"></SelectionOrderData>
         <div style="position: absolute; top: 50%"></div>
         <div style="display: flex; align-items: center; padding-left: 20px">
           <button
@@ -71,7 +72,7 @@
           <div>
             <button
               class="bigButtonText"
-              style="width: 170px"
+              style="width: 220px"
               @click="
                 form_data.session_key = generateID();
                 form_data.bar_code = 'empty';
@@ -82,7 +83,7 @@
             <p style="font-size: 40px"></p>
             <button
               class="bigButtonText"
-              style="width: 170px; vertical-align: baseline"
+              style="width: 260px; vertical-align: baseline"
               @click="
                 form_data.session_key = generateID();
                 form_data.bar_code = 'empty';
@@ -150,12 +151,13 @@ export default {
       boxlinks: boxLinks,
       boxinfos: boxInfos,
       selected: "",
-      loadedData: { ID: "NULL" }, // this is a single object loaded from /src/assets/Data/samples.json
+      loadedData: { ID: "NULL", "Accept State": "Not Set" }, // this is a single object loaded from /src/assets/Data/samples.json
     };
   },
   emits: ["change-evaluation", "session-key"],
   methods: {
     SelectionStart() {
+      console.log("selectionStart -> SelectionStart() triggered");
       this.$axios
         .post("http://localhost:5100/bde/selection/start", this.form_data)
         .then((response) => {
@@ -181,14 +183,18 @@ export default {
       this.form_data.bar_code = boxinfos[randomIndex].bar_code;
     },
     loadRandomExistingEAN() {
-      const randomIndex = Math.floor(Math.random() * Object.keys(demoData).length);
+      const randomIndex = Math.floor(
+        Math.random() * Object.keys(demoData).length
+      );
       console.log(`Index: ${randomIndex}`);
       this.loadDataWithEAN13(demoData[randomIndex].EAN13);
     },
     loadDataWithEAN13(EAN) {
       for (let [key, value] of Object.entries(demoData)) {
         if (value.EAN13 === EAN) {
-          console.log(`FIRST! hit for${EAN} found in samples.json for key ${key}`);
+          console.log(
+            `FIRST! hit for${EAN} found in samples.json for key ${key}`
+          );
           this.loadedData = value;
           break;
         }

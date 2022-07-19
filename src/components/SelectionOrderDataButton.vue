@@ -1,5 +1,5 @@
 <template>
-  <button @click="functionToExecute" class="bigButtonText" style="width: 100px">
+  <button @click="functionToExecute" class="bigButtonText" style="width: 150px">
   {{ funcDesc}}</button>
 </template>
 
