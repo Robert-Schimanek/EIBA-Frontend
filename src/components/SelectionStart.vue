@@ -49,12 +49,30 @@
           system.
         </p>
         <!-- <button @click="form_data.session_key=generateID()">Generate ID</button>-->
-        <p>Selection ID: {{ loadedData.ID }}</p>
-        <p>Accept state: {{loadedData["Accept State"]}}</p>
+        <table align="center">
+          <tr>
+          <th align="left" width="100px">Selection ID:</th>
+          <td align="left">{{ loadedData.ID }}</td>
+          <th align="left" width="100px">Barcode scan:</th>
+          <td align="left">{{ loadedData["Box code scanable"] === "Y" ?
+          "Exists" : "No barcode" }}</td>
+          </tr>
+          <tr>
+          <th align="left" width="100px">Accept state:</th>
+          <td align="left">{{ loadedData["Accept State"] }}</td>
+          </tr>
+          <tr>
+          <th align="left" width="100px">Box:</th>
+          <td align="left">{{ loadedData["Box exists"] === "Y" ? "Exists" : "No box" }}</td>
+          </tr>
+        </table>
       </div>
 
       <div style="display: flex">
-        <SelectionOrderData v-model:jsonObject="loadedData"></SelectionOrderData>
+        <SelectionOrderData
+          @updateloadedData="updateLoadedData"
+          :jsonObject="loadedData"
+        ></SelectionOrderData>
         <div style="position: absolute; top: 50%"></div>
         <div style="display: flex; align-items: center; padding-left: 20px">
           <button
@@ -76,6 +94,7 @@
               @click="
                 form_data.session_key = generateID();
                 form_data.bar_code = 'empty';
+                loadedData[`Box exists`] = 'N';
               "
             >
               NO BOX
@@ -87,6 +106,8 @@
               @click="
                 form_data.session_key = generateID();
                 form_data.bar_code = 'empty';
+                loadedData['Box code scanable'] = 'N';
+                loadedData['Box code known'] = 'N';
               "
             >
               NO BARCODE
@@ -151,7 +172,9 @@ export default {
       boxlinks: boxLinks,
       boxinfos: boxInfos,
       selected: "",
-      loadedData: { ID: "NULL", "Accept State": "Not Set" }, // this is a single object loaded from /src/assets/Data/samples.json
+      loadedData: {
+        ID: "-", "Accept State": "-", "Box exists": "-", "Box code scanable": "-"
+      }, // this is a single object loaded from /src/assets/Data/samples.json
     };
   },
   emits: ["change-evaluation", "session-key"],
@@ -199,6 +222,12 @@ export default {
           break;
         }
       }
+    },
+    updateLoadedData(newData) {
+      // newData = [NameOfValue, Value]
+      console.log(`Data0: ${newData[0]}`);
+      console.log(`Data1: ${newData[1]}`);
+      this.loadedData[newData[0]] = newData[1];
     },
   },
   mounted() {

@@ -25,6 +25,7 @@ module.exports = exports = {
         "no-multi-assign": "off",
         "no-restricted-globals": "off",
         "no-restricted-syntax": "off",
-        "operator-linebreak": "off"
+        "operator-linebreak": "off",
+        "prefer-destructuring": "off",
     }
 };

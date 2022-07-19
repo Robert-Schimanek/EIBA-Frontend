@@ -15,8 +15,8 @@
         <td align="left">{{ order }}</td>
       </tr>
       <tr>
-        <th align="left">Reman:</th>
-        <td align="left">{{ reman }}</td>
+        <th align="left">Customer Delv No.:</th>
+        <td align="left">{{ CustomerDelvNo }}</td>
       </tr>
     </table>
     <p style="margin: 30px"></p>
@@ -50,15 +50,11 @@ export default {
   },
   watch: {
     jsonObject(newVal, oldVal) {
-      console.log("selectionOrderData Watch triggered");
       if (newVal !== null) {
-        console.log("newVal:");
-        console.log(newVal);
         this.customer = newVal["Customer Number"];
         this.program = newVal.Program;
         this.order = newVal.ID;
-        this.reman =
-          newVal.EnteredReman == null ? "Reman Unkown" : newVal.EnteredReman;
+        this.CustomerDelvNo = newVal["Customer Delv No."];
       }
     },
   },
@@ -67,16 +63,15 @@ export default {
       customer: "Customer Unknown",
       program: "Program Unknown",
       order: "Order Unknown",
-      reman: "Reman Unkown",
+      CustomerDelvNo: "Unknown",
     };
   },
   methods: {
     putOnShelf() {
-      window.alert("placed on shelf!");
+      this.$emit("updateloadedData", ["Accept State", "placed on shelf"]);
     },
     closeOrder() {
-      const message = "order closed";
-      window.alert(message);
+      this.$emit("updateloadedData", ["Accept State", "Order closed"]);
     },
   },
 };
