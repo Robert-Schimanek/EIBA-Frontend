@@ -51,7 +51,7 @@ import display from './SelectionProductGroup_Display.vue';
 
 export default {
   name: 'SelectionProductGroup',
-  props: ['session_key_main'],
+  props: ['session_key_main', 'loadedData'],
   components: {
     display,
   },

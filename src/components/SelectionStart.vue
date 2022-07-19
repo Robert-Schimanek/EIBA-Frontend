@@ -193,6 +193,7 @@ export default {
     changeEvaluation(sessionKey) {
       this.$emit("change-evaluation", "SelectionEvaluation");
       this.$emit("session-key", sessionKey);
+      this.$emit("sendLoadedData", this.loadedData);// used for SelectionII
     },
     emitSelectionid(sessionKey) {
       this.$emit("session-key", sessionKey);

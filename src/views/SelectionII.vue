@@ -31,6 +31,7 @@
         @change-to-results-OEN="change($event)"
         :session_key_main="session_key_main"
         :core_mass_main="core_mass_main"
+        :loadedData="loadedData"
       />
     </keep-alive>
     <SelectionEvaluation
@@ -38,6 +39,7 @@
       @change-to-results-OEN="change($event)"
       @change-to-results-PG="change($event)"
       @core-mass="sendcoremasstochild($event)"
+      :loadedData="loadedData"
       :session_key_main="session_key_main"
     />
     <keep-alive>
@@ -45,6 +47,7 @@
         v-if="aSelTab === 'SelStart'"
         @change-evaluation="change($event)"
         @session-key="sendselectionidtochild($event)"
+        @sendLoadedData="loadedData = $event"
       />
     </keep-alive>
     <!-- <keep-alive>
@@ -75,6 +78,9 @@ export default {
       aSelTab: "SelStart",
       session_key_main: "initializeID",
       core_mass_main: null,
+      loadedData: {
+        ID: "-", "Accept State": "-", "Box exists": "-", "Box code scanable": "-", Weight: 0
+      }, // this is a single object loaded from /src/assets/Data/samples.json
     };
   },
   methods: {

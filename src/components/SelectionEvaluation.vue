@@ -8,6 +8,7 @@
     <form @submit.prevent='SelectionEvaluation(method)'>
       <div>
         <label for="core_mass">Post mass</label>
+        <p>Mass = {{ loadedData.Weight }}kg (loaded from JSON)</p>
         <input type="text" id="core_mass" v-model="form_data.core_mass">
       </div>
       <div>
@@ -49,7 +50,7 @@
 <script>
 export default {
   name: 'SelectionEvaluation',
-  props: ['session_key_main'],
+  props: ['session_key_main', 'loadedData'],
   data() {
     return {
       form_data: {
@@ -81,6 +82,20 @@ export default {
       this.$emit('core-mass', coreMass);
     },
   },
+  computed: {
+    mass: () => {
+      let m = 0;
+      try { m = this.loadedData.Weight; } catch (e) {
+        m = 0;
+      }
+      return m;
+    }
+  },
+  watch: {
+    loadedData(newVal, oldVal) {
+      mass = newVal.Weight;
+    }
+  }
 };
 </script>
 
