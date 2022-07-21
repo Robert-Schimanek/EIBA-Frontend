@@ -67,7 +67,7 @@
           <th align="left" width="100px">Box:</th>
           <td align="left">{{ loadedData["Box exists"] === "Y" ? "Exists" : "No box" }}</td>
           <th align="left" width="100px">Pic exist:</th>
-          <td align="left">{{ loadedData["Cam Images"] === null ? "Exists" : "No pic" }}</td>
+          <td align="left">{{ loadedData["Cam Images"] !== null ? "Exists" : "No pic" }}</td>
           </tr>
         </table>
       </div>
