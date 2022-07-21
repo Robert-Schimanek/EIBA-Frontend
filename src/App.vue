@@ -75,7 +75,8 @@ export default {
 
 .bod{
   width: 100%;
-  min-height: calc(100vh - 140px); /* minus height of header, so body plus header have size of screen */
+  min-height: calc(100vh - 140px);
+  /* minus height of header, so body plus header have size of screen */
 }
 .container {
   width: 900px;
