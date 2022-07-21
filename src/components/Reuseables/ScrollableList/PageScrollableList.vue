@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { listenerCount } from "process";
 import display from "./ScrollableListEntry.vue";
 
 export default {

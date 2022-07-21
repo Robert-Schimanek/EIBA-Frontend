@@ -1,5 +1,6 @@
 <template>
 <h1>TESTWERT GEWICHT VON LOADED DATA: {{loadedData.Weight}}</h1>
+<h1>{{loadedData.ID}}</h1>
   <div align="center">
         <h1 class="roundedContainer">OEN Identification</h1>
   </div>
@@ -18,7 +19,8 @@
             <p style="height: 15px; padding: 5px; text-align: left">
             Weight: {{form_data.core_mass}} kg</p>
             <div class="image" v-for="i in [0, 1, 2]" :key="i">
-              <CImages :Image="ImageType[i]"></CImages>
+              <CImages :ImageType="ImageType[i]" :ID="loadedData.ID"
+              :ImageLink="ImageLink[i]"></CImages>
             </div>
         </div>
         <div v-if="KIAnswer==false" style="float: left; width: 25%">
@@ -32,7 +34,8 @@
             <p style="height: 15px; padding: 5px; text-align: left">
             Weight: {{weight_history}} kg</p>
             <div class="image" v-for="i in [3, 4, 5]" :key="i">
-                <CImages :Image="ImageType[i]"></CImages>
+                <CImages :ImageType="ImageType[i]" :ID="loadedData.ID"
+                :ImageLink="ImageLink[i]"></CImages>
             </div>
         </div>
         <div style="float: left; width: 45%">
@@ -58,6 +61,7 @@
     <p>ProductGroup prediction has started:
     {{ bde_server_result_OEN_response.prediction_product_group_commissioned }}</p>
     <p>Temporary selection id: {{ bde_server_result_OEN_response.session_key }}</p>
+    <ImgPaths></ImgPaths>
   </div>
 </template>
 
@@ -83,12 +87,20 @@ export default {
       bde_server_result_OEN_response: '',
       value: '',
       ImageType: [
-        '/IdentificationID/Front-View',
-        '/IdentificationID/Back-View',
-        '/IdentificationID/Side-View',
-        '/IdentificationKI/Front-View',
-        '/IdentificationKI/Back-View',
-        '/IdentificationKI/Side-View',
+        'Left-View',
+        'Right-View',
+        'Top-View',
+        'Left-View',
+        'Right-View',
+        'Top-View',
+      ],
+      ImageLink: [
+        'Left_Color',
+        'Right_Color',
+        'Top_Color',
+        'Left_Color',
+        'Right_Color',
+        'Top_Color',
       ],
       KIAnswer: false,
       weight_history: 2345,
@@ -108,9 +120,13 @@ export default {
     manualInput() {
       document.getElementById('ConfirmBtn').disabled = false;
     },
+    getJson() {
+      $.getJSON(`http://localhost:5800/EIBA/Images/05_27_2022/${loadedData.ID}.zip/Part_${loadedData.ID}.json`, (data) => { console.log(data); });
+    },
   },
   mounted() {
     this.init();
+    this.getJson();
   },
 };
 </script>
