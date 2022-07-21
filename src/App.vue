@@ -37,9 +37,11 @@ export default {
     </div>
   </div>
 </header>
-  <div class="container" :class="mode">
+<div class="bod" :class="mode">
+  <div class="container">
     <router-view/>
   </div>
+</div>
 </template>
 
 <style>
@@ -70,11 +72,15 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.bod{
+  width: 100%;
+  min-height: calc(100vh - 140px); /* minus height of header, so body plus header have size of screen */
+}
 .container {
   width: 900px;
   border: 1px solid black;
   margin: auto;
-
 }
 .nav_button{
   background-color: #d4d4d4;
