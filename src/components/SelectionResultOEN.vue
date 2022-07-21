@@ -121,7 +121,10 @@ export default {
       document.getElementById('ConfirmBtn').disabled = false;
     },
     getJson() {
-      $.getJSON(`http://localhost:5800/EIBA/Images/05_27_2022/${loadedData.ID}.zip/Part_${loadedData.ID}.json`, (data) => { console.log(data); });
+      if (this.loadedData["Cam Images"] !== null) {
+        this.$axios.get(`http://localhost:5800/EIBA/Images/05_27_2022/${this.loadedData.ID}.zip/Part_${this.loadedData.ID}.json`)
+          .then((data) => { console.log(data.data.topCamera.images.color); });
+      }
     },
   },
   mounted() {
