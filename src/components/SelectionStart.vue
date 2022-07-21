@@ -66,6 +66,8 @@
           <tr>
           <th align="left" width="100px">Box:</th>
           <td align="left">{{ loadedData["Box exists"] === "Y" ? "Exists" : "No box" }}</td>
+          <th align="left" width="100px">Pic exist:</th>
+          <td align="left">{{ loadedData["Cam Images"] === null ? "Exists" : "No pic" }}</td>
           </tr>
         </table>
       </div>
@@ -181,7 +183,7 @@ export default {
       boxinfos: boxInfos,
       selected: "",
       loadedData: {
-        ID: "-", "Accept State": "-", "Box exists": "-", "Box code scanable": "-"
+        ID: "-", "Accept State": "-", "Box exists": "-", "Box code scanable": "-", "Cam Images": null
       }, // this is a single object loaded from /src/assets/Data/samples.json
     };
   },
