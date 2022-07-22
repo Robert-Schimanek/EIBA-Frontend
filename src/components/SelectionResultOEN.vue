@@ -63,6 +63,7 @@
     <p>Temporary selection id: {{ bde_server_result_OEN_response.session_key }}</p>
     <ImgPaths></ImgPaths>
   </div>
+  <button @click="test">TEST</button>
 </template>
 
 <script>
@@ -126,6 +127,9 @@ export default {
           .then((data) => { console.log(data.data.topCamera.images.color); });
       }
     },
+    test() {
+      console.log(this.bde_server_result_OEN_response.oen_prediction_list.predictions[1]);
+    }
   },
   mounted() {
     this.init();

@@ -1,5 +1,5 @@
 <template>
-  <div class="roundedContainer">
+  <div class="roundedContainer" style="margin:25px; padding: 5px;">
     <h1>Order Data</h1>
     <table align="center">
       <tr>

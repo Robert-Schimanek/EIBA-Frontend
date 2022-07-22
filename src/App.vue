@@ -39,7 +39,7 @@
   color: #42b983;
 }
 .container {
-  width: 900px;
+  width: 95%;
   border: 1px solid black;
   margin: auto;
 

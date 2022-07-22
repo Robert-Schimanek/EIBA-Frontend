@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-if="form_data.bar_code">
-      <button style="border-radius: 10px" @click="loadRandomExistingEAN">
+      <button style="width: 20%;" @click="loadRandomExistingEAN">
         <VueBarcode
           v-bind:value="form_data.bar_code"
           :options="{ displayValue: true }"
-          style="width: 170px"
+          style="width: 95%;"
         >
         </VueBarcode>
       </button>
@@ -31,7 +31,6 @@
         placeholder="Enter EAN box code" />
         <input type="hidden" id="box" v-model="box">
       </div> -->
-      <div></div>
       <!-- <div>
         <label for="session_key">Each inspection is a unique process.
         Assign a unique identifier (Selection ID) to this operation to initialize
@@ -43,79 +42,98 @@
           placeholder="Enter insepection ID">
       </div> -->
       <div>
-        <p>
-          Each inspection is a unique process. Generate a unique identifier
-          (Selection ID) to this operation to initialize the operation in the
-          system.
-        </p>
-        <!-- <button @click="form_data.session_key=generateID()">Generate ID</button>-->
-        <table align="center">
+        <table align="center" style="margin-bottom: 25px; margin-top: 25px">
           <tr>
-          <th align="left" width="100px">Selection ID:</th>
-          <td align="left">{{ loadedData.ID }}</td>
-          <th align="left" width="100px">Barcode scan:</th>
-          <td align="left">{{ loadedData["Box code scanable"] === "Y" ?
-          "Exists" : "No barcode" }}</td>
+            <th align="left" width="150px">Selection ID:</th>
+            <td align="left">{{ loadedData.ID }}</td>
+            <th align="left" width="150px" style="padding-left: 15px">
+              Barcode scan:
+            </th>
+            <td align="left" width="75px">
+              {{
+                loadedData["Box code scanable"] === "Y"
+                  ? "Exists"
+                  : "No barcode"
+              }}
+            </td>
           </tr>
           <tr>
-          <th align="left" width="100px">Accept state:</th>
-          <td align="left">{{ loadedData["Accept State"] }}</td>
-          <th align="left" width="100px">prod group:</th>
-          <td align="left">{{ loadedData["Product Group from ID"] }}</td>
+            <th align="left" width="150px">Accept state:</th>
+            <td align="left">{{ loadedData["Accept State"] }}</td>
+            <th align="left" width="150px" style="padding-left: 15px">
+              prod group:
+            </th>
+            <td align="left" width="200px">
+              {{ loadedData["Product Group from ID"] }}
+            </td>
           </tr>
           <tr>
-          <th align="left" width="100px">Box:</th>
-          <td align="left">{{ loadedData["Box exists"] === "Y" ? "Exists" : "No box" }}</td>
-          <th align="left" width="100px">Pic exist:</th>
-          <td align="left">{{ loadedData["Cam Images"] !== null ? "Exists" : "No pic" }}</td>
+            <th align="left" width="150px">Box:</th>
+            <td align="left">
+              {{ loadedData["Box exists"] === "Y" ? "Exists" : "No box" }}
+            </td>
+            <th align="left" width="150px" style="padding-left: 15px">
+              Pic exist:
+            </th>
+            <td align="left" width="75px">
+              {{ loadedData["Cam Images"] !== null ? "Exists" : "No pic" }}
+            </td>
           </tr>
         </table>
       </div>
-
-      <div style="display: flex">
-        <SelectionOrderData
-          @updateloadedData="updateLoadedData"
-          :jsonObject="loadedData"
-        ></SelectionOrderData>
-        <div style="position: absolute; top: 50%"></div>
-        <div style="display: flex; align-items: center; padding-left: 20px">
-          <button
-            style="border-radius: 10px"
-            @click="form_data.session_key = generateID()"
+      <div style="display: flex; justify-content: center;">
+        <div style="display: flex">
+          <SelectionOrderData
+            @updateloadedData="updateLoadedData"
+            :jsonObject="loadedData"
+          ></SelectionOrderData>
+          <div style="position: absolute; top: 50%"></div>
+          <div style="display: flex; align-items: center; padding-left: 20px">
+            <button
+              style="border-radius: 10px"
+              @click="form_data.session_key = generateID()"
+            >
+              <img
+                src="../assets/pictures/BarcodeScanner.png"
+                alt="BARCODE BUTTON"
+                style="width: 200px"
+              />
+            </button>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              margin-left: 20px;
+              margin-right: 25px;
+            "
           >
-            <img
-              src="../assets/pictures/BarcodeScanner.png"
-              alt="BARCODE BUTTON"
-              style="width: 200px"
-            />
-          </button>
-        </div>
-        <div style="display: flex; padding-left: 20px; align-items: flex-end">
-          <div>
-            <button
-              class="bigButtonText"
-              style="width: 220px"
-              @click="
-                form_data.session_key = generateID();
-                form_data.bar_code = 'empty';
-                loadedData[`Box exists`] = 'N';
-              "
-            >
-              NO BOX
-            </button>
-            <p style="font-size: 40px"></p>
-            <button
-              class="bigButtonText"
-              style="width: 260px; vertical-align: baseline"
-              @click="
-                form_data.session_key = generateID();
-                form_data.bar_code = 'empty';
-                loadedData['Box code scanable'] = 'N';
-                loadedData['Box code known'] = 'N';
-              "
-            >
-              NO BARCODE
-            </button>
+            <div>
+              <button
+                class="bigButtonText"
+                style="width: 260px"
+                @click="
+                  form_data.session_key = generateID();
+                  form_data.bar_code = 'empty';
+                  loadedData[`Box exists`] = 'N';
+                "
+              >
+                NO BOX
+              </button>
+              <p style="font-size: 40px"></p>
+              <button
+                class="bigButtonText"
+                style="width: 260px; vertical-align: baseline"
+                @click="
+                  form_data.session_key = generateID();
+                  form_data.bar_code = 'empty';
+                  loadedData['Box code scanable'] = 'N';
+                  loadedData['Box code known'] = 'N';
+                "
+              >
+                NO BARCODE
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -143,7 +161,10 @@
     </div>
   </div>
   <div v-if="form_data.session_key == bde_server_start_response.session_key">
-    <button @click="changeEvaluation(bde_server_start_response.session_key)">
+    <button
+      class="bigButtonText"
+      @click="changeEvaluation(bde_server_start_response.session_key)"
+    >
       Put core on scale
     </button>
   </div>
@@ -161,11 +182,11 @@ import demoData from "../assets/Data/sample.json";
 
 export default {
   name: "SelectionStart",
-  props: ['loadedData2'],
+  props: ["loadedData2"],
   watch: {
     loadedData2(newVal, oldVal) {
       this.loadedData = newVal;
-    }
+    },
   },
   data() {
     return {
@@ -183,7 +204,11 @@ export default {
       boxinfos: boxInfos,
       selected: "",
       loadedData: {
-        ID: "-", "Accept State": "-", "Box exists": "-", "Box code scanable": "-", "Cam Images": null
+        ID: "-",
+        "Accept State": "-",
+        "Box exists": "-",
+        "Box code scanable": "-",
+        "Cam Images": null,
       }, // this is a single object loaded from /src/assets/Data/samples.json
     };
   },
@@ -203,7 +228,7 @@ export default {
     changeEvaluation(sessionKey) {
       this.$emit("change-evaluation", "SelectionEvaluation");
       this.$emit("session-key", sessionKey);
-      this.$emit("sendLoadedData", this.loadedData);// used for SelectionII
+      this.$emit("sendLoadedData", this.loadedData); // used for SelectionII
     },
     emitSelectionid(sessionKey) {
       this.$emit("session-key", sessionKey);
@@ -252,6 +277,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style src="../assets/styles/styles.css"></style>
