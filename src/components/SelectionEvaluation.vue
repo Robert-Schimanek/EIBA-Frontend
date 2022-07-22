@@ -1,49 +1,73 @@
-<template>
-<p class="headerText">Selection Evaluation</p>
-  <div>
-    <p>Selection ID: {{ form_data.session_key }}</p>
-    <p>Core Mass: {{ form_data.core_mass }}</p>
-    <p>Method: {{ method }}</p>
-    <p>bde_server_evaluation_response: {{ bde_server_evaluation_response.session_key }}</p>
+<!-- WICHTIG:
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    <form @submit.prevent='SelectionEvaluation(method)'>
+Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an einigen Stellen
+":disabled= [...]" entfernt werden. Ansonsten lassen sich einige Buttons nicht drücken!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<template>
+  <p class="headerText">Selection Evaluation</p>
+  <div>
+    <p>formdata Session key: {{ form_data.session_key }}</p>
+    <p>bde selection id: {{ bde_server_evaluation_response.session_key }}</p>
+
+    <p>Core Mass: {{ form_data.core_mass }}</p>
+    <p>Mass = {{ loadedData.Weight }} kg (loaded from JSON)</p>
+
+    <p>Method: {{ method }}</p>
+
+    <form @submit.prevent="SelectionEvaluation(method)">
       <div>
         <label for="core_mass">Post mass</label>
-        <p>Mass = {{ loadedData.Weight }}kg (loaded from JSON)</p>
-        <input type="text" id="core_mass" v-model="form_data.core_mass">
-      </div>
-      <div>
-        <label for="session_key">Post selection ID</label>
-        <input
-        type="text"
-        id="session_key"
-        v-model="form_data.session_key"
-        :placeholder="session_key">
+        <input type="text" id="core_mass" v-model="form_data.core_mass" />
       </div>
       <button>Start evaluation</button>
     </form>
   </div>
   <div>
-    <p>Evaluation has started: {{ bde_server_evaluation_response.prediction_commissioned }}</p>
-    <p>ProductGroup prediction has started:
-    {{ bde_server_evaluation_response.prediction_product_group_commissioned }}</p>
-    <p>Temporary selection id: {{ bde_server_evaluation_response.session_key }}</p>
+    <p>
+      Evaluation has started:
+      {{ bde_server_evaluation_response.prediction_commissioned }}
+    </p>
+    <p>
+      ProductGroup prediction has started:
+      {{ bde_server_evaluation_response.prediction_product_group_commissioned }}
+    </p>
   </div>
-  <div v-if="form_data.session_key==bde_server_evaluation_response.session_key">
+  <div
+    v-if="form_data.session_key == bde_server_evaluation_response.session_key"
+  >
     <button
-    class="bigButtonText"
-    :disabled="bde_server_evaluation_response.prediction_product_group_commissioned"
-      @click="emitCoreMass(form_data.core_mass);
-      changeToResults(bde_server_evaluation_response.session_key)">
-        Select OEN
+      class="bigButtonText"
+      :disabled="
+        bde_server_evaluation_response.prediction_product_group_commissioned
+      "
+      @click="
+        emitCoreMass(form_data.core_mass);
+        changeToResults(bde_server_evaluation_response.session_key);
+      "
+    >
+      Select OEN
     </button>
   </div>
-  <div v-if="form_data.session_key==bde_server_evaluation_response.session_key">
-    <button class="bigButtonText"
-    :disabled="!bde_server_evaluation_response.prediction_product_group_commissioned"
-      @click="emitCoreMass(form_data.core_mass);
-      changeToProductGroupResults(bde_server_evaluation_response.session_key)">
-        Select product group
+  <div
+    v-if="form_data.session_key == bde_server_evaluation_response.session_key"
+  >
+    <button
+      class="bigButtonText"
+      :disabled="
+        !bde_server_evaluation_response.prediction_product_group_commissioned
+      "
+      @click="
+        emitCoreMass(form_data.core_mass);
+        changeToProductGroupResults(bde_server_evaluation_response.session_key);
+      "
+    >
+      Select product group
     </button>
   </div>
   <ul id="array-rendering">
@@ -53,37 +77,48 @@
 
 <script>
 export default {
-  name: 'SelectionEvaluation',
-  props: ['session_key_main', 'loadedData'],
+  name: "SelectionEvaluation",
+  props: ["session_key_main", "loadedData"],
   data() {
     return {
       form_data: {
-        core_mass: 4213,
+        core_mass: 0,
         session_key: this.session_key_main,
       },
-      method: 'SSE',
-      bde_server_evaluation_response: '',
+      method: "SSE",
+      bde_server_evaluation_response: "",
     };
   },
-  emits: ['change-to-results-OEN', 'change-to-results-PG'],
+  emits: ["change-to-results-OEN", "change-to-results-PG"],
+  created() {
+    this.form_data.core_mass = this.loadedData.Weight;
+  },
   methods: {
     SelectionEvaluation(method) {
-      this.$axios.post(`http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(method)}`, this.form_data)
-        .then((response) => { this.bde_server_evaluation_response = response.data; });
+      this.$axios
+        .post(
+          `http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(
+            method
+          )}`,
+          this.form_data
+        )
+        .then((response) => {
+          this.bde_server_evaluation_response = response.data;
+        });
     },
     goToHome() {
-      this.$router.push('/');
+      this.$router.push("/");
     },
     changeToResults(sessionKey) {
-      this.$emit('change-to-results-OEN', 'SelectionResultOEN');
-      this.$emit('session-key', sessionKey);
+      this.$emit("change-to-results-OEN", "SelectionResultOEN");
+      this.$emit("session-key", sessionKey);
     },
     changeToProductGroupResults(sessionKey) {
-      this.$emit('change-to-results-PG', 'SelectionResultPG');
-      this.$emit('session-key', sessionKey);
+      this.$emit("change-to-results-PG", "SelectionResultPG");
+      this.$emit("session-key", sessionKey);
     },
     emitCoreMass(coreMass) {
-      this.$emit('core-mass', coreMass);
+      this.$emit("core-mass", coreMass);
     },
   },
 };

@@ -134,7 +134,7 @@ export default {
       this.$axios
         .post(
           `http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(
-            'SS'
+            "SS"
           )}`,
           this.form_data
         )
@@ -143,14 +143,11 @@ export default {
         });
     },
     getEvalutationProdGroup() {
-      this.$axios.get(
-        `http://localhost:5100/bde/selection/status/${encodeURIComponent(
-          this.session_key_main
-        ).then((res) => {
-          this.bde_server_result = res.data;
-          console.log(this.bde_server_result);
-        })}`
-      );
+      console.log(this.session_key_main);
+      this.$axios.get(`http://localhost:5100/bde/selection/status/${encodeURIComponent(this.session_key_main)}`).then((res) => {
+        this.bde_server_result = res.data;
+        console.log(this.bde_server_result);
+      });
     },
   },
   mounted() {
