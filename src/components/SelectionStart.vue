@@ -1,48 +1,25 @@
 <template>
-  <div>
-    <div v-if="form_data.bar_code">
-      <button style="width: 20%;" @click="loadRandomExistingEAN">
+  <div id="no_put_scale" style="margin-bottom: 2%;">
+    <div id="BarcodeBtn" v-if="form_data.bar_code">
+      <button style="width: 20%" @click="loadRandomExistingEAN">
         <VueBarcode
-          v-bind:value="form_data.bar_code"
+          v-bind:value="loadedData.EAN13"
           :options="{ displayValue: true }"
-          style="width: 95%;"
+          style="width: 95%"
         >
         </VueBarcode>
       </button>
     </div>
+    <button class="collapsible" @click="toggleDebug">Open debug info</button>
     <form @submit.prevent="SelectionStart">
-      <div>
-        <label for="customer_number">Post customer number</label>
-        <input
-          type="text"
-          id="customer_number"
-          v-model="form_data.customer_number"
-          placeholder="43016357"
-        />
-      </div>
-      <!-- <div>
-        <label for="box">Usually a barcode is printed on the package.
-        This barcode stands for a 13 digit european article number (EAN).
-        Retrieve the EAN and enter it. </label>
-        <v-select
-        v-model='box'
-        :options='boxinfos'
-        label='bar_code'
-        placeholder="Enter EAN box code" />
-        <input type="hidden" id="box" v-model="box">
-      </div> -->
-      <!-- <div>
-        <label for="session_key">Each inspection is a unique process.
-        Assign a unique identifier (Selection ID) to this operation to initialize
-        the operation in the system.</label>
-        <input
-          type="text"
-          id="session_key"
-          v-model="form_data.session_key"
-          placeholder="Enter insepection ID">
-      </div> -->
-      <div>
-        <table align="center" style="margin-bottom: 25px; margin-top: 25px">
+      <p class="headerText">INFO TEXT ZU ERSTE DATEN EINGEBEN</p>
+      <div id="TableWithInfos" class="debugInfo">
+        <p class="smallHeaderText">loadedData</p>
+        <table
+          align="center"
+          style="margin-bottom: 25px; margin-top: 25px"
+          class="infoText"
+        >
           <tr>
             <th align="left" width="150px">Selection ID:</th>
             <td align="left">{{ loadedData.ID }}</td>
@@ -56,6 +33,8 @@
                   : "No barcode"
               }}
             </td>
+            <th align="left" width="220px">loaded rnd ID:</th>
+            <td align="left">{{ loadedData.randomID }}</td>
           </tr>
           <tr>
             <th align="left" width="150px">Accept state:</th>
@@ -80,76 +59,87 @@
             </td>
           </tr>
         </table>
+
+        <p class="smallHeaderText">Prediction model</p>
+        <table
+          align="center"
+          style="margin-bottom: 25px; margin-top: 25px"
+          class="infoText"
+        >
+          <th align="left" width="300px">Customer known:</th>
+          <td align="left" width="150px">
+            {{
+              form_data.session_key == bde_server_start_response.session_key
+                ? bde_server_start_response.customer_known
+                : "not loaded"
+            }}
+          </td>
+          <th align="left" width="250px">Barcode known:</th>
+          <td align="left" width="150px">
+            {{
+              form_data.session_key == bde_server_start_response.session_key
+                ? bde_server_start_response.bar_code_known
+                : "not loaded"
+            }}
+          </td>
+        </table>
       </div>
-      <div style="display: flex; justify-content: center;">
-        <div style="display: flex">
-          <SelectionOrderData
-            @updateloadedData="updateLoadedData"
-            :jsonObject="loadedData"
-          ></SelectionOrderData>
-          <div style="position: absolute; top: 50%"></div>
-          <div style="display: flex; align-items: center; padding-left: 20px">
-            <button
-              style="border-radius: 10px"
-              @click="form_data.session_key = generateID()"
-            >
-              <img
-                src="../assets/pictures/BarcodeScanner.png"
-                alt="BARCODE BUTTON"
-                style="width: 200px"
-              />
-            </button>
-          </div>
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              margin-left: 20px;
-              margin-right: 25px;
+
+      <div
+        id="Barcode_OrderData"
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+        "
+      >
+        <SelectionOrderData
+          @updateloadedData="updateLoadedData"
+          :jsonObject="loadedData"
+          style="margin-right: 5%; width: 30%"
+        ></SelectionOrderData>
+        <button
+          style="border-radius: 30px; height: 400px; margin-right: 5%"
+          @click="form_data.session_key = generateID()"
+        >
+          <img
+            src="../assets/pictures/BarcodeScanner.png"
+            alt="BARCODE BUTTON"
+            style="height: 90%"
+          />
+        </button>
+
+        <div id="NoBox_NoBarcode" style="align-items: center">
+          <button
+            class="bigButtonText"
+            style="width: 260px"
+            @click="
+              form_data.session_key = generateID();
+              form_data.bar_code = 'empty';
+              loadedData[`Box exists`] = 'N';
             "
           >
-            <div>
-              <button
-                class="bigButtonText"
-                style="width: 260px"
-                @click="
-                  form_data.session_key = generateID();
-                  form_data.bar_code = 'empty';
-                  loadedData[`Box exists`] = 'N';
-                "
-              >
-                NO BOX
-              </button>
-              <p style="font-size: 40px"></p>
-              <button
-                class="bigButtonText"
-                style="width: 260px; vertical-align: baseline"
-                @click="
-                  form_data.session_key = generateID();
-                  form_data.bar_code = 'empty';
-                  loadedData['Box code scanable'] = 'N';
-                  loadedData['Box code known'] = 'N';
-                "
-              >
-                NO BARCODE
-              </button>
-            </div>
-          </div>
+            NO BOX
+          </button>
+          <p class="headerText"></p>
+          <button
+            class="bigButtonText"
+            style="width: 260px; vertical-align: baseline"
+            @click="
+              form_data.session_key = generateID();
+              form_data.bar_code = 'empty';
+              loadedData['Box code scanable'] = 'N';
+              loadedData['Box code known'] = 'N';
+            "
+          >
+            NO BARCODE
+          </button>
         </div>
       </div>
     </form>
   </div>
   <div>
-    <div v-if="form_data.session_key == bde_server_start_response.session_key">
-      <p>Customer is known to the prediction model:</p>
-      <p>{{ bde_server_start_response.customer_known }}</p>
-      <p>
-        Bar code on package box ({{ form_data.bar_code }}) is known to the
-        prediction model:
-      </p>
-      <p>{{ bde_server_start_response.bar_code_known }}</p>
-      <p>Temporary selection ID: {{ bde_server_start_response.session_key }}</p>
-    </div>
     <div v-if="box.bar_code">
       <div v-if="box.image_thumbnail">
         <p>
@@ -160,14 +150,15 @@
       </div>
     </div>
   </div>
-  <div v-if="form_data.session_key == bde_server_start_response.session_key">
-    <button
-      class="bigButtonText"
-      @click="changeEvaluation(bde_server_start_response.session_key)"
-    >
-      Put core on scale
-    </button>
-  </div>
+
+  <button
+    class="bigButtonText"
+    @click="changeEvaluation(bde_server_start_response.session_key)"
+    :disabled="form_data.session_key !== bde_server_start_response.session_key"
+  >
+    Put core on scale
+  </button>
+
   <div v-if="form_data.session_key == 'ProcessCompleted'">
     <button @click="goToHome()">Go to Home</button>
   </div>
@@ -193,7 +184,7 @@ export default {
       box: "",
       form_data: {
         customer_number: "43016357",
-        bar_code: "",
+        bar_code: "3165143175880",
         bar_code_scanable: "Y",
         box_exists: "Y",
         program: "IAM gesamt",
@@ -209,6 +200,7 @@ export default {
         "Box exists": "-",
         "Box code scanable": "-",
         "Cam Images": null,
+        randomID: "-",
       }, // this is a single object loaded from /src/assets/Data/samples.json
     };
   },
@@ -235,6 +227,7 @@ export default {
     },
     generateID() {
       this.random_ID = Math.floor(Math.random() * 1000000000000).toString();
+      this.loadedData.randomID = this.random_ID;
       return this.random_ID;
     },
     randomEAN(boxinfos) {
@@ -265,6 +258,14 @@ export default {
       console.log(`Data1: ${newData[1]}`);
       this.loadedData[newData[0]] = newData[1];
     },
+    toggleDebug() {
+      let content = document.getElementsByClassName("debugInfo")[0];
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    },
   },
   mounted() {
     console.log("the component is now mounted.");
@@ -276,5 +277,20 @@ export default {
   },
 };
 </script>
-
 <style src="../assets/styles/styles.css"></style>
+<style scoped>
+.debugInfo {
+  display: none;
+}
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+</style>
