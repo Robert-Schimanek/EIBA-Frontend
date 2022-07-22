@@ -8,7 +8,7 @@
   >
     <p style="font-size: 15pt">{{ productGroupName }}</p>
     <img
-      :src="require(`../assets/pictures/productGroup/${picSource}`)"
+      src="../assets/pictures/productGroup/Alternator.png"
       style="width: 200px; height: 200px"
     />
   </button>

@@ -15,7 +15,7 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
     <p>formdata Session key: {{ form_data.session_key }}</p>
     <p>bde selection id: {{ bde_server_evaluation_response.session_key }}</p>
 
-    <p>Core Mass: {{ form_data.core_mass }}</p>
+    <p>Core Mass: {{ form_data.core_mass }} g</p>
     <p>Mass = {{ loadedData.Weight }} kg (loaded from JSON)</p>
 
     <p>Method: {{ method }}</p>
@@ -91,7 +91,7 @@ export default {
   },
   emits: ["change-to-results-OEN", "change-to-results-PG"],
   created() {
-    this.form_data.core_mass = this.loadedData.Weight;
+    this.form_data.core_mass = Math.floor(this.loadedData.Weight * 1000);
   },
   methods: {
     SelectionEvaluation(method) {
@@ -103,6 +103,7 @@ export default {
           this.form_data
         )
         .then((response) => {
+          console.log(response.data);
           this.bde_server_evaluation_response = response.data;
         });
     },

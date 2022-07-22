@@ -24,11 +24,11 @@
         >
           <div
             class="item"
-            v-for="i in [0, 1, 2, 3].map((x) => x + index * 4)"
+            v-for="i in Object.keys(bde_productGroupList)"
             :key="i"
           >
             <display
-              :productGroupName="prodGroups[i]"
+              :productGroupName="i"
               @btnPressed="btnClicked"
             ></display>
           </div>
@@ -56,7 +56,7 @@ import display from "./SelectionProductGroup_Display.vue";
 
 export default {
   name: "SelectionProductGroup",
-  props: ["session_key_main", "loadedData"],
+  props: ["session_key_main", "loadedData", "core_mass_main"],
   emits: ["updateLoadedData"],
   components: {
     display,
@@ -65,20 +65,11 @@ export default {
     return {
       form_data: {
         session_key: this.session_key_main,
+        core_mass: this.core_mass_main,
       },
-      prodGroups: [
-        "BrakeCaliper",
-        "CommonRailInjector",
-        "Starter",
-        "Alternator",
-        "CommonRailHighPressurePump",
-        "UnitInjector",
-        "TorqueConverter",
-        "Mechantronics",
-        "5",
-      ],
+      prodGroups: [],
       index: 0,
-      bde_server_start_response: null,
+      bde_productGroupList: [],
       bde_server_result: null,
       lenProdGroups: 0,
       highestPage: 0,
@@ -105,8 +96,8 @@ export default {
         document.getElementById("confirmBtnPrdGroup").disabled = true;
       }
     },
-    init() {
-      this.lenProdGroups = this.prodGroups.length;
+    calcNrOfPages() {
+      this.lenProdGroups = Object.keys(this.bde_productGroupList).length;
       if (this.lenProdGroups % 4 !== 0) {
         this.highestPage = Math.floor(this.lenProdGroups / 4);
       } else {
@@ -143,16 +134,21 @@ export default {
         });
     },
     getEvalutationProdGroup() {
-      console.log(this.session_key_main);
-      this.$axios.get(`http://localhost:5100/bde/selection/status/${encodeURIComponent(this.session_key_main)}`).then((res) => {
-        this.bde_server_result = res.data;
-        console.log(this.bde_server_result);
-      });
+      this.$axios
+        .get(
+          `http://localhost:5100/bde/selection/evaluation/status/${encodeURIComponent(
+            this.session_key_main
+          )}`
+        )
+        .then((res) => {
+          this.bde_productGroupList =
+            res.data.product_group_prediction_list.ProductGroupProbaList;
+          console.log(this.bde_productGroupList);
+          this.calcNrOfPages();
+        });
     },
   },
-  mounted() {
-    this.init();
-  },
+  mounted() {},
 };
 </script>
 
