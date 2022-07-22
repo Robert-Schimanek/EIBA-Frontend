@@ -1,4 +1,5 @@
 <template>
+<p class="headerText">Selection Evaluation</p>
   <div>
     <p>Selection ID: {{ form_data.session_key }}</p>
     <p>Core Mass: {{ form_data.core_mass }}</p>
@@ -30,16 +31,19 @@
   </div>
   <div v-if="form_data.session_key==bde_server_evaluation_response.session_key">
     <button
+    class="bigButtonText"
+    :disabled="bde_server_evaluation_response.prediction_product_group_commissioned"
       @click="emitCoreMass(form_data.core_mass);
       changeToResults(bde_server_evaluation_response.session_key)">
-        Change to result screen OEN prediction_commissioned
+        Select OEN
     </button>
   </div>
   <div v-if="form_data.session_key==bde_server_evaluation_response.session_key">
-    <button
+    <button class="bigButtonText"
+    :disabled="!bde_server_evaluation_response.prediction_product_group_commissioned"
       @click="emitCoreMass(form_data.core_mass);
       changeToProductGroupResults(bde_server_evaluation_response.session_key)">
-        Change to result screen if NO BOX NO BARCODE PG PRE prediction_commissioned
+        Select product group
     </button>
   </div>
   <ul id="array-rendering">
@@ -85,6 +89,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style src="../assets/styles/styles.css"></style>

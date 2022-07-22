@@ -1,5 +1,5 @@
 <template>
-<p>TESTWERT GEWICHT: {{loadedData.Weight}}</p>
+<div id="centerDiv" style="display: flex; justify-content:center;">
   <div id='mainDiv' align='center' style='display: flex'>
     <div id='UpDown' style='width: 250px; margin-top: 300px' align='center'>
       <button
@@ -44,6 +44,7 @@
         Confirm
       </button>
     </div>
+  </div>
   </div>
   <p style='font-size: 40pt'>Page {{ index + 1 }} / {{ highestPage + 1 }}</p>
 </template>

@@ -1,7 +1,18 @@
+<!-- WICHTIG:
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an einigen Stellen
+":disabled= [...]" entfernt werden. Ansonsten lassen sich einige Buttons nicht drücken!
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 <template>
-  <div id="no_put_scale" style="margin-bottom: 2%;">
+  <div id="no_put_scale" style="margin-bottom: 2%">
     <div id="BarcodeBtn" v-if="form_data.bar_code">
-      <button style="width: 20%" @click="loadRandomExistingEAN">
+      <button style="width: 10%" @click="loadRandomExistingEAN">
         <VueBarcode
           v-bind:value="loadedData.EAN13"
           :options="{ displayValue: true }"
@@ -10,36 +21,38 @@
         </VueBarcode>
       </button>
     </div>
-    <button class="collapsible" @click="toggleDebug">Open debug info</button>
     <form @submit.prevent="SelectionStart">
       <p class="headerText">INFO TEXT ZU ERSTE DATEN EINGEBEN</p>
+
       <div id="TableWithInfos" class="debugInfo">
-        <p class="smallHeaderText">loadedData</p>
         <table
           align="center"
           style="margin-bottom: 25px; margin-top: 25px"
           class="infoText"
         >
+          <caption class="smallHeaderText">
+            loadedData
+          </caption>
           <tr>
             <th align="left" width="150px">Selection ID:</th>
             <td align="left">{{ loadedData.ID }}</td>
             <th align="left" width="150px" style="padding-left: 15px">
               Barcode scan:
             </th>
-            <td align="left" width="75px">
+            <td align="left" width="250px">
               {{
                 loadedData["Box code scanable"] === "Y"
-                  ? "Exists"
+                  ? loadedData.EAN13
                   : "No barcode"
               }}
             </td>
             <th align="left" width="220px">loaded rnd ID:</th>
-            <td align="left">{{ loadedData.randomID }}</td>
+            <td align="left" width="100px">{{ loadedData.randomID }}</td>
           </tr>
           <tr>
             <th align="left" width="150px">Accept state:</th>
             <td align="left">{{ loadedData["Accept State"] }}</td>
-            <th align="left" width="150px" style="padding-left: 15px">
+            <th align="left" width="200px" style="padding-left: 15px">
               prod group:
             </th>
             <td align="left" width="200px">
@@ -60,12 +73,14 @@
           </tr>
         </table>
 
-        <p class="smallHeaderText">Prediction model</p>
         <table
           align="center"
           style="margin-bottom: 25px; margin-top: 25px"
           class="infoText"
         >
+          <caption class="smallHeaderText">
+            Prediction model
+          </caption>
           <th align="left" width="300px">Customer known:</th>
           <td align="left" width="150px">
             {{
@@ -83,6 +98,9 @@
             }}
           </td>
         </table>
+        <p>Load specific Data:</p>
+        <button @click="loadDataWithIndex(183)">No ean</button>
+        <button @click="loadDataWithIndex(184)">No Pic</button>
       </div>
 
       <div
@@ -102,6 +120,10 @@
         <button
           style="border-radius: 30px; height: 400px; margin-right: 5%"
           @click="form_data.session_key = generateID()"
+          :disabled="
+            loadedData[`Box code scanable`] === '-' ||
+            loadedData[`Box code scanable`] === 'N'
+          "
         >
           <img
             src="../assets/pictures/BarcodeScanner.png"
@@ -119,6 +141,10 @@
               form_data.bar_code = 'empty';
               loadedData[`Box exists`] = 'N';
             "
+            :disabled="
+              loadedData[`Box exists`] === '-' ||
+              loadedData[`Box exists`] === 'Y'
+            "
           >
             NO BOX
           </button>
@@ -126,6 +152,10 @@
           <button
             class="bigButtonText"
             style="width: 260px; vertical-align: baseline"
+            :disabled="
+              loadedData[`Box code scanable`] === '-' ||
+              loadedData[`Box code scanable`] === 'Y'
+            "
             @click="
               form_data.session_key = generateID();
               form_data.bar_code = 'empty';
@@ -151,6 +181,14 @@
     </div>
   </div>
 
+  <p class="smallHeaderText">
+    Status:
+    {{
+      form_data.session_key === ""
+        ? "Waiting for Scan, NO BOX or BARCODE"
+        : "Place part on scale"
+    }}
+  </p>
   <button
     class="bigButtonText"
     @click="changeEvaluation(bde_server_start_response.session_key)"
@@ -162,6 +200,7 @@
   <div v-if="form_data.session_key == 'ProcessCompleted'">
     <button @click="goToHome()">Go to Home</button>
   </div>
+  <button class="collapsible" @click="toggleDebug">Open debug info</button>
 </template>
 
 <script>
@@ -183,8 +222,8 @@ export default {
     return {
       box: "",
       form_data: {
-        customer_number: "43016357",
-        bar_code: "3165143175880",
+        customer_number: "",
+        bar_code: "",
         bar_code_scanable: "Y",
         box_exists: "Y",
         program: "IAM gesamt",
@@ -235,11 +274,17 @@ export default {
       this.form_data.bar_code = boxinfos[randomIndex].bar_code;
     },
     loadRandomExistingEAN() {
+      this.form_data.session_key = "";
       const randomIndex = Math.floor(
         Math.random() * Object.keys(demoData).length
       );
-      console.log(`Index: ${randomIndex}`);
-      this.loadDataWithEAN13(demoData[randomIndex].EAN13);
+
+      if (demoData[randomIndex].EAN13 === "empty") {
+        console.log("EMTPY!!!");
+        this.loadDataWithIndex(randomIndex);
+      } else {
+        this.loadDataWithEAN13(demoData[randomIndex].EAN13);
+      }
     },
     loadDataWithEAN13(EAN) {
       for (let [key, value] of Object.entries(demoData)) {
@@ -251,6 +296,11 @@ export default {
           break;
         }
       }
+      this.updateFormData();
+    },
+    loadDataWithIndex(index) {
+      this.loadedData = demoData[index];
+      this.updateFormData();
     },
     updateLoadedData(newData) {
       // newData = [NameOfValue, Value]
@@ -258,12 +308,19 @@ export default {
       console.log(`Data1: ${newData[1]}`);
       this.loadedData[newData[0]] = newData[1];
     },
+    updateFormData() {
+      this.form_data.customer_number = this.loadedData["Customer Number"];
+      this.form_data.bar_code = this.loadedData.EAN13;
+      this.form_data.bar_code_scanable = this.loadedData["Box code scanable"];
+      this.form_data.box_exists = this.loadedData["Box exists"];
+      this.form_data.program = this.loadedData.Program;
+    },
     toggleDebug() {
       let content = document.getElementsByClassName("debugInfo")[0];
-      if (content.style.display === "block") {
+      if (content.style.display === "flex") {
         content.style.display = "none";
       } else {
-        content.style.display = "block";
+        content.style.display = "flex";
       }
     },
   },
