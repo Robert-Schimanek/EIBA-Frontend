@@ -22,7 +22,7 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
       </button>
     </div>
     <form @submit.prevent="SelectionStart">
-      <p class="headerText">INFO TEXT ZU ERSTE DATEN EINGEBEN</p>
+      <p class="headerText">Click the barcode to simulate the pickup of a core</p>
 
       <div id="TableWithInfos" class="debugInfo">
         <table
@@ -186,7 +186,7 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
     {{
       form_data.session_key === ""
         ? "Waiting for Scan, NO BOX or BARCODE"
-        : "Place part on scale"
+        : "Place core on scale"
     }}
   </p>
   <button

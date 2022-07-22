@@ -1,4 +1,6 @@
 <template>
+  <button @click="startEvalProdGroup">Start evaluation</button>
+  <button @click="getEvalutationProdGroup">Get evaluation</button>
   <div id="centerDiv" style="display: flex; justify-content: center">
     <div id="mainDiv" align="center" style="display: flex">
       <div id="UpDown" style="width: 250px; margin-top: 300px" align="center">
@@ -76,6 +78,8 @@ export default {
         "5",
       ],
       index: 0,
+      bde_server_start_response: null,
+      bde_server_result: null,
       lenProdGroups: 0,
       highestPage: 0,
       currentActivatedBtn: null,
@@ -125,13 +129,28 @@ export default {
         this.currentActivatedBtn,
       ]);
     },
-    SS() {
+    startEvalProdGroup() {
       console.log("evaluation/SS");
       this.$axios
-        .post("http://localhost:5100/bde/selection/evaluation/SS", this.form_data)
+        .post(
+          `http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(
+            'SS'
+          )}`,
+          this.form_data
+        )
         .then((response) => {
           this.bde_server_start_response = response.data;
         });
+    },
+    getEvalutationProdGroup() {
+      this.$axios.get(
+        `http://localhost:5100/bde/selection/status/${encodeURIComponent(
+          this.session_key_main
+        ).then((res) => {
+          this.bde_server_result = res.data;
+          console.log(this.bde_server_result);
+        })}`
+      );
     },
   },
   mounted() {
