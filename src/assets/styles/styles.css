@@ -1,11 +1,23 @@
 .roundedContainer {
-    border: 1px solid black;
-    width: 400px;
-    border-radius: 5px;
+    border: 3px solid black;
+    border-radius: 40px;
 }
 
 .bigButtonText {
     font-size: 50px;
+}
+
+.headerText {
+  font-size: 50px;
+  font-weight: bold;
+}
+.smallHeaderText {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.infoText {
+  font-size: 30px;
 }
 
 .spacerSmall {

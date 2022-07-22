@@ -1,9 +1,9 @@
 <template>
-  <div class="roundedContainer" style="margin:25px; padding: 5px;">
-    <h1>Order Data</h1>
-    <table align="center">
+  <div class="roundedContainer">
+    <p class="smallHeaderText" style="margin-top: 40px;">Order Data</p>
+    <table align="center" class="infoText" style="margin-bottom: 50px;">
       <tr>
-        <th align="left" width="100px">Customer:</th>
+        <th align="left" style="width:200px;">Customer:</th>
         <td align="left">{{ customer }}</td>
       </tr>
       <tr>
@@ -28,6 +28,7 @@
     <SelectionOrderDataButton
       funcDesc="Close"
       :functionToExecute="closeOrder"
+      style="margin-bottom: 30px"
     />
   </div>
 </template>
@@ -76,4 +77,5 @@ export default {
   },
 };
 </script>
-<style src="../assets/styles/styles.css"></style>
+<style src="../assets/styles/styles.css">
+</style>
