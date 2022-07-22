@@ -47,7 +47,7 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
               }}
             </td>
             <th align="left" width="220px">loaded rnd ID:</th>
-            <td align="left" width="100px">{{ loadedData.randomID }}</td>
+            <td align="left" width="200px">{{ loadedData.randomID }}</td>
           </tr>
           <tr>
             <th align="left" width="150px">Accept state:</th>
@@ -201,6 +201,14 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
     <button @click="goToHome()">Go to Home</button>
   </div>
   <button class="collapsible" @click="toggleDebug">Open debug info</button>
+  <input
+    type="checkbox"
+    name="Expertenmodus"
+    id="Expertenmodus"
+    v-model="expertModus"
+    style="transform : scale(2);"
+  />
+  <label class="infoText" for="Expertenmodus">         Expertenmodus</label>
 </template>
 
 <script>
@@ -233,6 +241,7 @@ export default {
       boxlinks: boxLinks,
       boxinfos: boxInfos,
       selected: "",
+      expertModus: false,
       loadedData: {
         ID: "-",
         "Accept State": "-",
@@ -349,5 +358,9 @@ export default {
   text-align: left;
   outline: none;
   font-size: 15px;
+}
+.input {
+  transform : scale(3)
+
 }
 </style>
