@@ -26,7 +26,7 @@
         border: 1px solid black;
       "
     >
-      <div v-for="item in names" :key="item" style="padding-top: 30px">
+      <div v-for="item in listOEN" :key="item" style="padding-top: 30px">
         <display :displayedNames="item" @btnPressed="btnClicked"></display>
       </div>
     </div>
@@ -63,6 +63,7 @@ export default {
   },
   props: {
     valuefromInput: { default: "XXX" },
+    listOEN: { default: ["No OENs"] },
   },
   data() {
     return {

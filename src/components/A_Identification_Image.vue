@@ -2,8 +2,10 @@
 <template>
   <div class="image">
     <p style="font-size: 10pt">{{ ImageType }}</p>
-    <img :src="`http://localhost:5800/EIBA/Images/05_27_2022/2205276020032.zip/Part_2205276020032_Left_Color_1653632160018.jpg`"
-    style="width: 100px; height: 100px"/>
+    <img :src="listImgPaths"
+    :style="[ImageType == 'Left-View' ?
+    {'transform': 'rotate(270deg)'} : {'transform': 'rotate(0deg)'}]"
+    style="width: 150px; height: 150px"/>
   </div>
 </template>
 
@@ -11,8 +13,7 @@
 export default {
   props: {
     ImageType: { default: 'No further Informations' },
-    ID: { default: 'NO ID' },
-    ImageLink: { default: ' ' },
+    listImgPaths: { default: 'https://cdn.pixabay.com/photo/2021/07/21/12/49/error-6482984_960_720.png' },
   },
   methods: {
     init() {
