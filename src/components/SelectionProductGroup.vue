@@ -1,6 +1,4 @@
 <template>
-  <button @click="startEvalProdGroup">Start evaluation</button>
-  <button @click="getEvalutationProdGroup">Get evaluation</button>
   <div id="centerDiv" style="display: flex; justify-content: center">
     <div id="mainDiv" align="center" style="display: flex">
       <div id="UpDown" style="width: 250px; margin-top: 300px" align="center">
@@ -24,11 +22,12 @@
         >
           <div
             class="item"
-            v-for="i in Object.keys(bde_productGroupList)"
+            v-for="[i, item] of Object.keys(bde_productGroupList).entries()"
             :key="i"
           >
             <display
-              :productGroupName="i"
+              :productGroupName="item"
+              v-if="i >= 4 * index && i < 4 * (index + 1)"
               @btnPressed="btnClicked"
             ></display>
           </div>
@@ -48,7 +47,6 @@
     </div>
   </div>
   <p style="font-size: 40pt">Page {{ index + 1 }} / {{ highestPage + 1 }}</p>
-  <button>SS</button>
 </template>
 
 <script>
@@ -69,7 +67,20 @@ export default {
       },
       prodGroups: [],
       index: 0,
-      bde_productGroupList: [],
+      bde_productGroupList: [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+      ],
       bde_server_result: null,
       lenProdGroups: 0,
       highestPage: 0,
@@ -96,22 +107,46 @@ export default {
         document.getElementById("confirmBtnPrdGroup").disabled = true;
       }
     },
-    calcNrOfPages() {
+    updateVariablesOfPage() {
       this.lenProdGroups = Object.keys(this.bde_productGroupList).length;
       if (this.lenProdGroups % 4 !== 0) {
         this.highestPage = Math.floor(this.lenProdGroups / 4);
       } else {
         this.highestPage = Math.floor(this.lenProdGroups / 4) - 1;
       }
-    },
-    btnClicked(newButtonId) {
-      if (this.currentActivatedBtn != null) {
+
+      // stuff for reload
+      if (this.currentActivatedBtn !== null) {
         document
           .getElementById(this.currentActivatedBtn)
           .classList.remove("active");
+        this.currentActivatedBtn = null;
+        document.getElementById("confirmBtnPrdGroup").disabled = true;
       }
-      this.currentActivatedBtn = newButtonId;
-      document.getElementById("confirmBtnPrdGroup").disabled = false;
+      this.index = 0;
+    },
+    btnClicked(newButtonId) {
+      if (this.currentActivatedBtn != null) {
+        // One Button is active
+        document
+          .getElementById(this.currentActivatedBtn)
+          .classList.remove("active");
+        console.log("active null");
+
+        if (this.currentActivatedBtn === newButtonId) {
+          // clicked same button twice
+          this.currentActivatedBtn = null;
+          console.log("same");
+          document.getElementById("confirmBtnPrdGroup").disabled = true;
+        } else {
+          // A new btn is clicked
+          this.currentActivatedBtn = newButtonId;
+          document.getElementById("confirmBtnPrdGroup").disabled = false;
+        }
+      } else {
+        this.currentActivatedBtn = newButtonId;
+        document.getElementById("confirmBtnPrdGroup").disabled = false;
+      }
     },
     confirmed() {
       console.log(`${this.currentActivatedBtn} selected`);
@@ -131,6 +166,7 @@ export default {
         )
         .then((response) => {
           this.bde_server_start_response = response.data;
+          this.getEvalutationProdGroup();
         });
     },
     getEvalutationProdGroup() {
@@ -141,14 +177,18 @@ export default {
           )}`
         )
         .then((res) => {
+          this.bde_productGroupList = ["XXX"];
           this.bde_productGroupList =
             res.data.product_group_prediction_list.ProductGroupProbaList;
-          console.log(this.bde_productGroupList);
-          this.calcNrOfPages();
+          this.updateVariablesOfPage();
         });
     },
   },
   mounted() {},
+  activated() {
+    this.updateVariablesOfPage();
+    this.startEvalProdGroup();
+  },
 };
 </script>
 

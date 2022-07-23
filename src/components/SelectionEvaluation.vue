@@ -20,13 +20,13 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
 
     <p>Method: {{ method }}</p>
 
-    <form @submit.prevent="SelectionEvaluation(method)">
-      <div>
-        <label for="core_mass">Post mass</label>
-        <input type="text" id="core_mass" v-model="form_data.core_mass" />
-      </div>
-      <button>Start evaluation</button>
-    </form>
+    <div>
+      <label for="core_mass">Post mass</label>
+      <input type="text" id="core_mass" v-model="form_data.core_mass" />
+    </div>
+    <button class="bigButtonText" @click="SelectionEvaluation(method)">
+      Start evaluation
+    </button>
   </div>
   <div>
     <p>

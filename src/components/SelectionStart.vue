@@ -99,7 +99,7 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
           </td>
         </table>
         <p>Load specific Data:</p>
-        <button @click="loadDataWithIndex(183)">No ean</button>
+        <button @click="loadDataWithIndex(188)">No ean</button>
         <button @click="loadDataWithIndex(184)">No Pic</button>
       </div>
 
@@ -255,7 +255,6 @@ export default {
   emits: ["change-evaluation", "session-key", "sendLoadedData"],
   methods: {
     SelectionStart() {
-      console.log("selectionStart -> SelectionStart() triggered");
       this.$axios
         .post("http://localhost:5100/bde/selection/start", this.form_data)
         .then((response) => {
