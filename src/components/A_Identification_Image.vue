@@ -1,4 +1,5 @@
 <!-- Author: Kröger-->
+<!-- Component: A_Identification_Image.vue -->
 <template>
   <div class="image">
     <p style="font-size: 10pt">{{ ImageType }}</p>
@@ -14,13 +15,6 @@ export default {
   props: {
     ImageType: { default: 'No further Informations' },
     listImgPaths: { default: 'https://cdn.pixabay.com/photo/2021/07/21/12/49/error-6482984_960_720.png' },
-  },
-  methods: {
-    init() {
-    },
-  },
-  mounted() {
-    this.init();
   },
 };
 </script>

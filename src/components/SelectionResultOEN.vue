@@ -43,7 +43,7 @@
     <div style="float: left; width: 45%">
       <p style="height: 25px"></p>
       <label>OEN: </label>
-      <input type="text" placeholder="Manual input" v-model.lazy="value" />
+      <input type="text" placeholder="manual input" v-model.lazy="value" />
       <p style="height: 20px"></p>
       <div>
         <p>Ausgabe der OEN Nummern hier:</p>
@@ -93,6 +93,15 @@ export default {
   },
   name: "SelectionResultOEN",
   props: ["session_key_main", "core_mass_main", "loadedData"],
+  watch: {
+    session_key_main(newVal, oldVal) {
+      this.form_data.session_key = newVal;
+      console.log(`Session key${newVal}`);
+    },
+    core_mass_main(newVal, oldVal) {
+      this.form_data.core_mass = newVal;
+    }
+  },
   data() {
     return {
       form_data: {
@@ -189,7 +198,18 @@ export default {
     },
     test() {
       console.log(this.bde_server_result_OEN_response.oen_prediction_list.predictions[1]);
+    },
+    updateVariables() {
+      this.listOEN = [];
     }
+  },
+  activated() {
+    this.updateVariables();
+    this.getJson();
+    this.KIAnswer = false;
+    this.init();
+    this.value = "";
+    this.manuelInput = false;
   },
   mounted() {
     this.init();

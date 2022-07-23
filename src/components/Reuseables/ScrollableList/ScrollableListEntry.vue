@@ -1,6 +1,6 @@
 <template>
-  <button @click='btnPress($event)' :id='displayedNames'
-  class='displayedNames'>
+  <button @click="btnPress($event)" :id="displayedNames"
+  class="displayedNames">
     {{ displayedNames }}
   </button>
 </template>
@@ -8,7 +8,7 @@
 <script>
 export default {
   props: {
-    displayedNames: { default: 'Unknown OEN' },
+    displayedNames: { default: "Unknown OEN" },
   },
   methods: {
     init() {
@@ -18,10 +18,11 @@ export default {
     },
     btnPress(event) {
       this.activateBtn();
-      this.$emit('btnPressed', this.targetId);
+      this.$emit("btnPressed", this.targetId);
+      document.getElementById("inputOEN").value = '';
     },
     activateBtn() {
-      this.button.classList.add('active');
+      this.button.classList.add("active");
     },
   },
   data() {
@@ -42,6 +43,6 @@ export default {
   border: 2px solid black;
   width: 99%;
   border-radius: 5px;
-  font-size: 30px;
+  font-size: 35px;
 }
 </style>
