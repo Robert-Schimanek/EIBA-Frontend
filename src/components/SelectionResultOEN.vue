@@ -76,11 +76,8 @@
       Temporary selection id: {{ bde_server_result_OEN_response.session_key }}
     </p>
   </div>
-<<<<<<< Updated upstream
   <button @click="test">TEST</button>
-=======
   -->
->>>>>>> Stashed changes
 </template>
 
 <script>
