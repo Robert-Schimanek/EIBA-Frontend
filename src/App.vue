@@ -109,6 +109,10 @@ export default {
 
 .dark{
   background: #2c3e50;
-  color: white;
+  color: #E8E8E8;
+}
+.dark .bigButtonText{
+  background: #0d1c2a;
+  color: #E8E8E8;
 }
 </style>
