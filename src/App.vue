@@ -55,9 +55,9 @@ export default {
 
 #tog {
   padding: 10px;
-  position: absolute;
-  top: 20px;
-  right: 5px;
+  position: fixed;
+  bottom: 5px;
+  left: 5px;
 }
 
 #nav {
