@@ -166,5 +166,7 @@ export default {
 </script>
 
 <style>
-
+.bigButtonText{
+  background: #4AA7E2;
+}
 </style>
