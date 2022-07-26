@@ -4,7 +4,12 @@
         <input type="checkbox"
         :checked="(mode === 'dark') ? 'checked' : false"
         @change="$emit('toggle')"/>
-        <span class="toggler round"></span>
+        <span class="toggler round">
+          <i id="sun" style="font-size: 15px; color: white;
+          position: absolute; left: 10px; bottom: 6px;">☀</i>
+           <i id="moon" style="font-size: 20px; color: white;
+           position: absolute; right: 13px; bottom: 5px;">☽</i>
+        </span>
         </label>
         </div>
         </template>
