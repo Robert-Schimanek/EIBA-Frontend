@@ -21,12 +21,12 @@
       id="scroller"
       style="
         width: 70%;
-        height: 491px;
+        height: 391px;
         overflow-y: auto;
         border: 1px solid black;
       "
     >
-      <div v-for="item in names" :key="item" style="padding-top: 30px">
+      <div v-for="item in getFiveSortedNames(names)" :key="item" style="padding-top: 30px">
         <display :displayedNames="item" @btnPressed="btnClicked"></display>
       </div>
     </div>
@@ -80,6 +80,9 @@ export default {
   },
 
   methods: {
+    getFiveSortedNames(names) {
+      return names.slice(0, 5).sort();
+    },
     scrollUp() {
       scroller.scrollTop -= 100;
     },
