@@ -22,7 +22,9 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
       </button>
     </div>
     <form @submit.prevent="SelectionStart">
-      <p class="headerText">Click the barcode to simulate the pickup of a core</p>
+      <p class="headerText">
+        Click the barcode to simulate the pickup of a core
+      </p>
 
       <div id="TableWithInfos" class="debugInfo">
         <table
@@ -119,7 +121,10 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
         ></SelectionOrderData>
         <button
           style="border-radius: 30px; height: 400px; margin-right: 5%"
-          @click="form_data.session_key = generateID()"
+          @click="
+            form_data.session_key = generateID();
+            updateFormData();
+          "
           :disabled="
             loadedData[`Box code scanable`] === '-' ||
             loadedData[`Box code scanable`] === 'N'
@@ -161,6 +166,7 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
               form_data.bar_code = 'empty';
               loadedData['Box code scanable'] = 'N';
               loadedData['Box code known'] = 'N';
+              updateFormData();
             "
           >
             NO BARCODE
@@ -206,9 +212,9 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
     name="Expertenmodus"
     id="Expertenmodus"
     v-model="expertModus"
-    style="transform : scale(2);"
+    style="transform: scale(2)"
   />
-  <label class="infoText" for="Expertenmodus">         Expertenmodus</label>
+  <label class="infoText" for="Expertenmodus"> Expertenmodus</label>
 </template>
 
 <script>
@@ -304,11 +310,9 @@ export default {
           break;
         }
       }
-      this.updateFormData();
     },
     loadDataWithIndex(index) {
       this.loadedData = demoData[index];
-      this.updateFormData();
     },
     updateLoadedData(newData) {
       // newData = [NameOfValue, Value]

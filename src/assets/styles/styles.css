@@ -6,7 +6,10 @@
 .bigButtonText {
     font-size: 50px;
 }
-
+.mediumButtonText {
+  /*Used e.g. for the "back" button*/
+  font-size: 30px;
+}
 .headerText {
   font-size: 40px;
   font-weight: bold;

@@ -1,18 +1,21 @@
 <template>
   <div class="selectionII">
     <button
+      class="mediumButtonText"
       v-if="aSelTab === 'SelectionEvaluation'"
       @click="aSelTab = 'SelStart'"
     >
       Back
     </button>
     <button
+      class="mediumButtonText"
       v-if="aSelTab === 'SelectionResultPG'"
       @click="aSelTab = 'SelectionEvaluation'"
     >
       Back
     </button>
     <button
+      class="mediumButtonText"
       v-if="aSelTab === 'SelectionResultOEN'"
       @click="aSelTab = 'SelectionEvaluation'"
     >
@@ -84,7 +87,11 @@ export default {
       session_key_main: "initializeID",
       core_mass_main: null,
       loadedData: {
-        ID: "-", "Accept State": "-", "Box exists": "-", "Box code scanable": "-", Weight: 0
+        ID: "-",
+        "Accept State": "-",
+        "Box exists": "-",
+        "Box code scanable": "-",
+        Weight: 0,
       }, // this is a single object loaded from /src/assets/Data/samples.json
     };
   },

@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import { listenerCount } from "process";
 import display from "./ScrollableListEntry.vue";
 
 export default {
@@ -123,10 +122,8 @@ export default {
     confirmed() {
       if (this.currentActivatedBtn == null) {
         alert(`Confirm with ${this.valuefromInput} selected`);
-        this.$root.returnpartInfo.oenNumber = this.valuefromInput;
       } else {
         alert(`Confirm with ${this.currentActivatedBtn} selected`);
-        this.$root.returnpartInfo.oenNumber = this.currentActivatedBtn;
       }
     },
   },

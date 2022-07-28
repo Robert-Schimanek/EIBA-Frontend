@@ -156,7 +156,6 @@ export default {
       ]);
     },
     startEvalProdGroup() {
-      console.log("evaluation/SS");
       this.$axios
         .post(
           `http://localhost:5100/bde/selection/evaluation/${encodeURIComponent(
@@ -177,6 +176,7 @@ export default {
           )}`
         )
         .then((res) => {
+          console.log(res);
           this.bde_productGroupList = ["XXX"];
           this.bde_productGroupList =
             res.data.product_group_prediction_list.ProductGroupProbaList;
