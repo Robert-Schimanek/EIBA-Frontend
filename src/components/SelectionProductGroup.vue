@@ -91,7 +91,7 @@ export default {
   methods: {
     changeToResults(sessionKey) {
       this.$emit("change-to-results-OEN", "SelectionResultOEN");
-      this.$emit("session-key", sessionKey);
+      this.$emit("session-key", sessionKey); // Wird beim parent nicht angenommen
     },
     countUp() {
       if (this.index < this.highestPage) {
@@ -136,7 +136,6 @@ export default {
         if (this.currentActivatedBtn === newButtonId) {
           // clicked same button twice
           this.currentActivatedBtn = null;
-          console.log("same");
           document.getElementById("confirmBtnPrdGroup").disabled = true;
         } else {
           // A new btn is clicked
