@@ -1,6 +1,6 @@
 <template>
   <div id='mainDiv' align='center' style='display: flex'>
-    <div id='UpDown' style='width: 250px; margin-top: 300px' align='center'>
+    <div id='UpDown' style='margin-top: 300px' align='center'>
       <button
         style='margin-bottom: 50px'
         class='bigButtonText'
@@ -16,7 +16,7 @@
 
       <div
         class='grid-container'
-        style='width: 700px; height: 700px'
+        style='width: 100%'
         align='center'
       >
         <div
@@ -127,6 +127,12 @@ export default {
 <style src='../assets/styles/styles.css'></style>
 
 <style scoped>
+#mainDiv{
+  justify-content: center;
+}
+#ListProductGroups{
+  padding: 10px;
+}
 .grid-container {
   display: grid;
   grid-template-columns: auto auto;
