@@ -79,7 +79,7 @@ export default {
   /* minus height of header, so body plus header have size of screen */
 }
 .container {
-  width: 900px;
+  width: 70%;
   border: 1px solid black;
   margin: auto;
 }
