@@ -148,7 +148,6 @@ export default {
       }
     },
     confirmed() {
-      console.log(`${this.currentActivatedBtn} selected`);
       this.$emit("updateLoadedData", [
         "Product Group from ID",
         this.currentActivatedBtn,

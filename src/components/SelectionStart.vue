@@ -117,11 +117,13 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
         :jsonObject="loadedData"
         style="margin-right: 5%; width: 30%"
       ></SelectionOrderData>
+
       <button
         style="border-radius: 30px; height: 400px; margin-right: 5%"
         @click="
           form_data.session_key = generateID();
           updateFormData();
+          SelectionStart();
         "
         :disabled="
           loadedData[`Box code scanable`] === '-' ||
@@ -134,43 +136,43 @@ Wenn später die Daten nicht mehr aus der JSON geladen werden sollen müssen an 
           style="height: 90%"
         />
       </button>
-      <form @submit.prevent="SelectionStart">
-        <div id="NoBox_NoBarcode" style="align-items: center">
-          <button
-            class="bigButtonText"
-            style="width: 260px"
-            @click="
-              form_data.session_key = generateID();
-              form_data.bar_code = 'empty';
-              loadedData[`Box exists`] = 'N';
-            "
-            :disabled="
-              loadedData[`Box exists`] === '-' ||
-              loadedData[`Box exists`] === 'Y'
-            "
-          >
-            NO BOX
-          </button>
-          <p class="headerText"></p>
-          <button
-            class="bigButtonText"
-            style="width: 260px; vertical-align: baseline"
-            :disabled="
-              loadedData[`Box code scanable`] === '-' ||
-              loadedData[`Box code scanable`] === 'Y'
-            "
-            @click="
-              form_data.session_key = generateID();
-              form_data.bar_code = 'empty';
-              loadedData['Box code scanable'] = 'N';
-              loadedData['Box code known'] = 'N';
-              updateFormData();
-            "
-          >
-            NO BARCODE
-          </button>
-        </div>
-      </form>
+
+      <div id="NoBox_NoBarcode" style="align-items: center">
+        <button
+          class="bigButtonText"
+          style="width: 260px"
+          @click="
+            form_data.session_key = generateID();
+            form_data.bar_code = 'empty';
+            loadedData[`Box exists`] = 'N';
+            SelectionStart();
+          "
+          :disabled="
+            loadedData[`Box exists`] === '-' || loadedData[`Box exists`] === 'Y'
+          "
+        >
+          NO BOX
+        </button>
+        <p class="headerText"></p>
+        <button
+          class="bigButtonText"
+          style="width: 260px; vertical-align: baseline"
+          :disabled="
+            loadedData[`Box code scanable`] === '-' ||
+            loadedData[`Box code scanable`] === 'Y'
+          "
+          @click="
+            form_data.session_key = generateID();
+            form_data.bar_code = 'empty';
+            loadedData['Box code scanable'] = 'N';
+            loadedData['Box code known'] = 'N';
+            updateFormData();
+            SelectionStart();
+          "
+        >
+          NO BARCODE
+        </button>
+      </div>
     </div>
   </div>
 
@@ -260,10 +262,12 @@ export default {
   emits: ["change-evaluation", "session-key", "sendLoadedData"],
   methods: {
     SelectionStart() {
+      console.log("SelectionStart");
       this.$axios
         .post("http://localhost:5100/bde/selection/start", this.form_data)
         .then((response) => {
           this.bde_server_start_response = response.data;
+          console.log(response.data);
         });
     },
     goToHome() {
